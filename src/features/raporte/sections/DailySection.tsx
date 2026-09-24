@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import { useDailyReport } from '@/lib/api/reports'
-import { formatEuro } from '@/lib/format/money'
+import { useMoney } from '@/lib/format/useMoney'
 import { DateField } from '@/components/ui/DateField/DateField'
 import { Field } from '@/components/ui/Field/Field'
 import s from '../RaportePage.module.scss'
 
 export function DailySection({ date, onDate }: { date: string; onDate: (value: string) => void }) {
   const { t } = useTranslation()
+  const money = useMoney()
   const daily = useDailyReport(date)
 
   return (
@@ -30,15 +31,15 @@ export function DailySection({ date, onDate }: { date: string; onDate: (value: s
         </div>
         <div>
           <span>{t('reports.revenueToday')}</span>
-          <strong>{formatEuro(daily.data?.finance.revenueCents ?? 0)}</strong>
+          <strong>{money(daily.data?.finance.revenueCents ?? 0)}</strong>
         </div>
         <div>
           <span>{t('reports.paymentsToday')}</span>
-          <strong>{formatEuro(daily.data?.finance.paymentsCents ?? 0)}</strong>
+          <strong>{money(daily.data?.finance.paymentsCents ?? 0)}</strong>
         </div>
         <div>
           <span>{t('reports.dueToday')}</span>
-          <strong>{formatEuro(daily.data?.finance.outstandingCents ?? 0)}</strong>
+          <strong>{money(daily.data?.finance.outstandingCents ?? 0)}</strong>
         </div>
       </div>
     </section>

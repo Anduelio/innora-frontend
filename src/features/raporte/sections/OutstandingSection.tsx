@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { downloadReportCsv, type ReportPreset, useOutstandingReport } from '@/lib/api/reports'
-import { formatEuro } from '@/lib/format/money'
+import { useMoney } from '@/lib/format/useMoney'
 import { useUiStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/Button/Button'
 import s from '../RaportePage.module.scss'
@@ -9,6 +9,7 @@ export function OutstandingSection({ preset }: { preset: ReportPreset }) {
   const { t } = useTranslation()
   const openFolio = useUiStore((state) => state.openFolio)
   const showToast = useUiStore((state) => state.showToast)
+  const money = useMoney()
   const outstanding = useOutstandingReport()
 
   return (
@@ -19,7 +20,7 @@ export function OutstandingSection({ preset }: { preset: ReportPreset }) {
           {t('reports.exportCsv')}
         </Button>
       </div>
-      <p className={s.kpi}>{formatEuro(outstanding.data?.totalBalanceCents ?? 0)}</p>
+      <p className={s.kpi}>{money(outstanding.data?.totalBalanceCents ?? 0)}</p>
       <p className={s.note}>{t('reports.outstandingCount', { count: outstanding.data?.count ?? 0 })}</p>
       <ul className={s.list}>
         {(outstanding.data?.rows ?? []).map((row) => (
@@ -27,7 +28,7 @@ export function OutstandingSection({ preset }: { preset: ReportPreset }) {
             <button type="button" className={s.link} onClick={() => openFolio(row.folioId)}>
               {row.guestName} · {row.folioNumber}
             </button>
-            <strong>{formatEuro(row.balanceCents)}</strong>
+            <strong>{money(row.balanceCents)}</strong>
           </li>
         ))}
       </ul>

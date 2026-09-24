@@ -1,4 +1,4 @@
-import type { Room, Reservation, SyncStatus } from '@/types/domain'
+import type { Room, Reservation } from '@/types/domain'
 import { TODAY } from '@/lib/date/today'
 
 export { TODAY }
@@ -120,5 +120,3 @@ export const reservations: Reservation[] = [
   r('r18', '301', 'Erion Çela', '2026-09-25', '2026-09-27', 2, 'DIREKT', 'CANCELLED', 200, 0, '+355 68 909 0909'),
   r('r19', '204', 'Vera Sula', '2026-09-17', '2026-09-20', 2, 'DIREKT', 'COMPLETED', 210, 210, '+355 69 202 3040'),
 ]
-
-export const syncStatus: SyncStatus = { ok: true, lastSyncAt: '2026-09-21T08:42:00Z' }

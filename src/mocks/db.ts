@@ -1,10 +1,9 @@
-import type { Guest, Reservation, ReservationEvent, Room, SyncStatus } from '@/types/domain'
-import { reservations, rooms, syncStatus } from '@/mocks/data'
+import type { Guest, Reservation, ReservationEvent, Room } from '@/types/domain'
+import { reservations, rooms } from '@/mocks/data'
 
 export interface Database {
   rooms: Room[]
   reservations: Reservation[]
-  sync: SyncStatus
   seq: number
 }
 
@@ -14,7 +13,6 @@ export function seed(): Database {
   return {
     rooms: structuredClone(rooms),
     reservations: structuredClone(reservations),
-    sync: structuredClone(syncStatus),
     seq: 100,
   }
 }
@@ -52,6 +50,7 @@ export function toGuests(list: Reservation[]): Guest[] {
     map.set(reservation.guestName, {
       id: reservation.guestName,
       name: reservation.guestName,
+      phonePrefix: reservation.phonePrefix,
       phone: reservation.phone,
       stays: 1,
       lastStay: reservation.checkIn,

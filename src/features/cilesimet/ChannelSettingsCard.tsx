@@ -18,7 +18,7 @@ export function ChannelSettingsCard() {
   const remove = useDeleteChannel()
   const showToast = useUiStore((state) => state.showToast)
   const providers = useMemo(() => catalog.data?.providers ?? [], [catalog.data])
-  const [providerCode, setProviderCode] = useState('hotelrunner')
+  const [providerCode, setProviderCode] = useState('beds24')
   const [isActive, setIsActive] = useState(true)
   const [values, setValues] = useState<Record<string, string>>({})
 

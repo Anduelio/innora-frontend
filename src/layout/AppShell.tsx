@@ -13,11 +13,9 @@ import s from './AppShell.module.scss'
 function useReservationStream() {
   const qc = useQueryClient()
   useEventSource('/api/stream', (event) => {
-    if (event.type === 'sync.status') {
-      qc.setQueryData(['sync'], event.status)
-      return
+    if (event.type === 'reservation.created' || event.type === 'reservation.updated') {
+      upsertReservation(qc, event.reservation)
     }
-    upsertReservation(qc, event.reservation)
   })
 }
 

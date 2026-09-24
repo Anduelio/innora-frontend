@@ -65,6 +65,7 @@ export interface HotelRoomType {
 export interface HotelSettings {
   name: string
   city: string
+  currency: string
   checkInTime: string
   checkOutTime: string
 }
@@ -75,7 +76,9 @@ export interface Reservation {
   roomTypeId?: number
   roomTypeName?: string
   guestName: string
+  phonePrefix?: string | null
   phone: string
+  currency?: string
   persons: number
   /** Data kalendarike ISO (YYYY-MM-DD). checkOut është dita e daljes, jo natë. */
   checkIn: string
@@ -99,22 +102,19 @@ export interface Reservation {
 export interface Guest {
   id: string
   name: string
+  phonePrefix?: string | null
   phone: string
   stays: number
   lastStay: string
-}
-
-export interface SyncStatus {
-  ok: boolean
-  lastSyncAt: string
-  message?: string
 }
 
 export interface CreateReservationInput {
   roomId?: string
   roomTypeId?: number
   guestName: string
+  phonePrefix?: string
   phone?: string
+  registerCustomer?: boolean
   persons: number
   source?: DeskSource
   checkIn: string
@@ -126,7 +126,9 @@ export interface CreateReservationInput {
 export interface UpdateReservationInput {
   roomId?: string
   guestName?: string
+  phonePrefix?: string
   phone?: string
+  registerCustomer?: boolean
   persons?: number
   checkIn?: string
   checkOut?: string
@@ -137,7 +139,6 @@ export interface UpdateReservationInput {
 export type ReservationEvent =
   | { type: 'reservation.created'; reservation: Reservation }
   | { type: 'reservation.updated'; reservation: Reservation }
-  | { type: 'sync.status'; status: SyncStatus }
 
 export interface CalendarBlock {
   reservation: Reservation

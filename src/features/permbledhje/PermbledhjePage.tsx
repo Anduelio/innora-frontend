@@ -8,7 +8,7 @@ import { useHotelReservations } from '@/lib/api/reservations'
 import { useDashboardFinance } from '@/lib/api/reports'
 import { useRooms } from '@/lib/api/rooms'
 import { TODAY } from '@/lib/date/today'
-import { formatEuro } from '@/lib/format/money'
+import { useMoney } from '@/lib/format/useMoney'
 import { coversDay } from '@/lib/stay'
 import { ArrivalRow } from '@/features/permbledhje/ArrivalRow'
 import { DepartureRow } from '@/features/permbledhje/DepartureRow'
@@ -16,11 +16,12 @@ import s from './PermbledhjePage.module.scss'
 
 function OutstandingKpi() {
   const { t } = useTranslation()
+  const money = useMoney()
   const due = useDashboardFinance()
   return (
     <KpiCard
       label={t('overview.outstanding')}
-      value={formatEuro(due.data?.outstandingCents ?? 0)}
+      value={money(due.data?.outstandingCents ?? 0)}
       note={t('overview.outstandingCount', { count: due.data?.outstandingCount ?? 0 })}
       dot="warn"
     />

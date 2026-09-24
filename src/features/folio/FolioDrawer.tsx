@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useMe } from '@/lib/api/auth'
 import { errorText } from '@/lib/api/client'
 import { useChargeCategories, useFolio, useVoidCharge } from '@/lib/api/folios'
-import { formatEuro } from '@/lib/format/money'
+import { useMoney } from '@/lib/format/useMoney'
 import { useUiStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/Button/Button'
 import { Drawer } from '@/components/ui/Drawer/Drawer'
@@ -13,6 +13,7 @@ import s from './FolioDrawer.module.scss'
 
 export function FolioDrawer() {
   const { t } = useTranslation()
+  const money = useMoney()
   const me = useMe()
   const canVoid = (me.data?.permissions ?? []).includes('folios.void_charge')
   const folioId = useUiStore((state) => state.folioId)
@@ -51,7 +52,7 @@ export function FolioDrawer() {
                   <strong>{item.description}</strong>
                 </div>
                 <div className={s.right}>
-                  <span>{formatEuro(item.amountCents)}</span>
+                  <span>{money(item.amountCents, open.currency)}</span>
                   {open.status === 'open' && !item.isRoomCharge && canVoid ? (
                     <button
                       type="button"
@@ -79,15 +80,15 @@ export function FolioDrawer() {
           <dl className={s.totals}>
             <div>
               <dt>{t('folio.total')}</dt>
-              <dd>{formatEuro(open.chargesCents)}</dd>
+              <dd>{money(open.chargesCents, open.currency)}</dd>
             </div>
             <div>
               <dt>{t('folio.paid')}</dt>
-              <dd>{formatEuro(open.paymentsCents)}</dd>
+              <dd>{money(open.paymentsCents, open.currency)}</dd>
             </div>
             <div>
               <dt>{t('folio.due')}</dt>
-              <dd className={open.balanceCents > 0 ? s.due : undefined}>{formatEuro(open.balanceCents)}</dd>
+              <dd className={open.balanceCents > 0 ? s.due : undefined}>{money(open.balanceCents, open.currency)}</dd>
             </div>
           </dl>
 
@@ -99,7 +100,7 @@ export function FolioDrawer() {
                   <span className={s.date}>{payment.paidAt.slice(0, 10)}</span>
                   <strong>{t(`folio.methods.${payment.method}`, { defaultValue: payment.method })}</strong>
                 </div>
-                <span>{formatEuro(payment.amountCents)}</span>
+                <span>{money(payment.amountCents, open.currency)}</span>
               </li>
             ))}
           </ul>

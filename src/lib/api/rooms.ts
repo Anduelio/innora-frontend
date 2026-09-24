@@ -101,7 +101,7 @@ export function useHotelSettings() {
 export function useSaveHotelSettings() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (input: { checkInTime: string; checkOutTime: string }) =>
+    mutationFn: (input: { checkInTime: string; checkOutTime: string; currency: string }) =>
       api<HotelSettings>('/api/settings/hotel', { method: 'PUT', body: JSON.stringify(input) }),
     onSuccess: async (data) => {
       qc.setQueryData(['hotel-settings'], data)

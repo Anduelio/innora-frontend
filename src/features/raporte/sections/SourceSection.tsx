@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import { type ReportPreset, useSourceReport } from '@/lib/api/reports'
-import { formatEuro } from '@/lib/format/money'
+import { useMoney } from '@/lib/format/useMoney'
 import s from '../RaportePage.module.scss'
 
 export function SourceSection({ preset }: { preset: ReportPreset }) {
   const { t } = useTranslation()
+  const money = useMoney()
   const source = useSourceReport(preset)
 
   return (
@@ -14,7 +15,7 @@ export function SourceSection({ preset }: { preset: ReportPreset }) {
         {(source.data?.bySource ?? []).map((row) => (
           <li key={row.source}>
             <span>{row.source}</span>
-            <strong>{formatEuro(row.amountCents)}</strong>
+            <strong>{money(row.amountCents)}</strong>
           </li>
         ))}
       </ul>

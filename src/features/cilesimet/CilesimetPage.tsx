@@ -5,10 +5,10 @@ import { useHotelSettings, useSaveHotelSettings } from '@/lib/api/rooms'
 import { useUiStore } from '@/store/uiStore'
 import { ChannelSettingsCard } from '@/features/cilesimet/ChannelSettingsCard'
 import { PasswordSettingsCard } from '@/features/cilesimet/PasswordSettingsCard'
-import { SyncStatusCard } from '@/features/cilesimet/SyncStatusCard'
 import { Button } from '@/components/ui/Button/Button'
-import { Field } from '@/components/ui/Field/Field'
 import { DateField } from '@/components/ui/DateField/DateField'
+import { Dropdown } from '@/components/ui/Dropdown/Dropdown'
+import { Field } from '@/components/ui/Field/Field'
 import s from './CilesimetPage.module.scss'
 
 export function CilesimetPage() {
@@ -18,11 +18,13 @@ export function CilesimetPage() {
   const showToast = useUiStore((state) => state.showToast)
   const [checkInTime, setCheckInTime] = useState('14:00')
   const [checkOutTime, setCheckOutTime] = useState('11:00')
+  const [currency, setCurrency] = useState('EUR')
 
   useEffect(() => {
     if (!settings.data) return
     setCheckInTime(settings.data.checkInTime)
     setCheckOutTime(settings.data.checkOutTime)
+    setCurrency(settings.data.currency === 'ALL' ? 'ALL' : 'EUR')
   }, [settings.data])
 
   const rows = [
@@ -40,6 +42,18 @@ export function CilesimetPage() {
             <span>{value}</span>
           </div>
         ))}
+        <Field label={t('settings.currency')} htmlFor="hotel-currency">
+          <Dropdown
+            id="hotel-currency"
+            label={t('settings.currency')}
+            value={currency}
+            options={[
+              { value: 'EUR', label: t('settings.eur') },
+              { value: 'ALL', label: t('settings.all') },
+            ]}
+            onChange={setCurrency}
+          />
+        </Field>
         <Field label={t('settings.checkInTime')} htmlFor="hotel-check-in">
           <DateField id="hotel-check-in" mode="time" value={checkInTime} onChange={setCheckInTime} />
         </Field>
@@ -49,9 +63,9 @@ export function CilesimetPage() {
         <Button
           onClick={() =>
             save.mutate(
-              { checkInTime: checkInTime.slice(0, 5), checkOutTime: checkOutTime.slice(0, 5) },
+              { checkInTime: checkInTime.slice(0, 5), checkOutTime: checkOutTime.slice(0, 5), currency },
               {
-                onSuccess: () => showToast([t('settings.hoursSaved')]),
+                onSuccess: () => showToast([t('settings.saved')]),
                 onError: (error) => showToast([errorText(error, t('toast.failed'))]),
               },
             )
@@ -62,7 +76,6 @@ export function CilesimetPage() {
       </section>
       <PasswordSettingsCard />
       <ChannelSettingsCard />
-      <SyncStatusCard />
     </div>
   )
 }

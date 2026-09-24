@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import type { Reservation } from '@/types/domain'
-import { formatEuro } from '@/lib/format/money'
+import { useMoney } from '@/lib/format/useMoney'
 import { errorText } from '@/lib/api/client'
 import { useCheckOut } from '@/lib/api/reservations'
 import { useUiStore } from '@/store/uiStore'
@@ -9,6 +9,7 @@ import s from './DepartureRow.module.scss'
 
 export function DepartureRow({ reservation }: { reservation: Reservation }) {
   const { t } = useTranslation()
+  const money = useMoney()
   const checkOut = useCheckOut()
   const showToast = useUiStore((state) => state.showToast)
   const due = reservation.balanceCents ?? reservation.totalCents - reservation.paidCents
@@ -25,7 +26,7 @@ export function DepartureRow({ reservation }: { reservation: Reservation }) {
           <span aria-hidden="true">·</span>
           <span>{t('overview.untilEleven')}</span>
           <Badge tone={due > 0 ? 'warn' : 'ok'}>
-            {due > 0 ? `${formatEuro(due)} ${t('common.toPay')}` : t('common.paidFull')}
+            {due > 0 ? `${money(due, reservation.currency)} ${t('common.toPay')}` : t('common.paidFull')}
           </Badge>
         </div>
       </div>

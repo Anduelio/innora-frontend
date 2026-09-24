@@ -42,6 +42,7 @@ export function draftReservation(input: CreateReservationInput): Reservation {
     id: `tmp-${crypto.randomUUID()}`,
     roomId: input.roomId ?? '',
     guestName: input.guestName.trim(),
+    phonePrefix: input.phonePrefix,
     phone: input.phone?.trim() ?? '',
     persons: input.persons,
     checkIn: input.checkIn,

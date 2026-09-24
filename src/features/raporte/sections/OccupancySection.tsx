@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import { type ReportPreset, useOccupancyReport } from '@/lib/api/reports'
-import { formatEuro } from '@/lib/format/money'
+import { useMoney } from '@/lib/format/useMoney'
 import s from '../RaportePage.module.scss'
 
 export function OccupancySection({ preset }: { preset: ReportPreset }) {
   const { t } = useTranslation()
+  const money = useMoney()
   const occupancy = useOccupancyReport(preset)
 
   return (
@@ -17,11 +18,11 @@ export function OccupancySection({ preset }: { preset: ReportPreset }) {
         </div>
         <div>
           <span>ADR</span>
-          <strong>{formatEuro(occupancy.data?.adrCents ?? 0)}</strong>
+          <strong>{money(occupancy.data?.adrCents ?? 0)}</strong>
         </div>
         <div>
           <span>RevPAR</span>
-          <strong>{formatEuro(occupancy.data?.revparCents ?? 0)}</strong>
+          <strong>{money(occupancy.data?.revparCents ?? 0)}</strong>
         </div>
         <div>
           <span>{t('reports.roomsSold')}</span>
