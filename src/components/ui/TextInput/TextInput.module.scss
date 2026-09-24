@@ -1,0 +1,14 @@
+.input {
+  inline-size: 100%;
+  block-size: var(--field-h);
+  padding-inline: var(--s-4);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  font: var(--t-body-md);
+
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}

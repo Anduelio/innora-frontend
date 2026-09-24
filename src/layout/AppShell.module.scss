@@ -1,0 +1,26 @@
+.shell {
+  display: flex;
+  min-block-size: 100vh;
+  background: var(--c-bg);
+  color: var(--c-ink);
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+  block-size: 100vh;
+
+  @include down(md) {
+    padding-block-end: var(--bottom-nav-h);
+  }
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+  padding: var(--s-6);
+
+  @include scrollbar;
+}

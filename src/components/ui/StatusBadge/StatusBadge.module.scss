@@ -1,0 +1,29 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: 5px var(--s-3);
+  border-radius: var(--r-pill);
+  font: 600 13.5px/1 var(--f-sans);
+  white-space: nowrap;
+}
+
+.reserved {
+  background: var(--c-st-res-bg);
+  color: var(--c-st-res-fg);
+}
+
+.inHouse {
+  background: var(--c-st-in-bg);
+  color: var(--c-st-in-fg);
+}
+
+.completed {
+  background: var(--c-st-done-bg);
+  color: var(--c-st-done-fg);
+}
+
+.cancelled {
+  background: var(--c-st-canc-bg);
+  color: var(--c-st-canc-fg);
+}

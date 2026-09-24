@@ -1,0 +1,11 @@
+.list {
+  max-inline-size: 920px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid var(--c-line-mid);
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-card);
+}

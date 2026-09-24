@@ -1,0 +1,48 @@
+.card {
+  @include card(var(--r-xl));
+
+  padding: var(--s-5) var(--s-5) var(--s-4);
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0;
+  font: var(--t-cap);
+  letter-spacing: 0.09em;
+  color: var(--c-ink-3);
+}
+
+.dot {
+  inline-size: var(--s-2);
+  block-size: var(--s-2);
+  border-radius: var(--r-pill);
+}
+
+.accent {
+  background: var(--c-accent);
+}
+
+.muted {
+  background: var(--c-line-strong);
+}
+
+.reserved {
+  background: var(--c-st-res-bar);
+}
+
+.warn {
+  background: var(--c-warn-line);
+}
+
+.value {
+  margin: var(--s-3) 0 0;
+  font: var(--t-kpi);
+}
+
+.note {
+  margin: var(--s-1) 0 0;
+  color: var(--c-ink-3);
+  font: var(--t-meta);
+}

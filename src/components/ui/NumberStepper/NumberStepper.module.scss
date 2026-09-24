@@ -1,0 +1,40 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.step {
+  inline-size: var(--control-h);
+  block-size: var(--field-h);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  font: var(--t-h2);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    color: var(--c-disabled-fg);
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background: var(--c-bg);
+  }
+}
+
+.value {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  block-size: var(--field-h);
+  border: 1px solid var(--c-line-side);
+  border-radius: var(--r-lg);
+  background: var(--c-surface-muted);
+  font: var(--t-section);
+}

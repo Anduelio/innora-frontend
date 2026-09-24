@@ -1,0 +1,97 @@
+// docs/reference/tokens.scss  ->  kopjoje te src/styles/_tokens.scss
+// Burimi i vetëm i së vërtetës për ngjyra, tipografi, hapësira, rreze, hije.
+// Përdoren si CSS custom properties që tema e errët të jetë e mundur pa rikompilim.
+
+@font-face { font-display: swap; } // fontet ngarkohen nga <link> në index.html
+
+:root {
+  /* ---- Sipërfaqe ---- */
+  --c-bg:            #F4F2EE;   /* sfond letre i ngrohtë */
+  --c-surface:       #FFFFFF;   /* karta */
+  --c-surface-muted: #FBFAF8;   /* topbar, kokë tabele, qeliza fundjave */
+  --c-line:          #F2EFE9;   /* ndarëse brenda kartës */
+  --c-line-mid:      #E7E3DC;   /* buzë karte */
+  --c-line-strong:   #D8D3CA;   /* buzë kontrolli */
+
+  /* ---- Bojë ---- */
+  --c-ink:        #1B2420;
+  --c-ink-2:      #4A554F;
+  --c-ink-3:      #6B7670;      /* minimumi i lejuar mbi të bardhë */
+
+  /* ---- Veprimi (e vetmja ngjyrë brandi) ---- */
+  --c-accent:        #0E5A45;
+  --c-accent-strong: #0A4636;
+  --c-accent-soft:   #EDF3F0;   /* zëri aktiv i menusë */
+  --c-accent-tint:   #F1F6F3;
+  --c-on-accent:     #FFFFFF;
+  --c-focus:         #7FB8A2;
+
+  /* ---- Statuset e rezervimit (bg / buzë / shirit / tekst) ---- */
+  --c-st-res-bg:   #EEF2FD;  --c-st-res-line:  #C4D2F6;  --c-st-res-bar:  #3B63D6;  --c-st-res-fg:  #1F3C96;
+  --c-st-in-bg:    #E7F3ED;  --c-st-in-line:   #BEDECE;  --c-st-in-bar:   #10704F;  --c-st-in-fg:   #0B5038;
+  --c-st-done-bg:  #F1F0EC;  --c-st-done-line: #DFDCD4;  --c-st-done-bar: #9A9A93;  --c-st-done-fg: #5C5C55;
+  --c-st-canc-bg:  #FAECEA;  --c-st-canc-line: #EFCFCB;  --c-st-canc-bar: #B3382F;  --c-st-canc-fg: #8E2C25;
+
+  /* ---- Burimet ---- */
+  --c-src-direkt-bg:    #E4EFE9;  --c-src-direkt-fg:    #0B5038;
+  --c-src-booking-bg:   #E4ECF8;  --c-src-booking-fg:   #003B95;
+  --c-src-telefon-bg:   #F0EDE5;  --c-src-telefon-fg:   #6B5B33;
+  --c-src-whatsapp-bg:  #E7F2E7;  --c-src-whatsapp-fg:  #2C6B33;
+  --c-src-recepsion-bg: #EDEBF5;  --c-src-recepsion-fg: #4A417E;
+  --c-booking-brand:    #003B95;  /* vetëm shenja e vogël "B" */
+
+  /* ---- Sinjale ---- */
+  --c-warn-bg: #FBF0DE;  --c-warn-fg: #7A4E10;  --c-warn-line: #B5761B;
+  --c-ok:      #2E9E6B;
+  --c-danger-fg: #8E2C25; --c-danger-line: #EFCFCB; --c-danger-bg: #FAECEA;
+  --c-disabled-bg: #DCD8D0; --c-disabled-fg: #9A968E;
+
+  /* ---- Tipografi ---- */
+  --f-sans:    'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --f-display: 'Newsreader', Georgia, serif;   /* vetëm numra të mëdhenj dhe tituj ekrani */
+
+  --t-kpi:      400 52px/1.05 var(--f-display);
+  --t-h1:       400 30px/1.1  var(--f-display);
+  --t-h2:       400 26px/1.15 var(--f-display);
+  --t-section:  700 17px/1.3  var(--f-sans);
+  --t-body:     400 15px/1.5  var(--f-sans);
+  --t-body-md:  600 16px/1.4  var(--f-sans);
+  --t-button:   600 16px/1    var(--f-sans);
+  --t-label:    600 14px/1.3  var(--f-sans);
+  --t-meta:     400 13.5px/1.4 var(--f-sans);
+  --t-cap:      700 12.5px/1.2 var(--f-sans);   /* + letter-spacing .07em, UPPERCASE */
+  --ls-cap: .07em;
+
+  /* ---- Hapësira ---- */
+  --s-1: 4px;  --s-2: 8px;   --s-3: 12px;  --s-4: 16px;
+  --s-5: 22px; --s-6: 26px;  --s-7: 34px;  --s-8: 48px;
+
+  /* ---- Rreze ---- */
+  --r-sm: 10px; --r-md: 13px; --r-lg: 15px; --r-xl: 18px; --r-2xl: 24px; --r-pill: 999px;
+
+  /* ---- Hije ---- */
+  --sh-card:   0 1px 2px rgba(27, 36, 32, .04);
+  --sh-accent: 0 6px 16px rgba(14, 90, 69, .22);
+  --sh-modal:  0 30px 70px rgba(27, 36, 32, .28);
+  --sh-drawer: -24px 0 60px rgba(27, 36, 32, .22);
+
+  /* ---- Kontrollet ---- */
+  --control-h-sm: 44px;
+  --control-h:    50px;
+  --control-h-lg: 56px;
+  --field-h:      54px;
+
+  /* ---- Kalendari ---- */
+  --cal-room-col: 190px;
+  --cal-row-h:    64px;   /* kompakt: 52px */
+  --cal-col-7:   152px;
+  --cal-col-14:   98px;
+  --cal-col-30:   56px;
+  --cal-head-h:   64px;
+  --cal-block-in:  .38;   /* offset i hyrjes si fraksion i kolonës */
+  --cal-block-out: .28;   /* offset i daljes */
+
+  --z-drawer: 55;
+  --z-modal:  60;
+  --z-toast:  70;
+}

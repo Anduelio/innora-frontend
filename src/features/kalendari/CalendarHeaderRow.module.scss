@@ -1,0 +1,62 @@
+.row {
+  display: flex;
+  border-block-end: 1px solid var(--c-line-mid);
+  background: var(--c-surface-muted);
+}
+
+.room {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 4;
+  display: flex;
+  flex: 0 0 var(--cal-room-col);
+  align-items: center;
+  inline-size: var(--cal-room-col);
+  block-size: var(--cal-head-h);
+  padding-inline: var(--s-4);
+  border-inline-end: 1px solid var(--c-line-mid);
+  background: var(--c-surface-muted);
+  font: var(--t-cap);
+  letter-spacing: var(--ls-cap);
+  color: var(--c-ink-3);
+}
+
+.day {
+  display: flex;
+  flex: 0 0 var(--col-w);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--col-w);
+  block-size: var(--cal-head-h);
+  border-inline-end: 1px solid var(--c-line);
+}
+
+.dow {
+  color: var(--c-ink-2);
+  font: var(--t-meta);
+  font-weight: 600;
+}
+
+.num {
+  color: var(--c-ink);
+  font: var(--t-section);
+  font-variant-numeric: tabular-nums;
+}
+
+.isToday {
+  background: var(--c-today-bg);
+
+  .dow,
+  .num {
+    color: var(--c-accent);
+  }
+}
+
+.isTodayNum {
+  font-weight: 800;
+}
+
+.isWeekend {
+  background: var(--c-weekend-bg);
+}

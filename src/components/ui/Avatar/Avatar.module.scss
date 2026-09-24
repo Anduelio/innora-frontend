@@ -1,0 +1,11 @@
+.avatar {
+  display: grid;
+  flex: 0 0 var(--s-8);
+  place-items: center;
+  inline-size: var(--s-8);
+  block-size: var(--s-8);
+  border-radius: var(--r-pill);
+  background: var(--c-weekend-bg);
+  color: var(--c-ink-2);
+  font: var(--t-body-md);
+}

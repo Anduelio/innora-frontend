@@ -1,0 +1,26 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+
+  h3 {
+    margin: 0 0 var(--s-2);
+    font: var(--t-meta);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.type {
+  color: var(--c-ink-2);
+  font: var(--t-body-md);
+}
+
+.amenities {
+  color: var(--c-ink-3);
+  font: var(--t-meta);
+}

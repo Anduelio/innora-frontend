@@ -1,0 +1,86 @@
+.block {
+  position: absolute;
+  inset-block: var(--cal-block-inset);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding-inline: var(--s-2);
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-inline-start-width: 5px;
+  border-radius: var(--r-sm);
+  box-shadow: var(--sh-block);
+  text-align: start;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.97);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}
+
+.nameRow,
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  min-inline-size: 0;
+}
+
+.name {
+  overflow: hidden;
+  font: var(--t-meta);
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  font: var(--t-meta);
+}
+
+.booking {
+  flex: 0 0 auto;
+  padding: 1px var(--s-1);
+  border-radius: 4px;
+  background: var(--c-booking-brand);
+  color: var(--c-on-accent);
+  font: 800 13px/1 var(--f-sans);
+}
+
+.isCancelled .name {
+  text-decoration: line-through;
+}
+
+.reserved {
+  border-color: var(--c-st-res-line);
+  border-inline-start-color: var(--c-st-res-bar);
+  background: var(--c-st-res-bg);
+  color: var(--c-st-res-fg);
+}
+
+.inHouse {
+  border-color: var(--c-st-in-line);
+  border-inline-start-color: var(--c-st-in-bar);
+  background: var(--c-st-in-bg);
+  color: var(--c-st-in-fg);
+}
+
+.completed {
+  border-color: var(--c-st-done-line);
+  border-inline-start-color: var(--c-st-done-bar);
+  background: var(--c-st-done-bg);
+  color: var(--c-st-done-fg);
+}
+
+.cancelled {
+  border-color: var(--c-st-canc-line);
+  border-inline-start-color: var(--c-st-canc-bar);
+  background: var(--c-st-canc-bg);
+  color: var(--c-st-canc-fg);
+}

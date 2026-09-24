@@ -1,0 +1,82 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-6);
+  background: var(--c-overlay);
+  animation: fade 0.16s ease;
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  max-inline-size: 580px;
+  max-block-size: 92vh;
+  overflow: auto;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-modal);
+  animation: pop 0.2s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.header,
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-5) var(--s-6);
+}
+
+.header {
+  border-block-end: 1px solid var(--c-line);
+}
+
+.footer {
+  gap: var(--s-3);
+  border-block-start: 1px solid var(--c-line);
+}
+
+.title {
+  font: var(--t-h2);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-5) var(--s-6);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@include reduce-motion {
+  .backdrop,
+  .dialog {
+    animation: none;
+  }
+}

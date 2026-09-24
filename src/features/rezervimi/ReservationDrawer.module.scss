@@ -1,0 +1,148 @@
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.room {
+  margin: 0;
+  font: var(--t-section);
+}
+
+.stay {
+  overflow: hidden;
+  border: 1px solid var(--c-line-mid);
+  border-radius: var(--r-xl);
+}
+
+.stayRow {
+  display: flex;
+  gap: var(--s-3);
+  align-items: center;
+  padding: var(--s-4);
+
+  & + & {
+    border-block-start: 1px solid var(--c-line);
+  }
+}
+
+.stayRow:first-child {
+  background: var(--c-surface-muted);
+}
+
+.arrive,
+.depart {
+  display: flex;
+}
+
+.arrive {
+  color: var(--c-accent);
+}
+
+.depart {
+  color: var(--c-warn-line);
+}
+
+.kicker,
+.when,
+.aside {
+  display: block;
+}
+
+.kicker {
+  color: var(--c-ink-3);
+  font: var(--t-cap);
+  letter-spacing: var(--ls-cap);
+}
+
+.when {
+  font: var(--t-section);
+}
+
+.aside {
+  margin-inline-start: auto;
+  color: var(--c-ink-3);
+  font: var(--t-meta);
+}
+
+.facts {
+  margin: 0;
+}
+
+.facts div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding-block: var(--s-3);
+  border-block-end: 1px solid var(--c-line);
+}
+
+.facts dt {
+  color: var(--c-ink-3);
+  font: var(--t-body);
+}
+
+.facts dd {
+  margin: 0;
+  font: var(--t-body-md);
+}
+
+.paid {
+  color: var(--c-st-in-fg);
+}
+
+.due {
+  color: var(--c-danger-fg);
+}
+
+.notes {
+  margin: 0;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-lg);
+  background: var(--c-note-bg);
+  color: var(--c-note-fg);
+  font: var(--t-meta);
+}
+
+.booking {
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+  margin: 0;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-lg);
+  background: var(--c-booking-soft);
+  color: var(--c-st-res-fg);
+  font: var(--t-meta);
+}
+
+.mark {
+  padding: 2px var(--s-1);
+  border-radius: 5px;
+  background: var(--c-booking-brand);
+  color: var(--c-on-accent);
+  font: 800 13px/1 var(--f-sans);
+}
+
+.actions {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.checkoutBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.checkoutTitle {
+  margin: 0;
+  font: var(--t-section);
+}
+
+.dueWarn {
+  margin: 0;
+  color: var(--c-danger, #b42318);
+  font: var(--t-body);
+}

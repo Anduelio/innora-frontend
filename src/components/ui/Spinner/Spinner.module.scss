@@ -1,0 +1,21 @@
+.spinner {
+  inline-size: var(--s-7);
+  block-size: var(--s-7);
+  margin: var(--s-8) auto;
+  border: 3px solid var(--c-line-mid);
+  border-block-start-color: var(--c-accent);
+  border-radius: var(--r-pill);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@include reduce-motion {
+  .spinner {
+    animation: none;
+  }
+}

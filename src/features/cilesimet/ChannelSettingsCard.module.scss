@@ -1,0 +1,53 @@
+.card {
+  @include card(var(--r-2xl));
+
+  padding: var(--s-6);
+
+  h2 {
+    margin: 0 0 var(--s-3);
+    font: var(--t-section);
+  }
+}
+
+.hint {
+  margin: 0 0 var(--s-4);
+  color: var(--c-ink-3);
+  font: var(--t-body);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-block: var(--s-4);
+  font: var(--t-body);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin: var(--s-5) 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding-block: var(--s-3);
+    border-block-start: 1px solid var(--c-line);
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+  }
+
+  span {
+    color: var(--c-ink-3);
+    font: var(--t-body);
+  }
+}

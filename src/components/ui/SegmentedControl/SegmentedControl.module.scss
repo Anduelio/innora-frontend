@@ -1,0 +1,30 @@
+.group {
+  display: flex;
+  gap: var(--s-1);
+  padding: 5px;
+  border: 1px solid var(--c-line-side);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+}
+
+.option {
+  block-size: var(--control-h-sm);
+  padding-inline: var(--s-4);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-ink-2);
+  font: var(--t-body);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}
+
+.isActive {
+  background: var(--c-accent);
+  color: var(--c-on-accent);
+  font-weight: 700;
+}

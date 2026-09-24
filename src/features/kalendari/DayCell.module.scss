@@ -1,0 +1,28 @@
+.cell {
+  flex: 0 0 var(--col-w);
+  inline-size: var(--col-w);
+  block-size: 100%;
+  border-inline-end: 1px solid var(--c-line);
+  cursor: cell;
+
+  &:hover {
+    background: var(--c-cell-hover);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: -3px;
+  }
+}
+
+.isToday {
+  background: var(--c-today-cell);
+}
+
+.isWeekend {
+  background: var(--c-weekend-cell);
+}
+
+.isSelected {
+  background: var(--c-select);
+}

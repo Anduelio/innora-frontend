@@ -1,0 +1,33 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  border-radius: var(--r-pill);
+  font: 600 13.5px/1 var(--f-sans);
+  white-space: nowrap;
+}
+
+.direkt {
+  background: var(--c-src-direkt-bg);
+  color: var(--c-src-direkt-fg);
+}
+
+.booking {
+  background: var(--c-src-booking-bg);
+  color: var(--c-src-booking-fg);
+}
+
+.telefon {
+  background: var(--c-src-telefon-bg);
+  color: var(--c-src-telefon-fg);
+}
+
+.whatsapp {
+  background: var(--c-src-whatsapp-bg);
+  color: var(--c-src-whatsapp-fg);
+}
+
+.recepsion {
+  background: var(--c-src-recepsion-bg);
+  color: var(--c-src-recepsion-fg);
+}

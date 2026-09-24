@@ -1,0 +1,29 @@
+.page {
+  display: grid;
+  min-block-size: 100dvh;
+  place-items: center;
+  padding: var(--s-6);
+  background: var(--c-bg);
+}
+
+.card {
+  @include card(var(--r-2xl));
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  inline-size: min(100%, 420px);
+  padding: var(--s-6);
+
+  h1 {
+    margin: 0;
+    font: var(--t-section);
+  }
+}
+
+.brand {
+  margin: 0;
+  color: var(--c-ink-3);
+  font: var(--t-body);
+  font-weight: 600;
+}

@@ -1,0 +1,38 @@
+.wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  flex: 1;
+  min-inline-size: 260px;
+  max-inline-size: 420px;
+  block-size: var(--control-h);
+  padding-inline: var(--s-4);
+  border: 1px solid var(--c-line-side);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  color: var(--c-ink-3);
+
+  &:focus-within {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}
+
+.input {
+  flex: 1;
+  min-inline-size: 0;
+  border: 0;
+  background: transparent;
+  color: var(--c-ink);
+  font: var(--t-body-md);
+  outline: none;
+}
+
+.hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}

@@ -1,0 +1,68 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3);
+
+  @include down(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.locked,
+.price {
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+  block-size: var(--field-h);
+  padding-inline: var(--s-4);
+  border: 1px solid var(--c-line-side);
+  border-radius: var(--r-lg);
+  background: var(--c-surface-muted);
+  font: var(--t-body-md);
+}
+
+.price {
+  border-color: var(--c-line-strong);
+  background: var(--c-surface);
+}
+
+.priceInput {
+  flex: 1;
+  min-inline-size: 0;
+  border: 0;
+  background: transparent;
+  font: var(--t-body-md);
+  outline: none;
+}
+
+.arrive {
+  display: flex;
+  color: var(--c-accent);
+}
+
+.depart {
+  display: flex;
+  color: var(--c-warn-line);
+}
+
+.note {
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+  margin: 0;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-lg);
+  background: var(--c-accent-tint);
+  color: var(--c-st-in-fg);
+  font: var(--t-meta);
+}
+
+.submit {
+  flex: 1;
+}

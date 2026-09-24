@@ -1,0 +1,92 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  max-inline-size: 1280px;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--s-4);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+  gap: var(--s-5);
+}
+
+.panel {
+  @include card(var(--r-2xl));
+
+  overflow: hidden;
+}
+
+.head {
+  display: flex;
+  gap: var(--s-3);
+  align-items: center;
+  padding: var(--s-4) var(--s-5);
+  border-block-end: 1px solid var(--c-line);
+  color: var(--c-accent);
+
+  h2 {
+    font: var(--t-section);
+    color: var(--c-ink);
+  }
+
+  span:last-child {
+    margin-inline-start: auto;
+    color: var(--c-ink-3);
+    font: var(--t-meta);
+  }
+}
+
+.depart {
+  display: flex;
+  color: var(--c-warn-line);
+}
+
+.list {
+  margin: 0;
+  padding: 0 var(--s-5) var(--s-3);
+  list-style: none;
+}
+
+.calendar {
+  display: flex;
+  gap: var(--s-4);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-5);
+  border: 1px solid var(--c-line-mid);
+  border-radius: var(--r-xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-card);
+  color: inherit;
+
+  &:hover {
+    background: var(--c-surface-muted);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}
+
+.calendarTitle,
+.calendarSub {
+  display: block;
+}
+
+.calendarTitle {
+  font: var(--t-section);
+}
+
+.calendarSub {
+  margin-block-start: var(--s-1);
+  color: var(--c-ink-3);
+  font: var(--t-meta);
+}

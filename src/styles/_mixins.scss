@@ -1,0 +1,78 @@
+@use 'sass:map';
+@use 'breakpoints' as *;
+
+@mixin up($name) {
+  @media (min-width: map.get($bp, $name)) {
+    @content;
+  }
+}
+
+@mixin down($name) {
+  @media (max-width: (map.get($bp, $name) - 1px)) {
+    @content;
+  }
+}
+
+@mixin card($radius: var(--r-xl)) {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line-mid);
+  border-radius: $radius;
+  box-shadow: var(--sh-card);
+}
+
+@mixin focusable {
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}
+
+@mixin truncate {
+  min-inline-size: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin caption {
+  font: var(--t-cap);
+  letter-spacing: var(--ls-cap);
+  text-transform: uppercase;
+  color: var(--c-ink-3);
+}
+
+@mixin pill($bg, $fg) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: 5px var(--s-3);
+  border-radius: var(--r-pill);
+  background: $bg;
+  color: $fg;
+  font: 600 13.5px/1 var(--f-sans);
+  white-space: nowrap;
+}
+
+@mixin tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    block-size: 11px;
+    inline-size: 11px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--c-scrollbar);
+    border-radius: 9px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+  }
+}
+
+@mixin reduce-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

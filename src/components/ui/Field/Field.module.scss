@@ -1,0 +1,16 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.label {
+  font: var(--t-label);
+  color: var(--c-ink-2);
+}
+
+.error {
+  margin: 0;
+  color: var(--c-danger-fg);
+  font: var(--t-meta);
+}

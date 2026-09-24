@@ -1,0 +1,24 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: 5px var(--s-3);
+  border-radius: var(--r-pill);
+  font: 600 13.5px/1 var(--f-sans);
+  white-space: nowrap;
+}
+
+.neutral {
+  background: var(--c-st-done-bg);
+  color: var(--c-st-done-fg);
+}
+
+.ok {
+  background: var(--c-st-in-bg);
+  color: var(--c-st-in-fg);
+}
+
+.warn {
+  background: var(--c-warn-bg);
+  color: var(--c-warn-fg);
+}

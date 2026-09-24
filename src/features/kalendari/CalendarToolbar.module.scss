@@ -1,0 +1,32 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  gap: var(--s-1);
+  align-items: center;
+  padding: 5px;
+  border: 1px solid var(--c-line-side);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+}
+
+.label {
+  min-inline-size: 172px;
+  font: var(--t-body-md);
+  text-align: center;
+}
+
+.toolbar > :last-child {
+  margin-inline-start: auto;
+}
+
+@include down(md) {
+  .toolbar > :last-child {
+    margin-inline-start: 0;
+  }
+}

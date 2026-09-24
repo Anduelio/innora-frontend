@@ -1,0 +1,155 @@
+{
+  "nav": {
+    "permbledhje": "Përmbledhje",
+    "kalendari": "Kalendari",
+    "rezervimet": "Rezervimet",
+    "dhomat": "Dhomat",
+    "klientet": "Klientët",
+    "cilesimet": "Cilësimet"
+  },
+  "common": {
+    "newReservation": "Rezervim i ri",
+    "cancel": "Anulo",
+    "save": "Ruaj ndryshimet",
+    "create": "Krijo rezervimin",
+    "search": "Kërko klientin...",
+    "today": "Sot",
+    "room": "Dhoma",
+    "rooms": "Dhomat",
+    "night_one": "{{count}} natë",
+    "night_other": "{{count}} netë",
+    "person_one": "{{count}} person",
+    "person_other": "{{count}} persona",
+    "stay_one": "{{count}} qëndrim",
+    "stay_other": "{{count}} qëndrime",
+    "from": "nga",
+    "of": "nga"
+  },
+  "status": {
+    "RESERVED": "Rezervuar",
+    "IN_HOUSE": "Në hotel",
+    "COMPLETED": "Përfunduar",
+    "CANCELLED": "Anuluar",
+    "markRESERVED": "○",
+    "markIN_HOUSE": "✓",
+    "markCOMPLETED": "–",
+    "markCANCELLED": "✕"
+  },
+  "source": {
+    "DIREKT": "Direkt",
+    "BOOKING": "Booking.com",
+    "TELEFON": "Telefon",
+    "WHATSAPP": "WhatsApp",
+    "RECEPSION": "Recepsion"
+  },
+  "room": {
+    "free": "E lirë",
+    "occupied": "E zënë",
+    "add": "Shto dhomë",
+    "freeUntil": "E lirë deri më {{date}}",
+    "until": "{{name}} · deri më {{date}}",
+    "double": "Dhomë Dyshe",
+    "single": "Dhomë Teke",
+    "suite": "Suitë",
+    "family": "Dhomë Familjare"
+  },
+  "overview": {
+    "occupiedRooms": "DHOMA TË ZËNA",
+    "freeRooms": "DHOMA TË LIRA",
+    "arrivals": "MBËRRITJE SOT",
+    "departures": "LARGIME SOT",
+    "ofTotal": "nga {{count}} gjithsej",
+    "readyTonight": "gati për sonte",
+    "notArrivedYet": "{{count}} pa hyrë ende",
+    "allArrived": "të gjithë kanë hyrë",
+    "notLeftYet": "{{count}} pa dalë ende",
+    "allLeft": "të gjithë kanë dalë",
+    "arrivalsTitle": "Mbërritjet e sotme",
+    "departuresTitle": "Largimet e sotme",
+    "noArrivals": "Asnjë mbërritje sot.",
+    "noDepartures": "Asnjë largim sot.",
+    "untilEleven": "Deri në 11:00",
+    "guests": "{{count}} klientë",
+    "openCalendar": "Shiko kalendarin e dhomave",
+    "openCalendarSub": "Të gjitha rezervimet — Direkt dhe Booking.com — në një vend"
+  },
+  "actions": {
+    "checkIn": "Regjistro hyrjen",
+    "checkOut": "Regjistro daljen",
+    "edit": "Ndrysho rezervimin",
+    "cancelReservation": "Anulo rezervimin",
+    "inHouse": "✓ Në hotel",
+    "checkedOut": "✓ Dalja u krye",
+    "retry": "Provo përsëri"
+  },
+  "calendar": {
+    "roomsColumn": "DHOMA",
+    "view7": "7 ditë",
+    "view14": "14 ditë",
+    "view30": "30 ditë",
+    "hint": "Kliko ose tërhiq mbi një hapësirë bosh për rezervim të ri",
+    "days": ["Die", "Hën", "Mar", "Mër", "Enj", "Pre", "Sht"],
+    "months": ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"],
+    "monthsShort": ["Jan", "Shk", "Mar", "Pri", "Maj", "Qer", "Kor", "Gus", "Sht", "Tet", "Nën", "Dhj"]
+  },
+  "form": {
+    "room": "Dhoma",
+    "checkIn": "Hyrja",
+    "checkOut": "Dalja",
+    "nights": "Netë",
+    "persons": "Numri i personave",
+    "name": "Emri dhe mbiemri",
+    "namePlaceholder": "p.sh. Arben Hoxha",
+    "phone": "Telefoni",
+    "phonePlaceholder": "+355 69 000 0000",
+    "total": "Çmimi total",
+    "notes": "Shënime",
+    "notesPlaceholder": "p.sh. mbërrin vonë",
+    "sourceNote": "Burimi: <strong>Direkt</strong> · dhomat e lira përditësohen vetë",
+    "nameRequired": "Shkruani emrin e klientit"
+  },
+  "detail": {
+    "phone": "Telefon",
+    "total": "Totali",
+    "paid": "Paguar",
+    "due": "Për t'u paguar",
+    "nothingDue": "Asgjë",
+    "fromBooking": "Erdhi vetë nga Booking.com · ✓ Sinkronizuar"
+  },
+  "list": {
+    "guest": "KLIENTI",
+    "room": "DHOMA",
+    "checkIn": "HYRJA",
+    "checkOut": "DALJA",
+    "source": "BURIMI",
+    "status": "STATUSI",
+    "empty": "Asnjë rezervim nuk përputhet me kërkimin.",
+    "filters": {
+      "all": "Të gjitha",
+      "today": "Sot",
+      "pending": "Në pritje",
+      "inHouse": "Në hotel",
+      "completed": "Përfunduara",
+      "cancelled": "Anuluara"
+    }
+  },
+  "settings": {
+    "hotel": "Hoteli",
+    "name": "Emri",
+    "city": "Qyteti",
+    "checkInOutTime": "Ora e hyrjes / daljes",
+    "synced": "Sinkronizuar",
+    "syncProblem": "Problem me lidhjen",
+    "bookingExplainer": "Rezervimet nga Booking.com shfaqen vetë në kalendar. Kur ju krijoni një rezervim, dhomat e lira përditësohen vetvetiu. Nuk keni nevojë të bëni asgjë."
+  },
+  "toast": {
+    "created": "Rezervimi u krijua",
+    "availabilityUpdated": "Disponueshmëria u përditësua",
+    "updated": "Rezervimi u ndryshua",
+    "cancelled": "Rezervimi u anulua",
+    "roomFreed": "Dhoma u lirua në kalendar",
+    "checkedIn": "Hyrja u regjistrua për {{name}}",
+    "checkedOut": "Dalja u regjistrua për {{name}}",
+    "syncRestored": "Lidhja u rikthye"
+  }
+}

@@ -1,0 +1,67 @@
+// docs/reference/mixins.scss  ->  src/styles/_mixins.scss
+// Vetëm mixin/funksione compile-time. Ngjyrat rrinë te tokens si CSS variables.
+
+$bp: (sm: 480px, md: 768px, lg: 1024px, xl: 1280px);
+
+@mixin up($name) {
+  @media (min-width: map-get($bp, $name)) { @content; }
+}
+@mixin down($name) {
+  @media (max-width: (map-get($bp, $name) - 1px)) { @content; }
+}
+
+@mixin card($radius: var(--r-xl)) {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line-mid);
+  border-radius: $radius;
+  box-shadow: var(--sh-card);
+}
+
+@mixin focusable {
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}
+
+@mixin truncate {
+  min-inline-size: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin caption {
+  font: var(--t-cap);
+  letter-spacing: var(--ls-cap);
+  text-transform: uppercase;
+  color: var(--c-ink-3);
+}
+
+// Etiketë rrethore (status / burim)
+@mixin pill($bg, $fg) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  background: $bg;
+  color: $fg;
+  font: 600 13.5px/1 var(--f-sans);
+  white-space: nowrap;
+}
+
+// Numra në kolona (çmime, dhoma, data)
+@mixin tnum { font-variant-numeric: tabular-nums; }
+
+@mixin scrollbar {
+  &::-webkit-scrollbar { block-size: 11px; inline-size: 11px; }
+  &::-webkit-scrollbar-thumb {
+    background: #D9D4CB; border-radius: 9px;
+    border: 3px solid transparent; background-clip: padding-box;
+  }
+}
+
+@mixin reduce-motion {
+  @media (prefers-reduced-motion: reduce) { @content; }
+}

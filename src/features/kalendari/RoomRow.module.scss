@@ -1,0 +1,51 @@
+.row {
+  display: flex;
+  border-block-end: 1px solid var(--c-line);
+}
+
+.room {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 3;
+  display: flex;
+  flex: 0 0 var(--cal-room-col);
+  gap: var(--s-2);
+  align-items: center;
+  inline-size: var(--cal-room-col);
+  block-size: var(--row-h);
+  padding-inline: var(--s-4);
+  border-inline-end: 1px solid var(--c-line-mid);
+  background: var(--c-surface);
+}
+
+.num {
+  font: var(--t-body-md);
+  font-variant-numeric: tabular-nums;
+}
+
+.type {
+  color: var(--c-ink-3);
+  font: var(--t-meta);
+}
+
+.track {
+  position: relative;
+  display: flex;
+  block-size: var(--row-h);
+}
+
+.hold {
+  position: absolute;
+  inset-block: var(--cal-block-inset);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding-inline: var(--s-2);
+  overflow: hidden;
+  border: 1px dashed var(--c-ink-3);
+  border-radius: var(--r-sm);
+  background: repeating-linear-gradient(-45deg, var(--c-surface-muted), var(--c-surface-muted) 6px, var(--c-line) 6px, var(--c-line) 12px);
+  color: var(--c-ink-2);
+  font: var(--t-meta);
+  pointer-events: none;
+}

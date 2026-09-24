@@ -1,0 +1,16 @@
+---
+description: Keep the React desk and Laravel resources on the same reservation contract.
+globs: src/lib/api/**/*.{ts,tsx},src/types/domain.ts
+alwaysApply: false
+---
+
+# API contract
+
+The live contract is `docs/API.md`.
+
+- Success JSON is `{ "data": ... }`. The client in `src/lib/api/client.ts` unwraps `data`.
+- Components do not call `fetch`. Add a function under `src/lib/api`.
+- Room `id` and reservation `roomId` are room numbers (`"101"`), not the numeric primary key.
+- UI status values stay `RESERVED | IN_HOUSE | COMPLETED | CANCELLED`. UI sources stay `DIREKT | BOOKING | TELEFON | WHATSAPP | RECEPSION`. Mapping from English database enums happens in the Laravel resource.
+- `checkOut` is the departure date. That night is free.
+- Conflict copy for a taken room is `Dhoma është e zënë për këto data.` with HTTP 409.

@@ -1,0 +1,138 @@
+:root {
+  --c-bg: #f4f2ee;
+  --c-surface: #ffffff;
+  --c-surface-muted: #fbfaf8;
+  --c-line: #f2efe9;
+  --c-line-mid: #e7e3dc;
+  --c-line-strong: #d8d3ca;
+  --c-line-side: #e3dfd8;
+
+  --c-ink: #1b2420;
+  --c-ink-2: #4a554f;
+  --c-ink-3: #6b7670;
+
+  --c-accent: #0e5a45;
+  --c-accent-strong: #0a4636;
+  --c-accent-soft: #edf3f0;
+  --c-accent-tint: #f1f6f3;
+  --c-on-accent: #ffffff;
+  --c-focus: #7fb8a2;
+
+  --c-st-res-bg: #eef2fd;
+  --c-st-res-line: #c4d2f6;
+  --c-st-res-bar: #3b63d6;
+  --c-st-res-fg: #1f3c96;
+  --c-st-in-bg: #e7f3ed;
+  --c-st-in-line: #bedece;
+  --c-st-in-bar: #10704f;
+  --c-st-in-fg: #0b5038;
+  --c-st-done-bg: #f1f0ec;
+  --c-st-done-line: #dfdcd4;
+  --c-st-done-bar: #9a9a93;
+  --c-st-done-fg: #5c5c55;
+  --c-st-canc-bg: #faecea;
+  --c-st-canc-line: #efcfcb;
+  --c-st-canc-bar: #b3382f;
+  --c-st-canc-fg: #8e2c25;
+
+  --c-src-direkt-bg: #e4efe9;
+  --c-src-direkt-fg: #0b5038;
+  --c-src-booking-bg: #e4ecf8;
+  --c-src-booking-fg: #003b95;
+  --c-src-telefon-bg: #f0ede5;
+  --c-src-telefon-fg: #6b5b33;
+  --c-src-whatsapp-bg: #e7f2e7;
+  --c-src-whatsapp-fg: #2c6b33;
+  --c-src-recepsion-bg: #edebf5;
+  --c-src-recepsion-fg: #4a417e;
+  --c-booking-brand: #003b95;
+
+  --c-warn-bg: #fbf0de;
+  --c-warn-fg: #7a4e10;
+  --c-warn-line: #b5761b;
+  --c-ok: #2e9e6b;
+  --c-danger-fg: #8e2c25;
+  --c-danger-line: #efcfcb;
+  --c-danger-bg: #faecea;
+  --c-disabled-bg: #dcd8d0;
+  --c-disabled-fg: #9a968e;
+
+  --c-overlay: rgb(27 36 32 / 42%);
+  --c-overlay-drawer: rgb(27 36 32 / 34%);
+  --c-toast-bg: #14201c;
+  --c-toast-ok: #7bd7ae;
+  --c-note-bg: #fbf7ee;
+  --c-note-fg: #5c4a2a;
+  --c-booking-soft: #eef3fb;
+  --c-today-bg: #eaf2ee;
+  --c-today-cell: #f4f8f6;
+  --c-weekend-bg: #f7f5f1;
+  --c-weekend-cell: #faf9f6;
+  --c-select: #d7e9df;
+  --c-cell-hover: #eef4f0;
+  --c-scrollbar: #d9d4cb;
+  --c-hover-wash: #f1efea;
+
+  --f-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --f-display: 'Newsreader', Georgia, serif;
+
+  --t-kpi: 400 52px/1.05 var(--f-display);
+  --t-h1: 400 30px/1.1 var(--f-display);
+  --t-h2: 400 26px/1.15 var(--f-display);
+  --t-section: 700 17px/1.3 var(--f-sans);
+  --t-body: 400 15px/1.5 var(--f-sans);
+  --t-body-md: 600 16px/1.4 var(--f-sans);
+  --t-button: 600 16px/1 var(--f-sans);
+  --t-label: 600 14px/1.3 var(--f-sans);
+  --t-meta: 400 13.5px/1.4 var(--f-sans);
+  --t-cap: 700 12.5px/1.2 var(--f-sans);
+  --ls-cap: 0.07em;
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 22px;
+  --s-6: 26px;
+  --s-7: 34px;
+  --s-8: 48px;
+
+  --r-sm: 10px;
+  --r-md: 13px;
+  --r-lg: 15px;
+  --r-xl: 18px;
+  --r-2xl: 24px;
+  --r-pill: 999px;
+
+  --sh-card: 0 1px 2px rgb(27 36 32 / 4%);
+  --sh-accent: 0 6px 16px rgb(14 90 69 / 22%);
+  --sh-modal: 0 30px 70px rgb(27 36 32 / 28%);
+  --sh-drawer: -24px 0 60px rgb(27 36 32 / 22%);
+  --sh-toast: 0 18px 44px rgb(20 32 28 / 34%);
+  --sh-block: 0 1px 2px rgb(27 36 32 / 6%);
+
+  --control-h-sm: 44px;
+  --control-h: 50px;
+  --control-h-lg: 56px;
+  --field-h: 54px;
+
+  --cal-room-col: 190px;
+  --cal-row-h: 64px;
+  --cal-row-h-compact: 52px;
+  --cal-col-7: 152px;
+  --cal-col-14: 98px;
+  --cal-col-30: 56px;
+  --cal-head-h: 64px;
+  --cal-block-in: 0.38;
+  --cal-block-out: 0.28;
+  --cal-block-inset: 6px;
+
+  --sidebar-w: 250px;
+  --sidebar-rail: 92px;
+  --drawer-w: 440px;
+  --bottom-nav-h: 72px;
+
+  --z-drawer: 55;
+  --z-modal: 60;
+  --z-toast: 70;
+}

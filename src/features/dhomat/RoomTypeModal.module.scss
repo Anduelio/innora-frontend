@@ -1,0 +1,44 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+
+  h3 {
+    margin: var(--s-2) 0 0;
+    font: var(--t-meta);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: 0;
+    color: var(--c-ink-3);
+  }
+}
+
+.list {
+  margin: 0;
+  padding-inline-start: 1.1rem;
+  color: var(--c-ink-2);
+  font: var(--t-meta);
+}
+
+.bedRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.amenities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-2);
+  font: var(--t-meta);
+
+  label {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+  }
+}

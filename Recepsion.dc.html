@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#F4F2EE;color:#1B2420;font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit}
+input,textarea,select{font-family:inherit;color:inherit}
+a{color:#0E5A45;text-decoration:none}
+a:hover{color:#0A3F31}
+h1,h2,h3,p{margin:0}
+@keyframes dcFade{from{opacity:0}to{opacity:1}}
+@keyframes dcPop{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes dcSlide{from{transform:translateX(102%)}to{transform:none}}
+@keyframes dcToast{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+::-webkit-scrollbar{height:11px;width:11px}
+::-webkit-scrollbar-thumb{background:#D9D4CB;border-radius:9px;border:3px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:#C3BDB2;background-clip:padding-box;border:3px solid transparent}
+</style>
+</helmet>
+<div style="display:flex;min-height:100vh;background:#F4F2EE;color:#1B2420;font-size:15px">
+
+  <aside style="width:250px;flex:0 0 250px;background:#FFFFFF;border-right:1px solid #E3DFD8;display:flex;flex-direction:column;gap:22px;padding:22px 14px 18px;position:sticky;top:0;height:100vh">
+    <div style="display:flex;gap:12px;align-items:center;padding:0 8px">
+      <div style="width:44px;height:44px;flex:0 0 44px;border-radius:13px;background:#0E5A45;color:#FFFFFF;display:grid;place-items:center;font-family:'Newsreader',Georgia,serif;font-size:23px;line-height:1">V</div>
+      <div style="min-width:0">
+        <div style="font-family:'Newsreader',Georgia,serif;font-size:20px;line-height:1.15">Vila Dea</div>
+        <div style="font-size:12.5px;color:#6B7670;margin-top:1px">Sarandë · 12 dhoma</div>
+      </div>
+    </div>
+
+    <nav style="display:flex;flex-direction:column;gap:3px">
+      <button onClick="{{ goPerm }}" style="display:flex;align-items:center;gap:13px;width:100%;height:48px;padding:0 13px;border:0;border-radius:13px;cursor:pointer;text-align:left;font-size:15.5px;background:{{ nav.perm.bg }};color:{{ nav.perm.fg }};font-weight:{{ nav.perm.fw }}" style-hover="background:{{ nav.perm.hv }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"></rect><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"></rect><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"></rect></svg>
+        <span>Përmbledhje</span>
+      </button>
+      <button onClick="{{ goKal }}" style="display:flex;align-items:center;gap:13px;width:100%;height:48px;padding:0 13px;border:0;border-radius:13px;cursor:pointer;text-align:left;font-size:15.5px;background:{{ nav.kal.bg }};color:{{ nav.kal.fg }};font-weight:{{ nav.kal.fw }}" style-hover="background:{{ nav.kal.hv }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+        <span>Kalendari</span>
+      </button>
+      <button onClick="{{ goRez }}" style="display:flex;align-items:center;gap:13px;width:100%;height:48px;padding:0 13px;border:0;border-radius:13px;cursor:pointer;text-align:left;font-size:15.5px;background:{{ nav.rez.bg }};color:{{ nav.rez.fg }};font-weight:{{ nav.rez.fw }}" style-hover="background:{{ nav.rez.hv }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+        <span>Rezervimet</span>
+      </button>
+      <button onClick="{{ goDho }}" style="display:flex;align-items:center;gap:13px;width:100%;height:48px;padding:0 13px;border:0;border-radius:13px;cursor:pointer;text-align:left;font-size:15.5px;background:{{ nav.dho.bg }};color:{{ nav.dho.fg }};font-weight:{{ nav.dho.fw }}" style-hover="background:{{ nav.dho.hv }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 18h18M3 18v2M21 18v2M6 10V7a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"></path></svg>
+        <span>Dhomat</span>
+      </button>
+      <button onClick="{{ goKli }}" style="display:flex;align-items:center;gap:13px;width:100%;height:48px;padding:0 13px;border:0;border-radius:13px;cursor:pointer;text-align:left;font-size:15.5px;background:{{ nav.kli.bg }};color:{{ nav.kli.fg }};font-weight:{{ nav.kli.fw }}" style-hover="background:{{ nav.kli.hv }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"></circle><path d="M3 20c0-3.2 2.7-5.2 6-5.2s6 2 6 5.2"></path><path d="M16 5.2a3.4 3.4 0 0 1 0 6.6M17.5 14.5c2 .7 3.5 2.4 3.5 5"></path></svg>
+        <span>Klientët</span>
+      </button>
+    </nav>
+
+    <div style="flex:1"></div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 13px;border:1px solid #E3DFD8;border-radius:13px;background:#FBFAF8">
+        <span style="width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:{{ syncDot }}"></span>
+        <div style="min-width:0">
+          <div style="font-size:13px;font-weight:600">Booking.com</div>
+          <div style="font-size:12px;color:#6B7670">{{ syncText }}</div>
+        </div>
+      </div>
+      <button onClick="{{ goCil }}" style="display:flex;align-items:center;gap:13px;width:100%;height:46px;padding:0 13px;border:0;border-radius:13px;cursor:pointer;text-align:left;font-size:15px;background:{{ nav.cil.bg }};color:{{ nav.cil.fg }};font-weight:{{ nav.cil.fw }}" style-hover="background:{{ nav.cil.hv }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"></circle><path d="M19.4 14.5a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-2.87 1.2v.17a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-2.93-1.16l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 3.5 13.6h-.17a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.58 6.67l-.06-.06A2 2 0 1 1 7.35 3.8l.06.06a1.7 1.7 0 0 0 2.87-1.2V2.5a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 2.93 1.16l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0 1.16 2.93h.17a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03z"></path></svg>
+        <span>Cilësimet</span>
+      </button>
+    </div>
+  </aside>
+
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;height:100vh;overflow:hidden">
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:18px 28px;background:#FBFAF8;border-bottom:1px solid #E3DFD8">
+      <div>
+        <h1 style="font-family:'Newsreader',Georgia,serif;font-size:30px;line-height:1.1;font-weight:400">{{ screenTitle }}</h1>
+        <div style="font-size:13.5px;color:#6B7670;margin-top:4px">{{ screenSub }}</div>
+      </div>
+      <button onClick="{{ openNew }}" style="display:flex;align-items:center;gap:10px;height:50px;padding:0 22px;border:0;border-radius:14px;background:#0E5A45;color:#FFFFFF;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px rgba(14,90,69,.22)" style-hover="background:#0A4636">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+        <span>Rezervim i ri</span>
+      </button>
+    </header>
+
+    <div style="flex:1;overflow:auto;padding:26px 28px 80px">
+
+      <sc-if value="{{ isPerm }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:22px;max-width:1280px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+            <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:18px;padding:20px 22px;box-shadow:0 1px 2px rgba(27,36,32,.04)">
+              <div style="display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.09em;color:#6B7670">
+                <span style="width:8px;height:8px;border-radius:50%;background:#0E5A45"></span>DHOMA TË ZËNA
+              </div>
+              <div style="font-family:'Newsreader',Georgia,serif;font-size:52px;line-height:1.05;margin-top:10px">{{ kpi.zena }}</div>
+              <div style="font-size:13px;color:#6B7670;margin-top:2px">nga 12 gjithsej</div>
+            </div>
+            <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:18px;padding:20px 22px;box-shadow:0 1px 2px rgba(27,36,32,.04)">
+              <div style="display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.09em;color:#6B7670">
+                <span style="width:8px;height:8px;border-radius:50%;background:#B9B3A7"></span>DHOMA TË LIRA
+              </div>
+              <div style="font-family:'Newsreader',Georgia,serif;font-size:52px;line-height:1.05;margin-top:10px">{{ kpi.lira }}</div>
+              <div style="font-size:13px;color:#6B7670;margin-top:2px">gati për sonte</div>
+            </div>
+            <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:18px;padding:20px 22px;box-shadow:0 1px 2px rgba(27,36,32,.04)">
+              <div style="display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.09em;color:#6B7670">
+                <span style="width:8px;height:8px;border-radius:50%;background:#3B63D6"></span>MBËRRITJE SOT
+              </div>
+              <div style="font-family:'Newsreader',Georgia,serif;font-size:52px;line-height:1.05;margin-top:10px">{{ kpi.mberritje }}</div>
+              <div style="font-size:13px;color:#6B7670;margin-top:2px">{{ kpi.mberritjeNote }}</div>
+            </div>
+            <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:18px;padding:20px 22px;box-shadow:0 1px 2px rgba(27,36,32,.04)">
+              <div style="display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.09em;color:#6B7670">
+                <span style="width:8px;height:8px;border-radius:50%;background:#B5761B"></span>LARGIME SOT
+              </div>
+              <div style="font-family:'Newsreader',Georgia,serif;font-size:52px;line-height:1.05;margin-top:10px">{{ kpi.largime }}</div>
+              <div style="font-size:13px;color:#6B7670;margin-top:2px">{{ kpi.largimeNote }}</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,1fr));gap:20px">
+            <section style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:20px;box-shadow:0 1px 2px rgba(27,36,32,.04);overflow:hidden">
+              <div style="display:flex;align-items:center;gap:11px;padding:18px 22px;border-bottom:1px solid #EFEBE4">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E5A45" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"></path></svg>
+                <h2 style="font-size:17px;font-weight:700">Mbërritjet e sotme</h2>
+                <span style="margin-left:auto;font-size:13px;color:#6B7670">{{ kpi.mberritje }} klientë</span>
+              </div>
+              <div style="padding:6px 22px 14px">
+                <sc-for list="{{ arrivals }}" as="a" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:16px;padding:15px 0;border-bottom:1px solid #F2EFE9">
+                    <div style="width:62px;flex:0 0 62px;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums">{{ a.time }}</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:16.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.name }}</div>
+                      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px;font-size:13.5px;color:#6B7670">
+                        <span style="font-weight:600;color:#1B2420">Dhoma {{ a.room }}</span>
+                        <span>·</span><span>{{ a.persons }}</span>
+                        <span style="padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;background:{{ a.srcBg }};color:{{ a.srcFg }}">{{ a.source }}</span>
+                      </div>
+                    </div>
+                    <sc-if value="{{ a.pending }}" hint-placeholder-val="{{ true }}">
+                      <button onClick="{{ a.checkIn }}" style="height:46px;padding:0 20px;border:1px solid #0E5A45;border-radius:13px;background:#0E5A45;color:#FFFFFF;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap" style-hover="background:#0A4636">Regjistro hyrjen</button>
+                    </sc-if>
+                    <sc-if value="{{ a.done }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:flex;align-items:center;gap:7px;height:46px;padding:0 16px;border-radius:13px;background:#E7F3ED;color:#0B5038;font-size:14.5px;font-weight:600;white-space:nowrap">✓ Në hotel</span>
+                    </sc-if>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ noArrivals }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:26px 0;color:#6B7670;font-size:15px">Asnjë mbërritje sot.</div>
+                </sc-if>
+              </div>
+            </section>
+
+            <section style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:20px;box-shadow:0 1px 2px rgba(27,36,32,.04);overflow:hidden">
+              <div style="display:flex;align-items:center;gap:11px;padding:18px 22px;border-bottom:1px solid #EFEBE4">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B5761B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 19h14"></path></svg>
+                <h2 style="font-size:17px;font-weight:700">Largimet e sotme</h2>
+                <span style="margin-left:auto;font-size:13px;color:#6B7670">{{ kpi.largime }} klientë</span>
+              </div>
+              <div style="padding:6px 22px 14px">
+                <sc-for list="{{ departures }}" as="d" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;gap:16px;padding:15px 0;border-bottom:1px solid #F2EFE9">
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:16.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.name }}</div>
+                      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px;font-size:13.5px;color:#6B7670">
+                        <span style="font-weight:600;color:#1B2420">Dhoma {{ d.room }}</span>
+                        <span>·</span><span>Deri në 11:00</span>
+                        <span style="padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;background:{{ d.balBg }};color:{{ d.balFg }}">{{ d.balance }}</span>
+                      </div>
+                    </div>
+                    <sc-if value="{{ d.pending }}" hint-placeholder-val="{{ true }}">
+                      <button onClick="{{ d.checkOut }}" style="height:46px;padding:0 20px;border:1px solid #D8D3CA;border-radius:13px;background:#FFFFFF;color:#1B2420;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap" style-hover="background:#F4F2EE">Regjistro daljen</button>
+                    </sc-if>
+                    <sc-if value="{{ d.done }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:flex;align-items:center;gap:7px;height:46px;padding:0 16px;border-radius:13px;background:#F1F0EC;color:#5C5C55;font-size:14.5px;font-weight:600;white-space:nowrap">✓ Dalja u krye</span>
+                    </sc-if>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ noDepartures }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:26px 0;color:#6B7670;font-size:15px">Asnjë largim sot.</div>
+                </sc-if>
+              </div>
+            </section>
+          </div>
+
+          <button onClick="{{ goKal }}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:20px 24px;border:1px solid #E7E3DC;border-radius:18px;background:#FFFFFF;cursor:pointer;text-align:left;box-shadow:0 1px 2px rgba(27,36,32,.04)" style-hover="background:#FBFAF8">
+            <div>
+              <div style="font-size:17px;font-weight:700">Shiko kalendarin e dhomave</div>
+              <div style="font-size:13.5px;color:#6B7670;margin-top:3px">Të gjitha rezervimet — Direkt dhe Booking.com — në një vend</div>
+            </div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0E5A45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isKal }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:6px;background:#FFFFFF;border:1px solid #E3DFD8;border-radius:14px;padding:5px">
+              <button onClick="{{ prevWeek }}" style="width:42px;height:42px;border:0;border-radius:10px;background:transparent;cursor:pointer;display:grid;place-items:center" style-hover="background:#F1EFEA">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+              </button>
+              <div style="min-width:172px;text-align:center;font-size:16.5px;font-weight:600">{{ monthLabel }}</div>
+              <button onClick="{{ nextWeek }}" style="width:42px;height:42px;border:0;border-radius:10px;background:transparent;cursor:pointer;display:grid;place-items:center" style-hover="background:#F1EFEA">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+              </button>
+            </div>
+            <button onClick="{{ goToday }}" style="height:52px;padding:0 20px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF;font-size:15.5px;font-weight:600;cursor:pointer" style-hover="background:#F4F2EE">Sot</button>
+            <div style="display:flex;gap:4px;background:#FFFFFF;border:1px solid #E3DFD8;border-radius:14px;padding:5px;margin-left:auto">
+              <button onClick="{{ setV7 }}" style="height:42px;padding:0 18px;border:0;border-radius:10px;cursor:pointer;font-size:15px;background:{{ vw.v7.bg }};color:{{ vw.v7.fg }};font-weight:{{ vw.v7.fw }}">7 ditë</button>
+              <button onClick="{{ setV14 }}" style="height:42px;padding:0 18px;border:0;border-radius:10px;cursor:pointer;font-size:15px;background:{{ vw.v14.bg }};color:{{ vw.v14.fg }};font-weight:{{ vw.v14.fw }}">14 ditë</button>
+              <button onClick="{{ setV30 }}" style="height:42px;padding:0 18px;border:0;border-radius:10px;cursor:pointer;font-size:15px;background:{{ vw.v30.bg }};color:{{ vw.v30.fg }};font-weight:{{ vw.v30.fw }}">30 ditë</button>
+            </div>
+          </div>
+
+          <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:20px;box-shadow:0 1px 2px rgba(27,36,32,.04);overflow:hidden">
+            <div style="overflow-x:auto;overflow-y:hidden">
+              <div style="width:max-content;min-width:100%">
+                <div style="display:flex;align-items:stretch;border-bottom:1px solid #E7E3DC;background:#FBFAF8">
+                  <div style="width:190px;flex:0 0 190px;position:sticky;left:0;z-index:4;background:#FBFAF8;border-right:1px solid #E7E3DC;display:flex;align-items:center;padding:0 18px;font-size:12.5px;font-weight:700;letter-spacing:.08em;color:#6B7670;height:64px">DHOMA</div>
+                  <sc-for list="{{ days }}" as="d" hint-placeholder-count="14">
+                    <div style="flex:0 0 auto;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-right:1px solid #F0ECE5;width:{{ d.w }};background:{{ d.bg }}">
+                      <div style="font-size:13px;letter-spacing:.04em;font-weight:600;color:{{ d.dowFg }}">{{ d.dow }}</div>
+                      <div style="font-size:17px;font-weight:{{ d.numFw }};color:{{ d.numFg }};font-variant-numeric:tabular-nums">{{ d.num }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <sc-for list="{{ rows }}" as="r" hint-placeholder-count="12">
+                  <div style="display:flex;align-items:stretch;border-bottom:1px solid #F2EFE9">
+                    <div style="width:190px;flex:0 0 190px;position:sticky;left:0;z-index:3;background:#FFFFFF;border-right:1px solid #E7E3DC;display:flex;align-items:center;gap:10px;padding:0 18px;height:{{ rowH }}">
+                      <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums">{{ r.num }}</div>
+                      <div style="font-size:13px;color:#6B7670">{{ r.type }}</div>
+                    </div>
+                    <div style="position:relative;display:flex;height:{{ rowH }}">
+                      <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="14">
+                        <div onMouseDown="{{ c.down }}" onMouseEnter="{{ c.enter }}" onMouseUp="{{ c.up }}" style="flex:0 0 auto;width:{{ c.w }};height:100%;border-right:1px solid #F2EFE9;cursor:cell;background:{{ c.bg }}" style-hover="background:#EEF4F0"></div>
+                      </sc-for>
+                      <sc-for list="{{ r.blocks }}" as="b" hint-placeholder-count="0">
+                        <div onClick="{{ b.open }}" style="position:absolute;top:6px;bottom:6px;left:{{ b.left }};width:{{ b.w }};border-radius:11px;border:1px solid {{ b.bd }};border-left:5px solid {{ b.bar }};background:{{ b.bg }};color:{{ b.fg }};padding:0 10px;display:flex;flex-direction:column;justify-content:center;gap:2px;cursor:pointer;overflow:hidden;box-shadow:0 1px 2px rgba(27,36,32,.06)" style-hover="filter:brightness(.97)">
+                          <div style="display:flex;align-items:center;gap:6px;min-width:0">
+                            <span style="font-size:11px;opacity:.75">{{ b.mark }}</span>
+                            <span style="font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:{{ b.strike }}">{{ b.name }}</span>
+                            <sc-if value="{{ b.tinyBooking }}" hint-placeholder-val="{{ false }}">
+                              <span style="flex:0 0 auto;font-size:9.5px;font-weight:800;background:#003B95;color:#FFFFFF;border-radius:4px;padding:1px 4px">B</span>
+                            </sc-if>
+                          </div>
+                          <sc-if value="{{ b.showMeta }}" hint-placeholder-val="{{ true }}">
+                            <div style="display:flex;align-items:center;gap:6px;min-width:0;font-size:11.5px">
+                              <span style="white-space:nowrap">{{ b.persons }}</span>
+                              <span style="opacity:.5">·</span>
+                              <span style="padding:1px 7px;border-radius:999px;font-weight:700;background:{{ b.srcBg }};color:{{ b.srcFg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ b.source }}</span>
+                            </div>
+                          </sc-if>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 20px;background:#FBFAF8;border-top:1px solid #E7E3DC;font-size:13.5px;color:#4A554F">
+              <span style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border-radius:4px;background:#E7F3ED;border:1px solid #BEDECE;border-left:4px solid #10704F"></span>✓ Në hotel</span>
+              <span style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border-radius:4px;background:#EEF2FD;border:1px solid #C4D2F6;border-left:4px solid #3B63D6"></span>○ Rezervuar</span>
+              <span style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border-radius:4px;background:#F1F0EC;border:1px solid #DFDCD4;border-left:4px solid #9A9A93"></span>– Përfunduar</span>
+              <span style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border-radius:4px;background:#FAECEA;border:1px solid #EFCFCB;border-left:4px solid #B3382F"></span>✕ Anuluar</span>
+              <span style="margin-left:auto;display:flex;align-items:center;gap:8px;color:#0E5A45;font-weight:600">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+                Kliko ose tërhiq mbi një hapësirë bosh për rezervim të ri
+              </span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isRez }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:1280px">
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:10px;background:#FFFFFF;border:1px solid #E3DFD8;border-radius:14px;padding:0 16px;height:52px;flex:1;min-width:260px;max-width:420px">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6B7670" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+              <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Kërko klientin..." style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:15.5px" />
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ filters }}" as="f" hint-placeholder-count="6">
+                <button onClick="{{ f.pick }}" style="height:44px;padding:0 17px;border:1px solid {{ f.bd }};border-radius:999px;cursor:pointer;font-size:14.5px;background:{{ f.bg }};color:{{ f.fg }};font-weight:{{ f.fw }}">{{ f.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:20px;box-shadow:0 1px 2px rgba(27,36,32,.04);overflow:hidden">
+            <div style="display:grid;grid-template-columns:1.7fr .8fr .9fr .9fr 1fr 1fr;gap:14px;padding:14px 22px;background:#FBFAF8;border-bottom:1px solid #E7E3DC;font-size:12.5px;font-weight:700;letter-spacing:.07em;color:#6B7670">
+              <div>KLIENTI</div><div>DHOMA</div><div>HYRJA</div><div>DALJA</div><div>BURIMI</div><div>STATUSI</div>
+            </div>
+            <sc-for list="{{ listRows }}" as="l" hint-placeholder-count="8">
+              <div onClick="{{ l.open }}" style="display:grid;grid-template-columns:1.7fr .8fr .9fr .9fr 1fr 1fr;gap:14px;align-items:center;padding:16px 22px;border-bottom:1px solid #F2EFE9;cursor:pointer" style-hover="background:#FBFAF8">
+                <div style="min-width:0">
+                  <div style="font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.name }}</div>
+                  <div style="font-size:13px;color:#6B7670;margin-top:2px">{{ l.persons }} · {{ l.nights }}</div>
+                </div>
+                <div style="font-size:15.5px;font-weight:600;font-variant-numeric:tabular-nums">{{ l.room }}</div>
+                <div style="font-size:15px;color:#4A554F">{{ l.in }}</div>
+                <div style="font-size:15px;color:#4A554F">{{ l.out }}</div>
+                <div><span style="display:inline-block;padding:4px 11px;border-radius:999px;font-size:13px;font-weight:600;background:{{ l.srcBg }};color:{{ l.srcFg }}">{{ l.source }}</span></div>
+                <div><span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:13.5px;font-weight:600;background:{{ l.stBg }};color:{{ l.stFg }}"><span>{{ l.mark }}</span>{{ l.status }}</span></div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:40px 22px;text-align:center;color:#6B7670;font-size:15.5px">Asnjë rezervim nuk përputhet me kërkimin.</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isDho }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;max-width:1280px">
+          <sc-for list="{{ roomCards }}" as="rm" hint-placeholder-count="12">
+            <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:18px;padding:20px;box-shadow:0 1px 2px rgba(27,36,32,.04);display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+                <div>
+                  <div style="font-family:'Newsreader',Georgia,serif;font-size:34px;line-height:1">{{ rm.num }}</div>
+                  <div style="font-size:14.5px;color:#4A554F;margin-top:6px">{{ rm.type }}</div>
+                  <div style="font-size:13.5px;color:#6B7670">{{ rm.cap }}</div>
+                </div>
+                <span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:13.5px;font-weight:600;background:{{ rm.stBg }};color:{{ rm.stFg }}"><span>{{ rm.mark }}</span>{{ rm.status }}</span>
+              </div>
+              <div style="font-size:13.5px;color:#6B7670;border-top:1px solid #F2EFE9;padding-top:11px">{{ rm.note }}</div>
+            </div>
+          </sc-for>
+          <button onClick="{{ addRoom }}" style="min-height:170px;border:2px dashed #D8D3CA;border-radius:18px;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#6B7670;font-size:15.5px;font-weight:600" style-hover="background:#FBFAF8;border-color:#0E5A45;color:#0E5A45">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+            Shto dhomë
+          </button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isKli }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:20px;box-shadow:0 1px 2px rgba(27,36,32,.04);overflow:hidden;max-width:920px">
+          <sc-for list="{{ guests }}" as="g" hint-placeholder-count="8">
+            <div style="display:flex;align-items:center;gap:16px;padding:16px 22px;border-bottom:1px solid #F2EFE9">
+              <div style="width:46px;height:46px;flex:0 0 46px;border-radius:50%;background:#EDEAE3;color:#4A554F;display:grid;place-items:center;font-size:16px;font-weight:700">{{ g.initials }}</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:16.5px;font-weight:600">{{ g.name }}</div>
+                <div style="font-size:13.5px;color:#6B7670;margin-top:2px">{{ g.phone }}</div>
+              </div>
+              <div style="font-size:14px;color:#4A554F;text-align:right">
+                <div>{{ g.stays }}</div>
+                <div style="font-size:13px;color:#6B7670;margin-top:2px">{{ g.last }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCil }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:720px">
+          <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:20px;padding:24px;box-shadow:0 1px 2px rgba(27,36,32,.04)">
+            <h2 style="font-size:17px;font-weight:700;margin-bottom:14px">Hoteli</h2>
+            <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #F2EFE9;font-size:15.5px"><span style="color:#6B7670">Emri</span><span style="font-weight:600">Vila Dea</span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #F2EFE9;font-size:15.5px"><span style="color:#6B7670">Qyteti</span><span style="font-weight:600">Sarandë</span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 0;font-size:15.5px"><span style="color:#6B7670">Ora e hyrjes / daljes</span><span style="font-weight:600">14:00 / 11:00</span></div>
+          </div>
+          <div style="background:#FFFFFF;border:1px solid #E7E3DC;border-radius:20px;padding:24px;box-shadow:0 1px 2px rgba(27,36,32,.04)">
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="width:11px;height:11px;border-radius:50%;background:{{ syncDot }}"></span>
+              <h2 style="font-size:17px;font-weight:700">Booking.com</h2>
+              <span style="margin-left:auto;font-size:14.5px;font-weight:600;color:{{ syncFg }}">{{ syncText }}</span>
+            </div>
+            <p style="font-size:14.5px;color:#4A554F;line-height:1.55;margin-top:12px;text-wrap:pretty">Rezervimet nga Booking.com shfaqen vetë në kalendar. Kur ju krijoni një rezervim, dhomat e lira përditësohen vetvetiu. Nuk keni nevojë të bëni asgjë.</p>
+            <sc-if value="{{ syncError }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:12px;margin-top:14px;padding:14px 16px;border-radius:14px;background:#FBF0DE;color:#7A4E10">
+                <span style="font-size:17px">⚠</span>
+                <span style="flex:1;font-size:14.5px;font-weight:600">Problem me lidhjen</span>
+                <button onClick="{{ retrySync }}" style="height:42px;padding:0 16px;border:1px solid #B5761B;border-radius:11px;background:#FFFFFF;color:#7A4E10;font-size:14.5px;font-weight:600;cursor:pointer">Provo përsëri</button>
+              </div>
+            </sc-if>
+            <button onClick="{{ breakSync }}" style="margin-top:14px;height:42px;padding:0 16px;border:1px solid #E3DFD8;border-radius:11px;background:#FBFAF8;color:#6B7670;font-size:13.5px;cursor:pointer" style-hover="background:#F1EFEA">Simulo një problem lidhjeje</button>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </main>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:60;background:rgba(27,36,32,.42);display:flex;align-items:center;justify-content:center;padding:24px;animation:dcFade .16s ease">
+      <div style="width:100%;max-width:580px;max-height:92vh;overflow:auto;background:#FFFFFF;border-radius:24px;box-shadow:0 30px 70px rgba(27,36,32,.28);animation:dcPop .2s cubic-bezier(.2,.8,.3,1)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px 26px;border-bottom:1px solid #EFEBE4">
+          <h2 style="font-family:'Newsreader',Georgia,serif;font-size:26px;font-weight:400">{{ modalTitle }}</h2>
+          <button onClick="{{ closeModal }}" style="width:42px;height:42px;border:0;border-radius:12px;background:#F4F2EE;cursor:pointer;display:grid;place-items:center" style-hover="background:#EAE7E0">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1B2420" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+          </button>
+        </div>
+        <div style="padding:22px 26px;display:flex;flex-direction:column;gap:18px">
+          <div>
+            <label style="display:block;font-size:14px;font-weight:600;color:#4A554F;margin-bottom:7px">Dhoma</label>
+            <select value="{{ f.room }}" onChange="{{ onRoom }}" style="width:100%;height:54px;padding:0 14px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF;font-size:16px;cursor:pointer">
+              <sc-for list="{{ roomOptions }}" as="o" hint-placeholder-count="12">
+                <option value="{{ o.id }}">{{ o.label }}</option>
+              </sc-for>
+            </select>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div>
+              <label style="display:block;font-size:14px;font-weight:600;color:#4A554F;margin-bottom:7px">Hyrja</label>
+              <div style="display:flex;align-items:center;gap:10px;height:54px;padding:0 14px;border:1px solid #E3DFD8;border-radius:14px;background:#FBFAF8;font-size:16px;font-weight:600">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0E5A45" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18"></path></svg>
+                {{ f.inLabel }}
+              </div>
+            </div>
+            <div>
+              <label style="display:block;font-size:14px;font-weight:600;color:#4A554F;margin-bottom:7px">Dalja</label>
+              <div style="display:flex;align-items:center;gap:10px;height:54px;padding:0 14px;border:1px solid #E3DFD8;border-radius:14px;background:#FBFAF8;font-size:16px;font-weight:600">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B5761B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18"></path></svg>
+                {{ f.outLabel }}
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div>
+              <label style="display:block;font-size:14px;font-weight:600;color:#4A554F;margin-bottom:7px">Netë</label>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onClick="{{ nightsMinus }}" style="width:50px;height:54px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF;font-size:22px;cursor:pointer" style-hover="background:#F4F2EE">−</button>
+                <div style="flex:1;height:54px;display:grid;place-items:center;border:1px solid #E3DFD8;border-radius:14px;background:#FBFAF8;font-size:18px;font-weight:700">{{ f.nights }}</div>
+                <button onClick="{{ nightsPlus }}" style="width:50px;height:54px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF;font-size:22px;cursor:pointer" style-hover="background:#F4F2EE">+</button>
+              </div>
+            </div>
+            <div>
+              <label style="display:block;font-size:14px;font-weight:600;color:#4A554F;margin-bottom:7px">Numri i personave</label>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onClick="{{ personsMinus }}" style="width:50px;height:54px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF;font-size:22px;cursor:pointer" style-hover="background:#F4F2EE">−</button>
+                <div style="flex:1;height:54px;display:grid;place-items:center;border:1px solid #E3DFD8;border-radius:14px;background:#FBFAF8;font-size:18px;font-weight:700">{{ f.persons }}</div>
+                <button onClick="{{ personsPlus }}" style="width:50px;height:54px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF;font-size:22px;cursor:pointer" style-hover="background:#F4F2EE">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label style="display:block;font-size:14px;font-weight:600;color:#4A554F;margin-bottom:7px">Emri dhe mbiemri</label>
+            <input value="{{ f.name }}" onChange="{{ onName }}" placeholder="p.sh. Arben Hoxha" style="width:100%;height:54px;padding:0 14px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF;font-size:16px;outline:none" />
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div>
+              <label style="display:block;font-size:14px;font-weight:600;color:#4A554F;margin-bottom:7px">Telefoni</label>
+              <input value="{{ f.phone }}" onChange="{{ onPhone }}" placeholder="+355 69 000 0000" style="width:100%;height:54px;padding:0 14px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF;font-size:16px;outline:none" />
+            </div>
+            <div>
+              <label style="display:block;font-size:14px;font-weight:600;color:#4A554F;margin-bottom:7px">Çmimi total</label>
+              <div style="display:flex;align-items:center;gap:8px;height:54px;padding:0 14px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF">
+                <input value="{{ f.price }}" onChange="{{ onPrice }}" placeholder="0" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:16px;font-weight:600" />
+                <span style="font-size:16px;color:#6B7670">€</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label style="display:block;font-size:14px;font-weight:600;color:#4A554F;margin-bottom:7px">Shënime</label>
+            <input value="{{ f.notes }}" onChange="{{ onNotes }}" placeholder="p.sh. mbërrin vonë" style="width:100%;height:54px;padding:0 14px;border:1px solid #D8D3CA;border-radius:14px;background:#FFFFFF;font-size:16px;outline:none" />
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:14px;background:#F1F6F3;font-size:14.5px;color:#0B5038">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>Burimi: <strong>{{ f.source }}</strong> · dhomat e lira përditësohen vetë</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;padding:18px 26px 24px;border-top:1px solid #EFEBE4">
+          <button onClick="{{ closeModal }}" style="height:56px;padding:0 24px;border:1px solid #D8D3CA;border-radius:15px;background:#FFFFFF;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#F4F2EE">Anulo</button>
+          <button onClick="{{ saveRes }}" disabled="{{ saveDisabled }}" style="flex:1;height:56px;border:0;border-radius:15px;font-size:17px;font-weight:700;cursor:{{ saveCursor }};background:{{ saveBg }};color:{{ saveFg }}">{{ saveLabel }}</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:55;display:flex;justify-content:flex-end;background:rgba(27,36,32,.34);animation:dcFade .16s ease">
+      <div onClick="{{ closeDetail }}" style="flex:1"></div>
+      <div style="width:min(440px,100%);height:100%;background:#FFFFFF;box-shadow:-24px 0 60px rgba(27,36,32,.22);overflow:auto;animation:dcSlide .24s cubic-bezier(.2,.8,.3,1);display:flex;flex-direction:column">
+        <div style="padding:24px 26px 20px;border-bottom:1px solid #EFEBE4">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px">
+            <div style="min-width:0">
+              <h2 style="font-family:'Newsreader',Georgia,serif;font-size:29px;line-height:1.15;font-weight:400">{{ det.name }}</h2>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:9px">
+                <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:13.5px;font-weight:700;background:{{ det.stBg }};color:{{ det.stFg }}"><span>{{ det.mark }}</span>{{ det.status }}</span>
+                <span style="padding:5px 12px;border-radius:999px;font-size:13.5px;font-weight:600;background:{{ det.srcBg }};color:{{ det.srcFg }}">{{ det.source }}</span>
+              </div>
+            </div>
+            <button onClick="{{ closeDetail }}" style="width:42px;height:42px;flex:0 0 42px;border:0;border-radius:12px;background:#F4F2EE;cursor:pointer;display:grid;place-items:center" style-hover="background:#EAE7E0">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1B2420" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <div style="padding:22px 26px;display:flex;flex-direction:column;gap:20px;flex:1">
+          <div style="font-size:17px;font-weight:700">Dhoma {{ det.room }} — {{ det.type }}</div>
+
+          <div style="border:1px solid #E7E3DC;border-radius:16px;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 18px;background:#FBFAF8">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E5A45" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5"></path></svg>
+              <div><div style="font-size:12.5px;color:#6B7670;font-weight:600">HYRJA</div><div style="font-size:17px;font-weight:600">{{ det.in }}</div></div>
+              <div style="margin-left:auto;font-size:14px;color:#6B7670">{{ det.nights }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 18px;border-top:1px solid #EFEBE4">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B5761B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5"></path></svg>
+              <div><div style="font-size:12.5px;color:#6B7670;font-weight:600">DALJA</div><div style="font-size:17px;font-weight:600">{{ det.out }}</div></div>
+              <div style="margin-left:auto;font-size:14px;color:#6B7670">{{ det.persons }}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #F2EFE9"><span style="color:#6B7670;font-size:15px">Telefon</span><span style="font-size:16px;font-weight:600">{{ det.phone }}</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #F2EFE9"><span style="color:#6B7670;font-size:15px">Totali</span><span style="font-size:19px;font-weight:700">{{ det.total }}</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #F2EFE9"><span style="color:#6B7670;font-size:15px">Paguar</span><span style="font-size:16px;font-weight:600;color:#0B5038">{{ det.paid }}</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0"><span style="color:#6B7670;font-size:15px">Për t'u paguar</span><span style="font-size:16px;font-weight:700;color:{{ det.dueFg }}">{{ det.due }}</span></div>
+          </div>
+
+          <sc-if value="{{ det.hasNotes }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:14px 16px;border-radius:14px;background:#FBF7EE;font-size:14.5px;color:#5C4A2A">{{ det.notes }}</div>
+          </sc-if>
+
+          <sc-if value="{{ det.isBooking }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:10px;padding:13px 16px;border-radius:14px;background:#EEF3FB;font-size:14px;color:#1F3C96">
+              <span style="font-size:10px;font-weight:800;background:#003B95;color:#FFFFFF;border-radius:5px;padding:2px 6px">B</span>
+              <span>Erdhi vetë nga Booking.com · ✓ Sinkronizuar</span>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="position:sticky;bottom:0;background:#FFFFFF;border-top:1px solid #EFEBE4;padding:18px 26px 24px;display:flex;flex-direction:column;gap:10px">
+          <sc-if value="{{ det.canCheckIn }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ det.checkIn }}" style="height:56px;border:0;border-radius:15px;background:#0E5A45;color:#FFFFFF;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#0A4636">Regjistro hyrjen</button>
+          </sc-if>
+          <sc-if value="{{ det.canCheckOut }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ det.checkOut }}" style="height:56px;border:0;border-radius:15px;background:#0E5A45;color:#FFFFFF;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#0A4636">Regjistro daljen</button>
+          </sc-if>
+          <div style="display:flex;gap:10px">
+            <button onClick="{{ det.edit }}" style="flex:1;height:52px;border:1px solid #D8D3CA;border-radius:15px;background:#FFFFFF;font-size:15.5px;font-weight:600;cursor:pointer" style-hover="background:#F4F2EE">Ndrysho rezervimin</button>
+            <sc-if value="{{ det.canCancel }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ det.cancel }}" style="flex:1;height:52px;border:1px solid #EFCFCB;border-radius:15px;background:#FFFFFF;color:#8E2C25;font-size:15.5px;font-weight:600;cursor:pointer" style-hover="background:#FAECEA">Anulo rezervimin</button>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:50%;bottom:30px;transform:translateX(-50%);z-index:70;background:#14201C;color:#FFFFFF;border-radius:16px;padding:16px 22px;box-shadow:0 18px 44px rgba(20,32,28,.34);animation:dcToast .22s ease;display:flex;flex-direction:column;gap:6px;min-width:280px">
+      <sc-for list="{{ toastLines }}" as="t" hint-placeholder-count="2">
+        <div style="display:flex;align-items:center;gap:10px;font-size:15.5px;font-weight:600"><span style="color:#7BD7AE">✓</span>{{ t.text }}</div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;defaultView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;7&quot;,&quot;14&quot;,&quot;30&quot;],&quot;default&quot;:&quot;14&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Kalendari&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Komod&quot;,&quot;Kompakt&quot;],&quot;default&quot;:&quot;Komod&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Kalendari&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;perm&quot;,&quot;kal&quot;,&quot;rez&quot;,&quot;dho&quot;,&quot;kli&quot;,&quot;cil&quot;],&quot;default&quot;:&quot;perm&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Fillimi&quot;}}">
+const MF = ['Janar','Shkurt','Mars','Prill','Maj','Qershor','Korrik','Gusht','Shtator','Tetor','Nëntor','Dhjetor'];
+const MS = ['Jan','Shk','Mar','Pri','Maj','Qer','Kor','Gus','Sht','Tet','Nën','Dhj'];
+const DOW = ['Die','Hën','Mar','Mër','Enj','Pre','Sht'];
+const BASE = new Date(2026, 8, 14);
+const TODAY = 7;
+
+const ROOMS = [
+  {id:'101',type:'Dyshe',cap:2},{id:'102',type:'Dyshe',cap:2},{id:'103',type:'Dyshe',cap:2},
+  {id:'104',type:'Dyshe',cap:2},{id:'105',type:'Teke',cap:1},{id:'106',type:'Dyshe',cap:3},
+  {id:'201',type:'Suitë',cap:4},{id:'202',type:'Suitë',cap:4},{id:'203',type:'Familjare',cap:4},
+  {id:'204',type:'Dyshe',cap:2},{id:'301',type:'Suitë',cap:4},{id:'302',type:'Dyshe',cap:2}
+];
+
+const SRC = {
+  'Direkt':{bg:'#E4EFE9',fg:'#0B5038'},
+  'Booking.com':{bg:'#E4ECF8',fg:'#003B95'},
+  'Telefon':{bg:'#F0EDE5',fg:'#6B5B33'},
+  'WhatsApp':{bg:'#E7F2E7',fg:'#2C6B33'},
+  'Recepsion':{bg:'#EDEBF5',fg:'#4A417E'}
+};
+
+const ST = {
+  'Rezervuar':{bg:'#EEF2FD',bd:'#C4D2F6',bar:'#3B63D6',fg:'#1F3C96',mark:'○'},
+  'Në hotel':{bg:'#E7F3ED',bd:'#BEDECE',bar:'#10704F',fg:'#0B5038',mark:'✓'},
+  'Përfunduar':{bg:'#F1F0EC',bd:'#DFDCD4',bar:'#9A9A93',fg:'#5C5C55',mark:'–'},
+  'Anuluar':{bg:'#FAECEA',bd:'#EFCFCB',bar:'#B3382F',fg:'#8E2C25',mark:'✕'}
+};
+
+const SEED = [
+  {id:1,room:'101',in:5,out:9,name:'Ana Kola',persons:2,src:'Direkt',st:'Në hotel',total:320,paid:320,phone:'+355 69 234 5566',notes:''},
+  {id:2,room:'102',in:6,out:8,name:'Endrit Lika',persons:1,src:'Telefon',st:'Në hotel',total:90,paid:0,phone:'+355 68 411 2200',notes:''},
+  {id:3,room:'103',in:7,out:10,name:'Arben Hoxha',persons:2,src:'Direkt',st:'Rezervuar',total:240,paid:100,phone:'+355 69 123 4567',notes:'Kërkon dhomë me pamje nga deti.',time:'14:00'},
+  {id:4,room:'104',in:7,out:11,name:'John Smith',persons:2,src:'Booking.com',st:'Rezervuar',total:380,paid:380,phone:'+44 7700 900123',notes:'',time:'18:30'},
+  {id:5,room:'105',in:4,out:7,name:'Arta Dervishi',persons:1,src:'Direkt',st:'Në hotel',total:150,paid:150,phone:'+355 67 990 1122',notes:''},
+  {id:6,room:'203',in:5,out:7,name:'Familja Krasniqi',persons:4,src:'WhatsApp',st:'Në hotel',total:260,paid:100,phone:'+383 44 556 677',notes:''},
+  {id:7,room:'201',in:7,out:10,name:'Mario Rossi',persons:2,src:'Direkt',st:'Rezervuar',total:450,paid:0,phone:'+39 335 778 9911',notes:'',time:'16:00'},
+  {id:8,room:'202',in:6,out:12,name:'Sofia Müller',persons:2,src:'Booking.com',st:'Në hotel',total:720,paid:720,phone:'+49 151 2233 445',notes:''},
+  {id:9,room:'106',in:6,out:9,name:'Besnik Gashi',persons:3,src:'Recepsion',st:'Në hotel',total:270,paid:90,phone:'+355 69 887 6543',notes:''},
+  {id:10,room:'301',in:5,out:8,name:'Luan Berisha',persons:2,src:'Direkt',st:'Në hotel',total:400,paid:400,phone:'+355 69 300 1200',notes:''},
+  {id:11,room:'204',in:9,out:13,name:'Blerta Hoxhaj',persons:2,src:'Booking.com',st:'Rezervuar',total:340,paid:340,phone:'+355 68 220 3344',notes:''},
+  {id:12,room:'302',in:8,out:11,name:'Petrit Shala',persons:2,src:'Direkt',st:'Rezervuar',total:210,paid:50,phone:'+355 69 555 7788',notes:''},
+  {id:13,room:'105',in:10,out:14,name:'Klara Meyer',persons:2,src:'Booking.com',st:'Rezervuar',total:360,paid:360,phone:'+49 170 6677 889',notes:''},
+  {id:14,room:'203',in:12,out:15,name:'Ilir Dema',persons:4,src:'Telefon',st:'Rezervuar',total:330,paid:0,phone:'+355 67 121 3131',notes:''},
+  {id:15,room:'101',in:10,out:12,name:'Anila Prifti',persons:2,src:'Direkt',st:'Rezervuar',total:180,paid:0,phone:'+355 69 444 9090',notes:''},
+  {id:16,room:'102',in:9,out:13,name:'Marco Bianchi',persons:2,src:'Booking.com',st:'Rezervuar',total:300,paid:300,phone:'+39 340 111 2233',notes:''},
+  {id:17,room:'106',in:11,out:16,name:'Genci Mema',persons:2,src:'Recepsion',st:'Rezervuar',total:420,paid:100,phone:'+355 69 777 1234',notes:''},
+  {id:18,room:'301',in:11,out:13,name:'Erion Çela',persons:2,src:'Direkt',st:'Anuluar',total:200,paid:0,phone:'+355 68 909 0909',notes:''},
+  {id:19,room:'204',in:3,out:6,name:'Vera Sula',persons:2,src:'Direkt',st:'Përfunduar',total:210,paid:210,phone:'+355 69 202 3040',notes:''}
+];
+
+const FILTERS = ['Të gjitha','Sot','Në pritje','Në hotel','Përfunduara','Anuluara'];
+
+function dateOf(i){ const d = new Date(BASE.getTime()); d.setDate(d.getDate() + i); return d; }
+function fmtLong(i){ const d = dateOf(i); return d.getDate() + ' ' + MF[d.getMonth()] + ' ' + d.getFullYear(); }
+function fmtMed(i){ const d = dateOf(i); return d.getDate() + ' ' + MF[d.getMonth()]; }
+function fmtShort(i){ const d = dateOf(i); return d.getDate() + ' ' + MS[d.getMonth()]; }
+function persons(n){ return n === 1 ? '1 person' : n + ' persona'; }
+function nightsLbl(n){ return n === 1 ? '1 natë' : n + ' netë'; }
+
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    const dv = String(this.props.defaultView || '14');
+    this.state = {
+      screen: this.props.startScreen || 'perm',
+      res: SEED.map(function(r){ return Object.assign({}, r); }),
+      view: dv === '7' ? 7 : (dv === '30' ? 30 : 14),
+      start: TODAY,
+      drag: null,
+      modal: null,
+      detailId: null,
+      query: '',
+      filter: 'Të gjitha',
+      toast: null,
+      nextId: 100,
+      syncError: false
+    };
+  }
+
+  componentDidMount(){
+    this._up = () => { if (this.state.drag) this.finishDrag(); };
+    window.addEventListener('mouseup', this._up);
+  }
+  componentWillUnmount(){ window.removeEventListener('mouseup', this._up); if (this._tt) clearTimeout(this._tt); }
+
+  showToast(lines){
+    if (this._tt) clearTimeout(this._tt);
+    this.setState({ toast: lines });
+    this._tt = setTimeout(() => this.setState({ toast: null }), 3600);
+  }
+
+  active(){ return this.state.res.filter(function(r){ return r.st !== 'Anuluar'; }); }
+
+  roomOf(id){ for (var i=0;i<ROOMS.length;i++) if (ROOMS[i].id === id) return ROOMS[i]; return ROOMS[0]; }
+
+  freeUntil(roomId, from){
+    var limit = from + 30;
+    this.active().forEach(function(r){ if (r.room === roomId && r.in > from && r.in < limit) limit = r.in; });
+    return limit;
+  }
+
+  openNewFor(roomId, inIdx, nights){
+    var max = this.freeUntil(roomId, inIdx) - inIdx;
+    var n = Math.max(1, Math.min(nights, max));
+    this.setState({ drag:null, detailId:null, modal:{ mode:'new', room:roomId, in:inIdx, nights:n, name:'', phone:'', persons:2, price:'', notes:'' } });
+  }
+
+  finishDrag(){
+    var d = this.state.drag;
+    if (!d) return;
+    var a = Math.min(d.a, d.b), b = Math.max(d.a, d.b);
+    this.openNewFor(d.room, a, b - a + 1);
+  }
+
+  setStatus(id, st){
+    this.setState(function(s){
+      return { res: s.res.map(function(r){ return r.id === id ? Object.assign({}, r, {st:st}) : r; }) };
+    });
+  }
+
+  renderVals(){
+    var self = this;
+    var s = this.state;
+    var density = this.props.density || 'Komod';
+    var rowH = density === 'Kompakt' ? 52 : 64;
+    var colW = s.view === 7 ? 152 : (s.view === 30 ? 56 : 98);
+
+    var navOf = function(k){
+      var on = s.screen === k;
+      return { bg: on ? '#EDF3F0' : 'transparent', fg: on ? '#0E5A45' : '#4A554F', fw: on ? '700' : '500', hv: on ? '#E5EEEA' : '#F4F2EE' };
+    };
+
+    var titles = { perm:'Përmbledhje', kal:'Kalendari', rez:'Rezervimet', dho:'Dhomat', kli:'Klientët', cil:'Cilësimet' };
+    var subs = {
+      perm:'E hënë, 21 Shtator 2026',
+      kal:'Të gjitha rezervimet në një kalendar të vetëm',
+      rez:'Kërko dhe kontrollo çdo rezervim',
+      dho:'12 dhoma · ' + this.active().filter(function(r){ return r.in <= TODAY && r.out > TODAY; }).length + ' të zëna sot',
+      kli:'Klientët që kanë qëndruar te ju',
+      cil:'Hoteli dhe lidhja me Booking.com'
+    };
+
+    // KPI
+    var occupied = this.active().filter(function(r){ return r.in <= TODAY && r.out > TODAY; }).length;
+    var arrivalsRaw = s.res.filter(function(r){ return r.in === TODAY && r.st !== 'Anuluar' && r.st !== 'Përfunduar'; });
+    var departuresRaw = s.res.filter(function(r){ return r.out === TODAY && r.st !== 'Anuluar'; });
+    var pendingIn = arrivalsRaw.filter(function(r){ return r.st === 'Rezervuar'; }).length;
+    var pendingOut = departuresRaw.filter(function(r){ return r.st === 'Në hotel'; }).length;
+
+    var arrivals = arrivalsRaw.map(function(r){
+      var sm = SRC[r.src] || SRC['Direkt'];
+      return {
+        time: r.time || '14:00', name: r.name, room: r.room, persons: persons(r.persons),
+        source: r.src, srcBg: sm.bg, srcFg: sm.fg,
+        pending: r.st === 'Rezervuar', done: r.st !== 'Rezervuar',
+        checkIn: function(){ self.setStatus(r.id, 'Në hotel'); self.showToast([{text:'Hyrja u regjistrua për ' + r.name}]); }
+      };
+    });
+
+    var departures = departuresRaw.map(function(r){
+      var due = r.total - r.paid;
+      return {
+        name: r.name, room: r.room,
+        balance: due > 0 ? ('€' + due + ' për t\u2019u paguar') : 'E paguar',
+        balBg: due > 0 ? '#FBF0DE' : '#E7F3ED', balFg: due > 0 ? '#7A4E10' : '#0B5038',
+        pending: r.st === 'Në hotel', done: r.st !== 'Në hotel',
+        checkOut: function(){ self.setStatus(r.id, 'Përfunduar'); self.showToast([{text:'Dalja u regjistrua për ' + r.name}]); }
+      };
+    });
+
+    // Calendar
+    var days = [];
+    for (var i = 0; i < s.view; i++){
+      var idx = s.start + i;
+      var dt = dateOf(idx);
+      var dw = dt.getDay();
+      var isToday = idx === TODAY;
+      var weekend = dw === 0 || dw === 6;
+      days.push({
+        w: colW + 'px', num: String(dt.getDate()), dow: DOW[dw],
+        bg: isToday ? '#EAF2EE' : (weekend ? '#F7F5F1' : '#FBFAF8'),
+        dowFg: isToday ? '#0E5A45' : '#4A554F',
+        numFg: isToday ? '#0E5A45' : '#1B2420',
+        numFw: isToday ? '800' : '600'
+      });
+    }
+
+    var dr = s.drag;
+    var rows = ROOMS.map(function(room){
+      var cells = [];
+      for (var i = 0; i < s.view; i++){
+        (function(){
+          var idx = s.start + i;
+          var dt = dateOf(idx);
+          var dw = dt.getDay();
+          var selected = dr && dr.room === room.id && idx >= Math.min(dr.a, dr.b) && idx <= Math.max(dr.a, dr.b);
+          cells.push({
+            w: colW + 'px',
+            bg: selected ? '#D7E9DF' : (idx === TODAY ? '#F4F8F6' : (dw === 0 || dw === 6 ? '#FAF9F6' : '#FFFFFF')),
+            down: function(){ self.setState({ drag: { room: room.id, a: idx, b: idx } }); },
+            enter: function(){ if (self.state.drag && self.state.drag.room === room.id) self.setState({ drag: { room: room.id, a: self.state.drag.a, b: idx } }); },
+            up: function(){ self.finishDrag(); }
+          });
+        })();
+      }
+      var blocks = s.res.filter(function(r){ return r.room === room.id && r.out > s.start && r.in < s.start + s.view; }).map(function(r){
+        var st = ST[r.st] || ST['Rezervuar'];
+        var sm = SRC[r.src] || SRC['Direkt'];
+        var a = Math.max(r.in, s.start), b = Math.min(r.out, s.start + s.view);
+        var leftPx = (a - s.start) * colW + (r.in >= s.start ? colW * 0.38 : 0);
+        var rightPx = (b - s.start) * colW + (r.out <= s.start + s.view ? colW * 0.28 : colW);
+        var wPx = Math.max(34, rightPx - leftPx - 4);
+        return {
+          left: Math.round(leftPx) + 'px', w: Math.round(wPx) + 'px',
+          bg: st.bg, bd: st.bd, bar: st.bar, fg: st.fg, mark: st.mark,
+          name: r.name, persons: persons(r.persons), source: r.src, srcBg: sm.bg, srcFg: sm.fg,
+          strike: r.st === 'Anuluar' ? 'line-through' : 'none',
+          showMeta: wPx >= 132 && rowH >= 60,
+          tinyBooking: wPx < 132 && r.src === 'Booking.com',
+          open: function(){ self.setState({ detailId: r.id }); }
+        };
+      });
+      return { num: room.id, type: room.type, cells: cells, blocks: blocks };
+    });
+
+    var firstD = dateOf(s.start), lastD = dateOf(s.start + s.view - 1);
+    var monthLabel = firstD.getMonth() === lastD.getMonth()
+      ? MF[firstD.getMonth()] + ' ' + firstD.getFullYear()
+      : MS[firstD.getMonth()] + ' – ' + MS[lastD.getMonth()] + ' ' + lastD.getFullYear();
+
+    var vwOf = function(n){
+      var on = s.view === n;
+      return { bg: on ? '#0E5A45' : 'transparent', fg: on ? '#FFFFFF' : '#4A554F', fw: on ? '700' : '500' };
+    };
+
+    // Reservations list
+    var q = s.query.trim().toLowerCase();
+    var listRows = s.res.filter(function(r){
+      if (q && r.name.toLowerCase().indexOf(q) < 0 && r.room.indexOf(q) < 0) return false;
+      var f = s.filter;
+      if (f === 'Sot') return r.in === TODAY || r.out === TODAY;
+      if (f === 'Në pritje') return r.st === 'Rezervuar';
+      if (f === 'Në hotel') return r.st === 'Në hotel';
+      if (f === 'Përfunduara') return r.st === 'Përfunduar';
+      if (f === 'Anuluara') return r.st === 'Anuluar';
+      return true;
+    }).sort(function(a, b){ return a.in - b.in; }).map(function(r){
+      var st = ST[r.st] || ST['Rezervuar'];
+      var sm = SRC[r.src] || SRC['Direkt'];
+      return {
+        name: r.name, room: r.room, in: fmtShort(r.in), out: fmtShort(r.out),
+        persons: persons(r.persons), nights: nightsLbl(r.out - r.in),
+        source: r.src, srcBg: sm.bg, srcFg: sm.fg,
+        status: r.st, stBg: st.bg, stFg: st.fg, mark: st.mark,
+        open: function(){ self.setState({ detailId: r.id }); }
+      };
+    });
+
+    var filters = FILTERS.map(function(f){
+      var on = s.filter === f;
+      return { label: f, bg: on ? '#1B2420' : '#FFFFFF', fg: on ? '#FFFFFF' : '#4A554F', bd: on ? '#1B2420' : '#E3DFD8', fw: on ? '700' : '500',
+        pick: function(){ self.setState({ filter: f }); } };
+    });
+
+    // Rooms
+    var roomCards = ROOMS.map(function(room){
+      var now = self.active().filter(function(r){ return r.room === room.id && r.in <= TODAY && r.out > TODAY; })[0];
+      var next = self.active().filter(function(r){ return r.room === room.id && r.in > TODAY; }).sort(function(a,b){ return a.in - b.in; })[0];
+      var status = now ? 'E zënë' : 'E lirë';
+      var pal = now ? ST['Në hotel'] : { bg:'#F1F0EC', fg:'#5C5C55', mark:'○' };
+      return {
+        num: room.id, type: 'Dhomë ' + room.type, cap: persons(room.cap),
+        status: status, stBg: pal.bg, stFg: pal.fg, mark: now ? '✓' : '○',
+        note: now ? (now.name + ' · deri më ' + fmtShort(now.out)) : (next ? ('E lirë deri më ' + fmtShort(next.in)) : 'E lirë')
+      };
+    });
+
+    // Guests
+    var seen = {};
+    var guests = [];
+    s.res.slice().sort(function(a,b){ return b.in - a.in; }).forEach(function(r){
+      if (seen[r.name]) { seen[r.name].n++; return; }
+      var g = { name: r.name, phone: r.phone, n: 1, last: r.in };
+      seen[r.name] = g; guests.push(g);
+    });
+    var guestRows = guests.map(function(g){
+      var parts = g.name.split(' ');
+      var ini = (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+      return { name: g.name, phone: g.phone, initials: ini, stays: g.n === 1 ? '1 qëndrim' : g.n + ' qëndrime', last: fmtMed(g.last) };
+    });
+
+    // Modal
+    var m = s.modal;
+    var f = { room:'101', inLabel:'', outLabel:'', nights:1, persons:2, name:'', phone:'', price:'', notes:'', source:'Direkt' };
+    if (m){
+      f = {
+        room: m.room,
+        inLabel: fmtLong(m.in), outLabel: fmtLong(m.in + m.nights),
+        nights: m.nights, persons: m.persons, name: m.name, phone: m.phone,
+        price: m.price, notes: m.notes, source: m.mode === 'edit' ? (m.src || 'Direkt') : 'Direkt'
+      };
+    }
+    var canSave = !!(m && m.name.trim());
+
+    // Detail
+    var dres = s.detailId ? s.res.filter(function(r){ return r.id === s.detailId; })[0] : null;
+    var det = { name:'', room:'', type:'', in:'', out:'', nights:'', persons:'', phone:'', total:'', paid:'', due:'', dueFg:'#1B2420', status:'', stBg:'', stFg:'', mark:'', source:'', srcBg:'', srcFg:'', notes:'', hasNotes:false, isBooking:false, canCheckIn:false, canCheckOut:false, canCancel:false, checkIn:function(){}, checkOut:function(){}, edit:function(){}, cancel:function(){} };
+    if (dres){
+      var st = ST[dres.st] || ST['Rezervuar'];
+      var sm = SRC[dres.src] || SRC['Direkt'];
+      var due = dres.total - dres.paid;
+      det = {
+        name: dres.name, room: dres.room, type: self.roomOf(dres.room).type,
+        in: fmtLong(dres.in), out: fmtLong(dres.out),
+        nights: nightsLbl(dres.out - dres.in), persons: persons(dres.persons),
+        phone: dres.phone || '—', total: '€' + dres.total, paid: '€' + dres.paid,
+        due: due > 0 ? ('€' + due) : 'Asgjë', dueFg: due > 0 ? '#8E2C25' : '#0B5038',
+        status: dres.st, stBg: st.bg, stFg: st.fg, mark: st.mark,
+        source: dres.src, srcBg: sm.bg, srcFg: sm.fg,
+        notes: dres.notes, hasNotes: !!dres.notes, isBooking: dres.src === 'Booking.com',
+        canCheckIn: dres.st === 'Rezervuar' && dres.in <= TODAY,
+        canCheckOut: dres.st === 'Në hotel',
+        canCancel: dres.st === 'Rezervuar' || dres.st === 'Në hotel',
+        checkIn: function(){ self.setStatus(dres.id, 'Në hotel'); self.setState({detailId:null}); self.showToast([{text:'Hyrja u regjistrua për ' + dres.name}]); },
+        checkOut: function(){ self.setStatus(dres.id, 'Përfunduar'); self.setState({detailId:null}); self.showToast([{text:'Dalja u regjistrua për ' + dres.name}]); },
+        edit: function(){
+          self.setState({ detailId:null, modal:{ mode:'edit', id:dres.id, room:dres.room, in:dres.in, nights:dres.out - dres.in, name:dres.name, phone:dres.phone, persons:dres.persons, price:String(dres.total), notes:dres.notes, src:dres.src } });
+        },
+        cancel: function(){ self.setStatus(dres.id, 'Anuluar'); self.setState({detailId:null}); self.showToast([{text:'Rezervimi u anulua'},{text:'Dhoma u lirua në kalendar'}]); }
+      };
+    }
+
+    return {
+      nav: { perm:navOf('perm'), kal:navOf('kal'), rez:navOf('rez'), dho:navOf('dho'), kli:navOf('kli'), cil:navOf('cil') },
+      goPerm: function(){ self.setState({screen:'perm'}); },
+      goKal: function(){ self.setState({screen:'kal'}); },
+      goRez: function(){ self.setState({screen:'rez'}); },
+      goDho: function(){ self.setState({screen:'dho'}); },
+      goKli: function(){ self.setState({screen:'kli'}); },
+      goCil: function(){ self.setState({screen:'cil'}); },
+      isPerm: s.screen === 'perm', isKal: s.screen === 'kal', isRez: s.screen === 'rez',
+      isDho: s.screen === 'dho', isKli: s.screen === 'kli', isCil: s.screen === 'cil',
+      screenTitle: titles[s.screen], screenSub: subs[s.screen],
+
+      syncDot: s.syncError ? '#B5761B' : '#2E9E6B',
+      syncFg: s.syncError ? '#7A4E10' : '#0B5038',
+      syncText: s.syncError ? 'Problem me lidhjen' : 'Sinkronizuar',
+      syncError: s.syncError,
+      retrySync: function(){ self.setState({syncError:false}); self.showToast([{text:'Lidhja u rikthye'}]); },
+      breakSync: function(){ self.setState({syncError:true}); },
+
+      kpi: {
+        zena: occupied, lira: ROOMS.length - occupied,
+        mberritje: arrivalsRaw.length, largime: departuresRaw.length,
+        mberritjeNote: pendingIn === 0 ? 'të gjithë kanë hyrë' : pendingIn + ' pa hyrë ende',
+        largimeNote: pendingOut === 0 ? 'të gjithë kanë dalë' : pendingOut + ' pa dalë ende'
+      },
+      arrivals: arrivals, departures: departures,
+      noArrivals: arrivals.length === 0, noDepartures: departures.length === 0,
+
+      days: days, rows: rows, rowH: rowH + 'px', monthLabel: monthLabel,
+      vw: { v7: vwOf(7), v14: vwOf(14), v30: vwOf(30) },
+      setV7: function(){ self.setState({view:7}); },
+      setV14: function(){ self.setState({view:14}); },
+      setV30: function(){ self.setState({view:30}); },
+      prevWeek: function(){ self.setState(function(p){ return { start: Math.max(0, p.start - 7) }; }); },
+      nextWeek: function(){ self.setState(function(p){ return { start: p.start + 7 }; }); },
+      goToday: function(){ self.setState({ start: TODAY }); },
+
+      query: s.query,
+      onQuery: function(e){ self.setState({ query: e.target.value }); },
+      filters: filters, listRows: listRows, noResults: listRows.length === 0,
+      roomCards: roomCards,
+      addRoom: function(){ self.showToast([{text:'Shtimi i dhomave bëhet te Cilësimet'}]); },
+      guests: guestRows,
+
+      modalOpen: !!m,
+      modalTitle: m && m.mode === 'edit' ? 'Ndrysho rezervimin' : 'Rezervim i ri',
+      f: f,
+      roomOptions: ROOMS.map(function(r){ return { id: r.id, label: r.id + ' — ' + r.type + ' · ' + persons(r.cap) }; }),
+      onRoom: function(e){ var v = e.target.value; self.setState(function(p){ return { modal: Object.assign({}, p.modal, { room: v }) }; }); },
+      onName: function(e){ var v = e.target.value; self.setState(function(p){ return { modal: Object.assign({}, p.modal, { name: v }) }; }); },
+      onPhone: function(e){ var v = e.target.value; self.setState(function(p){ return { modal: Object.assign({}, p.modal, { phone: v }) }; }); },
+      onPrice: function(e){ var v = e.target.value; self.setState(function(p){ return { modal: Object.assign({}, p.modal, { price: v }) }; }); },
+      onNotes: function(e){ var v = e.target.value; self.setState(function(p){ return { modal: Object.assign({}, p.modal, { notes: v }) }; }); },
+      nightsMinus: function(){ self.setState(function(p){ return { modal: Object.assign({}, p.modal, { nights: Math.max(1, p.modal.nights - 1) }) }; }); },
+      nightsPlus: function(){ self.setState(function(p){ return { modal: Object.assign({}, p.modal, { nights: Math.min(21, p.modal.nights + 1) }) }; }); },
+      personsMinus: function(){ self.setState(function(p){ return { modal: Object.assign({}, p.modal, { persons: Math.max(1, p.modal.persons - 1) }) }; }); },
+      personsPlus: function(){ self.setState(function(p){ return { modal: Object.assign({}, p.modal, { persons: Math.min(6, p.modal.persons + 1) }) }; }); },
+      closeModal: function(){ self.setState({ modal: null }); },
+      saveDisabled: !canSave,
+      saveCursor: canSave ? 'pointer' : 'not-allowed',
+      saveBg: canSave ? '#0E5A45' : '#DCD8D0',
+      saveFg: canSave ? '#FFFFFF' : '#9A968E',
+      saveLabel: m && m.mode === 'edit' ? 'Ruaj ndryshimet' : 'Krijo rezervimin',
+      saveRes: function(){
+        var mm = self.state.modal;
+        if (!mm || !mm.name.trim()) return;
+        var price = parseInt(String(mm.price).replace(/[^0-9]/g, ''), 10) || 0;
+        if (mm.mode === 'edit'){
+          self.setState(function(p){
+            return { res: p.res.map(function(r){
+              return r.id === mm.id ? Object.assign({}, r, { room:mm.room, in:mm.in, out:mm.in + mm.nights, name:mm.name.trim(), phone:mm.phone, persons:mm.persons, total:price, notes:mm.notes }) : r;
+            }), modal: null };
+          });
+          self.showToast([{text:'Rezervimi u ndryshua'},{text:'Disponueshmëria u përditësua'}]);
+        } else {
+          var id = self.state.nextId;
+          self.setState(function(p){
+            return { nextId: p.nextId + 1, modal: null, screen: 'kal', res: p.res.concat([{
+              id:id, room:mm.room, in:mm.in, out:mm.in + mm.nights, name:mm.name.trim(), persons:mm.persons,
+              src:'Direkt', st:'Rezervuar', total:price, paid:0, phone:mm.phone, notes:mm.notes, time:'14:00'
+            }]) };
+          });
+          self.showToast([{text:'Rezervimi u krijua'},{text:'Disponueshmëria u përditësua'}]);
+        }
+      },
+      openNew: function(){
+        var free = ROOMS.filter(function(room){
+          return !self.active().some(function(r){ return r.room === room.id && r.in <= TODAY && r.out > TODAY; });
+        })[0] || ROOMS[0];
+        self.openNewFor(free.id, TODAY, 2);
+      },
+
+      detailOpen: !!dres, det: det,
+      closeDetail: function(){ self.setState({ detailId: null }); },
+
+      toastOpen: !!s.toast, toastLines: s.toast || []
+    };
+  }
+}
+</script>
+</body>
+</html>

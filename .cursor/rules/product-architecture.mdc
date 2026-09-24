@@ -1,0 +1,22 @@
+---
+description: Vila Dea is one product — React desk plus Laravel API. Preserve the design and reservation rules.
+alwaysApply: true
+---
+
+# Vila Dea product
+
+Two apps, one product. Do not merge them by moving the React tree.
+
+- Frontend: this workspace (`Reception application in Albanian`).
+- Backend: sibling `../vila-dea-backend` (latest Laravel, currently 13, PHP 8.3+, MySQL `vila_dea`).
+- Follow the HoReCa rules copied into `.cursor/rules/`: Managers, `ApiTrait`, `HasMessages`, pipeline list filters, API Resources, `messages.*` in `lang/en` and `lang/sq`. Do not put business logic in controllers or models.
+
+The approved React screens, SCSS modules, and Albanian copy stay. Do not replace them with an admin template.
+
+UI text is Albanian. Database columns, PHP, TypeScript, and API field names that are not operator copy stay English.
+
+Availability and double-booking are enforced in Laravel (`ReservationService` + row lock), not in the calendar. A direct stay commits before `SyncAvailabilityJob`. Channel calls go through `App\Contracts\ChannelProvider` only. Do not add Channex or Beds24 clients in Milestone 1.
+
+Read `docs/ARCHITECTURE.md`, `docs/DOMAIN.md`, `docs/API.md`, `docs/DECISIONS.md`, and `docs/CHANNEL_SYNC.md` before changing reservations, rooms, or sync.
+
+When a domain or API decision changes, update the matching doc in the same change.

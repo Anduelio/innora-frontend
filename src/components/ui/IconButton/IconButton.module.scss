@@ -1,0 +1,24 @@
+.button {
+  display: grid;
+  place-items: center;
+  inline-size: var(--control-h-sm);
+  block-size: var(--control-h-sm);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-ink);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--c-hover-wash);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}
+
+.muted {
+  background: var(--c-bg);
+}

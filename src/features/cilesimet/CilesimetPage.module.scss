@@ -1,0 +1,38 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  max-inline-size: 720px;
+}
+
+.card {
+  @include card(var(--r-2xl));
+
+  padding: var(--s-6);
+
+  h2 {
+    margin: 0 0 var(--s-3);
+    font: var(--t-section);
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-block: var(--s-3);
+  border-block-end: 1px solid var(--c-line);
+  font: var(--t-body);
+
+  span:first-child {
+    color: var(--c-ink-3);
+  }
+
+  span:last-child {
+    font-weight: 600;
+  }
+
+  &:last-child {
+    border-block-end: 0;
+  }
+}
