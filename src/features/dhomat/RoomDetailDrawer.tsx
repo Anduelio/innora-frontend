@@ -100,6 +100,7 @@ export function RoomDetailDrawer({
               <Textarea id="block-reason" value={reason} onChange={(event) => setReason(event.target.value)} />
             </Field>
             <Button
+              spaced
               variant="secondary"
               onClick={() =>
                 block.mutate(

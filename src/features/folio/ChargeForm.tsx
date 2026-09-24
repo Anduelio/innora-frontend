@@ -58,6 +58,7 @@ export function ChargeForm({
         <TextInput id="folio-unit" value={unit} onChange={(event) => setUnit(event.target.value)} placeholder="15" />
       </Field>
       <Button
+        spaced
         disabled={addCharge.isPending}
         onClick={() =>
           addCharge.mutate(

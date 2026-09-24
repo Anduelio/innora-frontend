@@ -61,6 +61,7 @@ export function CilesimetPage() {
           <DateField id="hotel-check-out" mode="time" value={checkOutTime} onChange={setCheckOutTime} />
         </Field>
         <Button
+          spaced
           onClick={() =>
             save.mutate(
               { checkInTime: checkInTime.slice(0, 5), checkOutTime: checkOutTime.slice(0, 5), currency },

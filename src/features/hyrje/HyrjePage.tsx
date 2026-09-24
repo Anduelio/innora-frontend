@@ -59,7 +59,7 @@ export function HyrjePage() {
             required
           />
         </Field>
-        <Button type="submit" block disabled={pending}>
+        <Button type="submit" block spaced disabled={pending}>
           {pending ? t('common.loading') : t('login.submit')}
         </Button>
       </form>

@@ -97,7 +97,7 @@ export function ChannelSettingsCard() {
 
       <Checkbox label={t('settings.channelActive')} checked={isActive} onChange={(event) => setIsActive(event.target.checked)} />
 
-      <Button onClick={submit} disabled={save.isPending}>
+      <Button spaced onClick={submit} disabled={save.isPending}>
         {t('common.save')}
       </Button>
 

@@ -175,6 +175,7 @@ export function ReservationDrawer({
             onChange={setAssignRoom}
           />
           <Button
+            spaced
             block
             disabled={!assignRoom || assign.isPending}
             onClick={() =>

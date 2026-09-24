@@ -138,7 +138,7 @@ export function RoomTypeModal({ open, onClose }: { open: boolean; onClose: () =>
             ) : null}
           </div>
         ))}
-        <Button variant="secondary" onClick={() => setBeds((current) => [...current, { code: 'sofa_bed', quantity: 1 }])}>
+        <Button spaced variant="secondary" onClick={() => setBeds((current) => [...current, { code: 'sofa_bed', quantity: 1 }])}>
           {t('room.addBed')}
         </Button>
         <h3>{t('room.sectionAmenities')}</h3>

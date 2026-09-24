@@ -61,7 +61,7 @@ export function PasswordSettingsCard() {
           onChange={(event) => setConfirm(event.target.value)}
         />
       </Field>
-      <Button onClick={submit} disabled={pending}>
+      <Button spaced onClick={submit} disabled={pending}>
         {t('settings.savePassword')}
       </Button>
     </section>

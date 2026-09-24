@@ -59,3 +59,7 @@
 .block {
   inline-size: 100%;
 }
+
+.spaced {
+  margin-block-start: var(--s-4);
+}

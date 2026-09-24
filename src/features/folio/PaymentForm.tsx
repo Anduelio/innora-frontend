@@ -42,6 +42,7 @@ export function PaymentForm({
         <TextInput id="folio-amount" value={amount} onChange={(event) => setAmount(event.target.value)} placeholder="100" />
       </Field>
       <Button
+        spaced
         disabled={addPayment.isPending}
         onClick={() =>
           addPayment.mutate(
