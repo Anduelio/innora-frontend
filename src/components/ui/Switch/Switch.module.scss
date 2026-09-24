@@ -1,0 +1,36 @@
+.switch {
+  display: inline-flex;
+  align-items: center;
+  inline-size: 48px;
+  block-size: 28px;
+  padding: 3px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-pill);
+  background: var(--c-surface-muted);
+  cursor: pointer;
+
+  @include focusable;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.on {
+  border-color: var(--c-accent);
+  background: var(--c-accent);
+}
+
+.knob {
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: var(--r-pill);
+  background: var(--c-surface);
+  box-shadow: var(--sh-block);
+  transition: transform 0.15s ease;
+}
+
+.on .knob {
+  transform: translateX(20px);
+}

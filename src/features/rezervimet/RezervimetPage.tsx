@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue'
 import { TODAY } from '@/lib/date/today'
 import { useHotelReservations } from '@/lib/api/reservations'
 import { EmptyState } from '@/components/ui/EmptyState/EmptyState'
@@ -16,11 +17,12 @@ export function RezervimetPage() {
   const { t } = useTranslation()
   const reservations = useHotelReservations()
   const [query, setQuery] = useState('')
+  const debouncedQuery = useDebouncedValue(query, 200)
   const [filter, setFilter] = useState<Filter>('all')
   const monthsShort = t('calendar.monthsShort', { returnObjects: true }) as string[]
 
   const rows = useMemo(() => {
-    const q = query.trim().toLocaleLowerCase('sq')
+    const q = debouncedQuery.trim().toLocaleLowerCase('sq')
     return (reservations.data ?? [])
       .filter((reservation) => {
         if (q && !reservation.guestName.toLocaleLowerCase('sq').includes(q) && !reservation.roomId.includes(q)) {
@@ -34,7 +36,7 @@ export function RezervimetPage() {
         return true
       })
       .sort((a, b) => a.checkIn.localeCompare(b.checkIn) || a.guestName.localeCompare(b.guestName, 'sq'))
-  }, [filter, query, reservations.data])
+  }, [debouncedQuery, filter, reservations.data])
 
   if (reservations.isLoading && !reservations.data) return <Spinner />
   if (reservations.isError) return <EmptyState title={t('common.loadError')} />

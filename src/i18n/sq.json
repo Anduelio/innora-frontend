@@ -35,7 +35,13 @@
     "paidFull": "E paguar",
     "toPay": "për t'u paguar",
     "empty": "—",
-    "settings": "Cilësimet"
+    "settings": "Cilësimet",
+    "loadMore": "Ngarko më shumë",
+    "noResults": "Asnjë rezultat",
+    "rangeFrom": "Nga",
+    "rangeTo": "Deri",
+    "withPhone": "Vetëm me telefon",
+    "showPhone": "Shfaq telefonin"
   },
   "status": {
     "RESERVED": "Rezervuar",

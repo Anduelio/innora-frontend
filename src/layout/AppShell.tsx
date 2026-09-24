@@ -1,5 +1,7 @@
+import { Suspense } from 'react'
 import { Outlet } from 'react-router'
 import { useQueryClient } from '@tanstack/react-query'
+import { Spinner } from '@/components/ui/Spinner/Spinner'
 import { Toaster } from '@/components/ui/Toast/Toaster'
 import { upsertReservation } from '@/lib/api/cache'
 import { useEventSource } from '@/lib/hooks/useEventSource'
@@ -27,7 +29,9 @@ export function AppShell() {
       <div className={s.main}>
         <Topbar />
         <div className={s.content}>
-          <Outlet />
+          <Suspense fallback={<Spinner />}>
+            <Outlet />
+          </Suspense>
         </div>
       </div>
       <ReservationSurfaces />

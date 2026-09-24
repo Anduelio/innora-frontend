@@ -5,7 +5,8 @@ import { useChannelCatalog, useChannelConnections, useDeleteChannel, useSaveChan
 import { useUiStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/Button/Button'
 import { Field } from '@/components/ui/Field/Field'
-import { Select } from '@/components/ui/Select/Select'
+import { Checkbox } from '@/components/ui/Checkbox/Checkbox'
+import { Dropdown } from '@/components/ui/Dropdown/Dropdown'
 import { TextInput } from '@/components/ui/TextInput/TextInput'
 import s from './ChannelSettingsCard.module.scss'
 
@@ -72,17 +73,13 @@ export function ChannelSettingsCard() {
       <p className={s.hint}>{t('settings.channelHint')}</p>
 
       <Field label={t('settings.provider')} htmlFor="channel-provider">
-        <Select
+        <Dropdown
           id="channel-provider"
+          label={t('settings.provider')}
           value={provider.code}
-          onChange={(event) => setProviderCode(event.target.value)}
-        >
-          {providers.map((item) => (
-            <option key={item.code} value={item.code}>
-              {item.label}
-            </option>
-          ))}
-        </Select>
+          options={providers.map((item) => ({ value: item.code, label: item.label }))}
+          onChange={setProviderCode}
+        />
       </Field>
 
       {provider.fields.map((field) => (
@@ -98,10 +95,7 @@ export function ChannelSettingsCard() {
         </Field>
       ))}
 
-      <label className={s.check}>
-        <input type="checkbox" checked={isActive} onChange={(event) => setIsActive(event.target.checked)} />
-        {t('settings.channelActive')}
-      </label>
+      <Checkbox label={t('settings.channelActive')} checked={isActive} onChange={(event) => setIsActive(event.target.checked)} />
 
       <Button onClick={submit} disabled={save.isPending}>
         {t('common.save')}

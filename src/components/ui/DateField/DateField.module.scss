@@ -1,0 +1,31 @@
+.input {
+  inline-size: 100%;
+  block-size: var(--field-h);
+  padding-inline: var(--s-4);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font: var(--t-body-md);
+
+  @include focusable;
+
+  &:disabled {
+    background: var(--c-disabled-bg);
+    color: var(--c-disabled-fg);
+  }
+}
+
+.range {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3);
+}
+
+.rangeField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  font: var(--t-label);
+  color: var(--c-ink-2);
+}

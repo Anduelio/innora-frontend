@@ -1,14 +1,16 @@
+import { lazy } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router'
 import { AppShell } from '@/layout/AppShell'
-import { CilesimetPage } from '@/features/cilesimet/CilesimetPage'
-import { DhomatPage } from '@/features/dhomat/DhomatPage'
 import { HyrjePage } from '@/features/hyrje/HyrjePage'
 import { RequireAuth } from '@/features/hyrje/RequireAuth'
-import { KalendariPage } from '@/features/kalendari/KalendariPage'
-import { KlientetPage } from '@/features/klientet/KlientetPage'
-import { PermbledhjePage } from '@/features/permbledhje/PermbledhjePage'
-import { RaportePage } from '@/features/raporte/RaportePage'
-import { RezervimetPage } from '@/features/rezervimet/RezervimetPage'
+
+const PermbledhjePage = lazy(() => import('@/features/permbledhje/PermbledhjePage').then((m) => ({ default: m.PermbledhjePage })))
+const KalendariPage = lazy(() => import('@/features/kalendari/KalendariPage').then((m) => ({ default: m.KalendariPage })))
+const RezervimetPage = lazy(() => import('@/features/rezervimet/RezervimetPage').then((m) => ({ default: m.RezervimetPage })))
+const DhomatPage = lazy(() => import('@/features/dhomat/DhomatPage').then((m) => ({ default: m.DhomatPage })))
+const KlientetPage = lazy(() => import('@/features/klientet/KlientetPage').then((m) => ({ default: m.KlientetPage })))
+const RaportePage = lazy(() => import('@/features/raporte/RaportePage').then((m) => ({ default: m.RaportePage })))
+const CilesimetPage = lazy(() => import('@/features/cilesimet/CilesimetPage').then((m) => ({ default: m.CilesimetPage })))
 
 const desk = [
   { index: true, element: <PermbledhjePage /> },

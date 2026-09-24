@@ -10,8 +10,9 @@ import { useUiStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/Button/Button'
 import { Drawer } from '@/components/ui/Drawer/Drawer'
 import { Field } from '@/components/ui/Field/Field'
-import { Select } from '@/components/ui/Select/Select'
-import { TextInput } from '@/components/ui/TextInput/TextInput'
+import { DateRangeField } from '@/components/ui/DateField/DateRangeField'
+import { Dropdown } from '@/components/ui/Dropdown/Dropdown'
+import { Textarea } from '@/components/ui/Textarea/Textarea'
 import s from './RoomDetailDrawer.module.scss'
 
 const statuses: OperationalStatus[] = ['ready', 'dirty', 'cleaning', 'inspected', 'maintenance', 'out_of_order']
@@ -47,23 +48,21 @@ export function RoomDetailDrawer({
           <p className={s.type}>{room.typeName || room.type}</p>
           {room.floor ? <p>{t('room.floor', { floor: room.floor })}</p> : null}
           <Field label={t('room.state')} htmlFor="detail-status">
-            <Select
+            <Dropdown
               id="detail-status"
+              label={t('room.state')}
               value={room.operationalStatus ?? 'ready'}
-              onChange={(event) =>
+              options={statuses.map((item) => ({ value: item, label: t(`ops.${item}`) }))}
+              onChange={(value) =>
                 status.mutate(
-                  { number: room.id, operationalStatus: event.target.value as OperationalStatus },
+                  { number: room.id, operationalStatus: value as OperationalStatus },
                   {
                     onSuccess: () => showToast([t('room.statusSaved')]),
                     onError: (error) => showToast([errorText(error, t('toast.failed'))]),
                   },
                 )
               }
-            >
-              {statuses.map((item) => (
-                <option key={item} value={item}>{t(`ops.${item}`)}</option>
-              ))}
-            </Select>
+            />
           </Field>
           <section>
             <h3>{t('room.currentStay')}</h3>
@@ -87,14 +86,18 @@ export function RoomDetailDrawer({
           </section>
           <section>
             <h3>{t('room.block')}</h3>
-            <Field label={t('form.checkIn')} htmlFor="block-start">
-              <TextInput id="block-start" type="date" value={startsOn} onChange={(event) => setStartsOn(event.target.value)} />
-            </Field>
-            <Field label={t('form.checkOut')} htmlFor="block-end">
-              <TextInput id="block-end" type="date" value={endsOn} onChange={(event) => setEndsOn(event.target.value)} />
-            </Field>
+            <DateRangeField
+              fromId="block-start"
+              toId="block-end"
+              fromLabel={t('common.rangeFrom')}
+              toLabel={t('common.rangeTo')}
+              from={startsOn}
+              to={endsOn}
+              onFromChange={setStartsOn}
+              onToChange={setEndsOn}
+            />
             <Field label={t('room.reason')} htmlFor="block-reason">
-              <TextInput id="block-reason" value={reason} onChange={(event) => setReason(event.target.value)} />
+              <Textarea id="block-reason" value={reason} onChange={(event) => setReason(event.target.value)} />
             </Field>
             <Button
               variant="secondary"

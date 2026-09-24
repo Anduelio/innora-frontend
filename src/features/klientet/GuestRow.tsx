@@ -5,14 +5,14 @@ import { guestInitials } from '@/lib/format/persons'
 import { Avatar } from '@/components/ui/Avatar/Avatar'
 import s from './GuestRow.module.scss'
 
-export function GuestRow({ guest, monthsShort }: { guest: Guest; monthsShort: string[] }) {
+export function GuestRow({ guest, monthsShort, showPhone = true }: { guest: Guest; monthsShort: string[]; showPhone?: boolean }) {
   const { t } = useTranslation()
   return (
     <li className={s.row}>
       <Avatar initials={guestInitials(guest.name)} />
       <div className={s.body}>
         <div className={s.name}>{guest.name}</div>
-        <div className={s.phone}>{guest.phone || t('common.empty')}</div>
+        {showPhone ? <div className={s.phone}>{guest.phone || t('common.empty')}</div> : null}
       </div>
       <div className={s.meta}>
         <div>{t('common.stay', { count: guest.stays })}</div>

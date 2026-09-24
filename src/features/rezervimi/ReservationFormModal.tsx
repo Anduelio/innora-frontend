@@ -3,62 +3,29 @@ import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Trans, useTranslation } from 'react-i18next'
-import { DESK_SOURCES, type DeskSource, type Reservation, type ReservationSource, type Room } from '@/types/domain'
-import { addDaysIso, dayIndex, fmtGjate } from '@/lib/date/calendar'
+import { DESK_SOURCES, type Reservation, type ReservationSource, type Room } from '@/types/domain'
+import { addDaysIso, fmtGjate } from '@/lib/date/calendar'
 import { TODAY } from '@/lib/date/today'
-import { centsToInput, eurosToCents } from '@/lib/format/money'
+import { eurosToCents } from '@/lib/format/money'
 import { errorText } from '@/lib/api/client'
 import { useCreateReservation, useUpdateReservation } from '@/lib/api/reservations'
 import { useRoomTypes } from '@/lib/api/rooms'
 import { maxFreeNights } from '@/lib/stay'
-import type { ModalState } from '@/store/uiStore'
 import { useUiStore } from '@/store/uiStore'
 import { IconArrive, IconCheck, IconDepart } from '@/components/icons'
 import { Button } from '@/components/ui/Button/Button'
 import { Field } from '@/components/ui/Field/Field'
 import { Modal } from '@/components/ui/Modal/Modal'
 import { NumberStepper } from '@/components/ui/NumberStepper/NumberStepper'
-import { Select } from '@/components/ui/Select/Select'
+import { Dropdown } from '@/components/ui/Dropdown/Dropdown'
+import { Textarea } from '@/components/ui/Textarea/Textarea'
 import { TextInput } from '@/components/ui/TextInput/TextInput'
 import {
   createReservationSchema,
   type ReservationFormValues,
 } from '@/features/rezervimi/reservationSchema'
+import { buildDefaults } from '@/features/rezervimi/form/defaults'
 import s from './ReservationFormModal.module.scss'
-
-function deskSource(source: ReservationSource): DeskSource {
-  return DESK_SOURCES.includes(source as DeskSource) ? (source as DeskSource) : 'TELEFON'
-}
-
-function buildDefaults(modal: ModalState, reservation?: Reservation): ReservationFormValues {
-  if (modal?.mode === 'edit' && reservation) {
-    return {
-      roomId: reservation.roomId,
-      roomTypeId: reservation.roomTypeId ? String(reservation.roomTypeId) : '',
-      guestName: reservation.guestName,
-      phone: reservation.phone,
-      persons: reservation.persons,
-      source: deskSource(reservation.source),
-      nights: Math.max(1, dayIndex(reservation.checkIn, reservation.checkOut)),
-      total: centsToInput(reservation.totalCents),
-      notes: reservation.notes ?? '',
-    }
-  }
-  if (modal?.mode === 'create') {
-    return {
-      roomId: modal.roomId,
-      roomTypeId: '',
-      guestName: '',
-      phone: '',
-      persons: 2,
-      source: 'TELEFON',
-      nights: modal.nights,
-      total: '',
-      notes: '',
-    }
-  }
-  return { roomId: '101', roomTypeId: '', guestName: '', phone: '', persons: 2, source: 'TELEFON', nights: 1, total: '', notes: '' }
-}
 
 export function ReservationFormModal({
   rooms,
@@ -186,39 +153,55 @@ export function ReservationFormModal({
       <form id="reservation-form" className={s.form} onSubmit={form.handleSubmit(onSubmit)}>
         {sourceLocked ? null : (
           <Field label={t('form.origin')} htmlFor="stay-source">
-            <Select id="stay-source" {...form.register('source')}>
-              {DESK_SOURCES.map((item) => (
-                <option key={item} value={item}>
-                  {t(`source.${item}`)}
-                </option>
-              ))}
-            </Select>
+            <Dropdown
+              id="stay-source"
+              label={t('form.origin')}
+              value={form.watch('source')}
+              options={DESK_SOURCES.map((item) => ({ value: item, label: t(`source.${item}`) }))}
+              onChange={(value) => form.setValue('source', value as ReservationFormValues['source'], { shouldValidate: true })}
+            />
           </Field>
         )}
         <Field label={t('form.room')} htmlFor="room-id">
-          <Select id="room-id" {...form.register('roomId')}>
-            <option value="">{t('room.unassigned')}</option>
-            {rooms.map((room) => (
-              <option key={room.id} value={room.id}>
-                {t('app.roomOption', {
+          <Dropdown
+            id="room-id"
+            searchable
+            label={t('form.room')}
+            placeholder={t('room.unassigned')}
+            searchPlaceholder={t('common.search')}
+            emptyLabel={t('common.noResults')}
+            value={form.watch('roomId')}
+            options={[
+              { value: '', label: t('room.unassigned') },
+              ...rooms.map((room) => ({
+                value: room.id,
+                label: t('app.roomOption', {
                   id: room.id,
                   type: room.type,
                   persons: t('common.person', { count: room.capacity }),
-                })}
-              </option>
-            ))}
-          </Select>
+                }),
+              })),
+            ]}
+            onChange={(value) => form.setValue('roomId', value, { shouldValidate: true })}
+          />
         </Field>
         {roomId ? null : (
           <Field label={t('room.typeLabel')} htmlFor="stay-type" error={form.formState.errors.roomTypeId?.message}>
-            <Select id="stay-type" {...form.register('roomTypeId')}>
-              <option value="">{t('room.chooseType')}</option>
-              {(roomTypes.data ?? []).map((type) => (
-                <option key={type.id} value={type.id}>
-                  {type.name}
-                </option>
-              ))}
-            </Select>
+            <Dropdown
+              id="stay-type"
+              searchable
+              label={t('room.typeLabel')}
+              placeholder={t('room.chooseType')}
+              searchPlaceholder={t('common.search')}
+              emptyLabel={t('common.noResults')}
+              invalid={Boolean(form.formState.errors.roomTypeId)}
+              value={form.watch('roomTypeId')}
+              options={[
+                { value: '', label: t('room.chooseType') },
+                ...(roomTypes.data ?? []).map((type) => ({ value: String(type.id), label: type.name })),
+              ]}
+              onChange={(value) => form.setValue('roomTypeId', value, { shouldValidate: true })}
+            />
           </Field>
         )}
         <div className={s.pair}>
@@ -287,7 +270,7 @@ export function ReservationFormModal({
           </Field>
         </div>
         <Field label={t('form.notes')} htmlFor="guest-notes">
-          <TextInput id="guest-notes" placeholder={t('form.notesPlaceholder')} {...form.register('notes')} />
+          <Textarea id="guest-notes" placeholder={t('form.notesPlaceholder')} {...form.register('notes')} />
         </Field>
         <p className={s.note}>
           <IconCheck />

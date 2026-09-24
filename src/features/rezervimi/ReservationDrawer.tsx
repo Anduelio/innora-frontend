@@ -11,7 +11,7 @@ import { IconArrive, IconDepart } from '@/components/icons'
 import { Button } from '@/components/ui/Button/Button'
 import { Drawer } from '@/components/ui/Drawer/Drawer'
 import { Field } from '@/components/ui/Field/Field'
-import { Select } from '@/components/ui/Select/Select'
+import { Dropdown } from '@/components/ui/Dropdown/Dropdown'
 import { SourceBadge } from '@/components/ui/SourceBadge/SourceBadge'
 import { StatusBadge } from '@/components/ui/StatusBadge/StatusBadge'
 import s from './ReservationDrawer.module.scss'
@@ -159,16 +159,19 @@ export function ReservationDrawer({
       <p className={s.room}>{t('detail.roomLine', { room: reservation.roomId || t('room.unassigned'), type: room?.typeName || reservation.roomTypeName || room?.type || '' })}</p>
       {!reservation.roomId && reservation.status === 'RESERVED' ? (
         <Field label={t('room.assign')} htmlFor="assign-room">
-          <Select id="assign-room" value={assignRoom} onChange={(event) => setAssignRoom(event.target.value)}>
-            <option value="">{t('room.chooseRoom')}</option>
-            {rooms
+          <Dropdown
+            id="assign-room"
+            searchable
+            label={t('room.assign')}
+            placeholder={t('room.chooseRoom')}
+            searchPlaceholder={t('common.search')}
+            emptyLabel={t('common.noResults')}
+            value={assignRoom}
+            options={rooms
               .filter((item) => !reservation.roomTypeId || item.roomTypeId === reservation.roomTypeId)
-              .map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.id}
-                </option>
-              ))}
-          </Select>
+              .map((item) => ({ value: item.id, label: item.id }))}
+            onChange={setAssignRoom}
+          />
           <Button
             block
             disabled={!assignRoom || assign.isPending}

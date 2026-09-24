@@ -1,0 +1,13 @@
+.area {
+  inline-size: 100%;
+  min-block-size: 96px;
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font: var(--t-body);
+  resize: vertical;
+
+  @include focusable;
+}

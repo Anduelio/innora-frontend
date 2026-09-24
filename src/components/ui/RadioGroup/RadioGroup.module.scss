@@ -1,0 +1,30 @@
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-block-size: var(--control-h-sm);
+  padding-inline: var(--s-3);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-pill);
+  background: var(--c-surface);
+  font: var(--t-label);
+  cursor: pointer;
+
+  &:has(input:checked) {
+    border-color: var(--c-accent);
+    background: var(--c-accent-soft);
+    color: var(--c-accent-strong);
+  }
+
+  input {
+    accent-color: var(--c-accent);
+
+    @include focusable;
+  }
+}

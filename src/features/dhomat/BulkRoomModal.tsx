@@ -6,7 +6,8 @@ import { useUiStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/Button/Button'
 import { Field } from '@/components/ui/Field/Field'
 import { Modal } from '@/components/ui/Modal/Modal'
-import { Select } from '@/components/ui/Select/Select'
+import { Dropdown } from '@/components/ui/Dropdown/Dropdown'
+import { Textarea } from '@/components/ui/Textarea/Textarea'
 import { TextInput } from '@/components/ui/TextInput/TextInput'
 
 export function BulkRoomModal({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -54,15 +55,20 @@ export function BulkRoomModal({ open, onClose }: { open: boolean; onClose: () =>
       }
     >
       <Field label={t('room.typeLabel')} htmlFor="bulk-type">
-        <Select id="bulk-type" value={roomTypeId} onChange={(event) => setRoomTypeId(event.target.value)}>
-          <option value="">{t('room.chooseType')}</option>
-          {(types.data ?? []).map((type) => (
-            <option key={type.id} value={type.id}>{type.name}</option>
-          ))}
-        </Select>
+        <Dropdown
+          id="bulk-type"
+          searchable
+          label={t('room.typeLabel')}
+          placeholder={t('room.chooseType')}
+          searchPlaceholder={t('common.search')}
+          emptyLabel={t('common.noResults')}
+          value={roomTypeId}
+          options={(types.data ?? []).map((type) => ({ value: String(type.id), label: type.name }))}
+          onChange={setRoomTypeId}
+        />
       </Field>
       <Field label={t('room.numbers')} htmlFor="bulk-numbers">
-        <TextInput id="bulk-numbers" value={numbers} onChange={(event) => setNumbers(event.target.value)} placeholder={'201\n202\nVilla 2'} />
+        <Textarea id="bulk-numbers" value={numbers} onChange={(event) => setNumbers(event.target.value)} placeholder={'201\n202\nVilla 2'} />
       </Field>
       <Field label={t('room.range')} htmlFor="bulk-from">
         <TextInput id="bulk-from" value={from} onChange={(event) => setFrom(event.target.value)} placeholder="101" />

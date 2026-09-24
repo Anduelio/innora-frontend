@@ -7,7 +7,9 @@ import { Button } from '@/components/ui/Button/Button'
 import { Field } from '@/components/ui/Field/Field'
 import { Modal } from '@/components/ui/Modal/Modal'
 import { NumberStepper } from '@/components/ui/NumberStepper/NumberStepper'
-import { Select } from '@/components/ui/Select/Select'
+import { Checkbox } from '@/components/ui/Checkbox/Checkbox'
+import { Dropdown } from '@/components/ui/Dropdown/Dropdown'
+import { Textarea } from '@/components/ui/Textarea/Textarea'
 import { TextInput } from '@/components/ui/TextInput/TextInput'
 import s from './RoomTypeModal.module.scss'
 
@@ -88,7 +90,7 @@ export function RoomTypeModal({ open, onClose }: { open: boolean; onClose: () =>
           <TextInput id="type-code" value={code} onChange={(event) => setCode(event.target.value)} placeholder="DBL-DLX" />
         </Field>
         <Field label={t('room.description')} htmlFor="type-description">
-          <TextInput id="type-description" value={description} onChange={(event) => setDescription(event.target.value)} />
+          <Textarea id="type-description" value={description} onChange={(event) => setDescription(event.target.value)} />
         </Field>
         <Field label={t('room.size')} htmlFor="type-size">
           <TextInput id="type-size" value={size} onChange={(event) => setSize(event.target.value)} />
@@ -104,21 +106,18 @@ export function RoomTypeModal({ open, onClose }: { open: boolean; onClose: () =>
         <h3>{t('room.sectionBeds')}</h3>
         {beds.map((row, index) => (
           <div key={index} className={s.bedRow}>
-            <Select
-              aria-label={t('room.bed')}
+            <Dropdown
+              label={t('room.bed')}
               value={row.code}
-              onChange={(event) =>
+              options={bedCodes.map((item) => ({ value: item, label: t(`bed.${item}`) }))}
+              onChange={(value) =>
                 setBeds((current) =>
                   current.map((item, itemIndex) =>
-                    itemIndex === index ? { ...item, code: event.target.value as (typeof bedCodes)[number] } : item,
+                    itemIndex === index ? { ...item, code: value as (typeof bedCodes)[number] } : item,
                   ),
                 )
               }
-            >
-              {bedCodes.map((item) => (
-                <option key={item} value={item}>{t(`bed.${item}`)}</option>
-              ))}
-            </Select>
+            />
             <NumberStepper
               value={row.quantity}
               min={1}
@@ -145,10 +144,7 @@ export function RoomTypeModal({ open, onClose }: { open: boolean; onClose: () =>
         <h3>{t('room.sectionAmenities')}</h3>
         <div className={s.amenities}>
           {(amenities.data ?? []).map((item) => (
-            <label key={item.code}>
-              <input type="checkbox" checked={picked.includes(item.code)} onChange={() => toggle(item.code)} />
-              {t(`amenity.${item.code}`)}
-            </label>
+            <Checkbox key={item.code} label={t(`amenity.${item.code}`)} checked={picked.includes(item.code)} onChange={() => toggle(item.code)} />
           ))}
         </div>
         <h3>{t('room.sectionPrice')}</h3>

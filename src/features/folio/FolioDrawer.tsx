@@ -2,17 +2,14 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMe } from '@/lib/api/auth'
 import { errorText } from '@/lib/api/client'
-import { useAddCharge, useAddPayment, useChargeCategories, useFolio, useVoidCharge } from '@/lib/api/folios'
+import { useChargeCategories, useFolio, useVoidCharge } from '@/lib/api/folios'
 import { formatEuro } from '@/lib/format/money'
 import { useUiStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/Button/Button'
 import { Drawer } from '@/components/ui/Drawer/Drawer'
-import { Field } from '@/components/ui/Field/Field'
-import { Select } from '@/components/ui/Select/Select'
-import { TextInput } from '@/components/ui/TextInput/TextInput'
+import { ChargeForm } from '@/features/folio/ChargeForm'
+import { PaymentForm } from '@/features/folio/PaymentForm'
 import s from './FolioDrawer.module.scss'
-
-const methods = ['cash', 'card', 'bank_transfer', 'online', 'other'] as const
 
 export function FolioDrawer() {
   const { t } = useTranslation()
@@ -23,17 +20,8 @@ export function FolioDrawer() {
   const showToast = useUiStore((state) => state.showToast)
   const folio = useFolio(folioId)
   const categories = useChargeCategories()
-  const addCharge = useAddCharge(folioId ?? 0, folio.data?.reservationId)
-  const addPayment = useAddPayment(folioId ?? 0, folio.data?.reservationId)
   const voidCharge = useVoidCharge(folioId ?? 0, folio.data?.reservationId)
-
   const [panel, setPanel] = useState<'none' | 'charge' | 'payment'>('none')
-  const [categoryId, setCategoryId] = useState('')
-  const [description, setDescription] = useState('')
-  const [quantity, setQuantity] = useState('1')
-  const [unit, setUnit] = useState('')
-  const [method, setMethod] = useState('cash')
-  const [amount, setAmount] = useState('')
 
   const open = folio.data
   const activeItems = useMemo(() => open?.items.filter((item) => !item.voidedAt) ?? [], [open])
@@ -41,9 +29,6 @@ export function FolioDrawer() {
   const extras = useMemo(() => (categories.data ?? []).filter((item) => !item.isRoom), [categories.data])
 
   if (!folioId) return null
-
-  const unitCents = Math.round(Number(unit.replace(',', '.')) * 100)
-  const amountCents = Math.round(Number(amount.replace(',', '.')) * 100)
 
   return (
     <Drawer open={folioId !== null} onClose={closeFolio} title={open ? `${t('folio.title')} #${open.number}` : t('folio.title')}>
@@ -129,93 +114,10 @@ export function FolioDrawer() {
           ) : null}
 
           {panel === 'charge' ? (
-            <div className={s.form}>
-              <Field label={t('folio.category')} htmlFor="folio-category">
-                <Select
-                  id="folio-category"
-                  value={categoryId}
-                  onChange={(event) => {
-                    setCategoryId(event.target.value)
-                    const selected = extras.find((item) => String(item.id) === event.target.value)
-                    if (selected) setDescription(selected.name)
-                  }}
-                >
-                  <option value="">{t('folio.chooseCategory')}</option>
-                  {extras.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </Select>
-              </Field>
-              <Field label={t('folio.description')} htmlFor="folio-description">
-                <TextInput id="folio-description" value={description} onChange={(event) => setDescription(event.target.value)} />
-              </Field>
-              <Field label={t('folio.quantity')} htmlFor="folio-qty">
-                <TextInput id="folio-qty" value={quantity} onChange={(event) => setQuantity(event.target.value)} />
-              </Field>
-              <Field label={t('folio.unitPrice')} htmlFor="folio-unit">
-                <TextInput id="folio-unit" value={unit} onChange={(event) => setUnit(event.target.value)} placeholder="15" />
-              </Field>
-              <Button
-                disabled={addCharge.isPending}
-                onClick={() =>
-                  addCharge.mutate(
-                    {
-                      chargeCategoryId: Number(categoryId),
-                      description,
-                      quantity: Number(quantity) || 1,
-                      unitCents,
-                    },
-                    {
-                      onSuccess: () => {
-                        setPanel('none')
-                        setUnit('')
-                        showToast([t('folio.chargeAdded')])
-                      },
-                      onError: (error) => showToast([errorText(error, t('toast.failed'))]),
-                    },
-                  )
-                }
-              >
-                {t('folio.add')}
-              </Button>
-            </div>
+            <ChargeForm folioId={folioId} reservationId={open.reservationId} extras={extras} onDone={() => setPanel('none')} />
           ) : null}
-
           {panel === 'payment' ? (
-            <div className={s.form}>
-              <Field label={t('folio.method')} htmlFor="folio-method">
-                <Select id="folio-method" value={method} onChange={(event) => setMethod(event.target.value)}>
-                  {methods.map((item) => (
-                    <option key={item} value={item}>
-                      {t(`folio.methods.${item}`)}
-                    </option>
-                  ))}
-                </Select>
-              </Field>
-              <Field label={t('folio.amount')} htmlFor="folio-amount">
-                <TextInput id="folio-amount" value={amount} onChange={(event) => setAmount(event.target.value)} placeholder="100" />
-              </Field>
-              <Button
-                disabled={addPayment.isPending}
-                onClick={() =>
-                  addPayment.mutate(
-                    { method, amountCents },
-                    {
-                      onSuccess: () => {
-                        setPanel('none')
-                        setAmount('')
-                        showToast([t('folio.paymentAdded')])
-                      },
-                      onError: (error) => showToast([errorText(error, t('toast.failed'))]),
-                    },
-                  )
-                }
-              >
-                {t('folio.recordPayment')}
-              </Button>
-            </div>
+            <PaymentForm folioId={folioId} reservationId={open.reservationId} onDone={() => setPanel('none')} />
           ) : null}
         </div>
       ) : null}

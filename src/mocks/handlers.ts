@@ -117,7 +117,23 @@ export const handlers = [
     return HttpResponse.json(current)
   }),
 
-  http.get('/api/guests', () => HttpResponse.json(toGuests(getDb().reservations))),
+  http.get('/api/guests', ({ request }) => {
+    const guests = toGuests(getDb().reservations)
+    const url = new URL(request.url)
+    if (url.searchParams.get('no_pagination') === '1') return HttpResponse.json(guests)
+    const query = (url.searchParams.get('q') ?? '').trim().toLowerCase()
+    const page = Math.max(1, Number(url.searchParams.get('page') ?? '1') || 1)
+    const perPage = Math.max(1, Number(url.searchParams.get('per_page') ?? '4') || 4)
+    const filtered = query
+      ? guests.filter((guest) => guest.name.toLowerCase().includes(query) || guest.phone.includes(query))
+      : guests
+    const start = (page - 1) * perPage
+    return HttpResponse.json({
+      items: filtered.slice(start, start + perPage),
+      page,
+      hasMore: start + perPage < filtered.length,
+    })
+  }),
 
   http.get('/api/sync/status', () => HttpResponse.json(getDb().sync)),
 

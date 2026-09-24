@@ -1,0 +1,17 @@
+.row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--c-ink);
+  font: var(--t-body);
+  cursor: pointer;
+}
+
+.box {
+  inline-size: 18px;
+  block-size: 18px;
+  margin: 0;
+  accent-color: var(--c-accent);
+
+  @include focusable;
+}

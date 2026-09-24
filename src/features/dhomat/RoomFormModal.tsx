@@ -7,7 +7,8 @@ import { useUiStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/Button/Button'
 import { Field } from '@/components/ui/Field/Field'
 import { Modal } from '@/components/ui/Modal/Modal'
-import { Select } from '@/components/ui/Select/Select'
+import { Dropdown } from '@/components/ui/Dropdown/Dropdown'
+import { Textarea } from '@/components/ui/Textarea/Textarea'
 import { TextInput } from '@/components/ui/TextInput/TextInput'
 
 const statuses: OperationalStatus[] = ['ready', 'dirty', 'cleaning', 'inspected', 'maintenance', 'out_of_order']
@@ -62,12 +63,17 @@ export function RoomFormModal({ open, onClose }: { open: boolean; onClose: () =>
         <TextInput id="room-number" value={number} onChange={(event) => setNumber(event.target.value)} placeholder="204" />
       </Field>
       <Field label={t('room.typeLabel')} htmlFor="room-type">
-        <Select id="room-type" value={roomTypeId} onChange={(event) => setRoomTypeId(event.target.value)}>
-          <option value="">{t('room.chooseType')}</option>
-          {(types.data ?? []).map((type) => (
-            <option key={type.id} value={type.id}>{type.name}</option>
-          ))}
-        </Select>
+        <Dropdown
+          id="room-type"
+          searchable
+          label={t('room.typeLabel')}
+          placeholder={t('room.chooseType')}
+          searchPlaceholder={t('common.search')}
+          emptyLabel={t('common.noResults')}
+          value={roomTypeId}
+          options={(types.data ?? []).map((type) => ({ value: String(type.id), label: type.name }))}
+          onChange={setRoomTypeId}
+        />
       </Field>
       <Field label={t('room.floorLabel')} htmlFor="room-floor">
         <TextInput id="room-floor" value={floor} onChange={(event) => setFloor(event.target.value)} />
@@ -76,14 +82,16 @@ export function RoomFormModal({ open, onClose }: { open: boolean; onClose: () =>
         <TextInput id="room-building" value={building} onChange={(event) => setBuilding(event.target.value)} placeholder={t('room.mainBuilding')} />
       </Field>
       <Field label={t('room.state')} htmlFor="room-state">
-        <Select id="room-state" value={status} onChange={(event) => setStatus(event.target.value as OperationalStatus)}>
-          {statuses.map((item) => (
-            <option key={item} value={item}>{t(`ops.${item}`)}</option>
-          ))}
-        </Select>
+        <Dropdown
+          id="room-state"
+          label={t('room.state')}
+          value={status}
+          options={statuses.map((item) => ({ value: item, label: t(`ops.${item}`) }))}
+          onChange={(value) => setStatus(value as OperationalStatus)}
+        />
       </Field>
       <Field label={t('form.notes')} htmlFor="room-notes">
-        <TextInput id="room-notes" value={notes} onChange={(event) => setNotes(event.target.value)} />
+        <Textarea id="room-notes" value={notes} onChange={(event) => setNotes(event.target.value)} />
       </Field>
     </Modal>
   )

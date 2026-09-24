@@ -9,3 +9,31 @@
   background: var(--c-surface);
   box-shadow: var(--sh-card);
 }
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  max-inline-size: 920px;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--s-3);
+  align-items: end;
+}
+
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  align-items: center;
+}
+
+.switchLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font: var(--t-body);
+}

@@ -8,7 +8,7 @@ import { PasswordSettingsCard } from '@/features/cilesimet/PasswordSettingsCard'
 import { SyncStatusCard } from '@/features/cilesimet/SyncStatusCard'
 import { Button } from '@/components/ui/Button/Button'
 import { Field } from '@/components/ui/Field/Field'
-import { TextInput } from '@/components/ui/TextInput/TextInput'
+import { DateField } from '@/components/ui/DateField/DateField'
 import s from './CilesimetPage.module.scss'
 
 export function CilesimetPage() {
@@ -41,10 +41,10 @@ export function CilesimetPage() {
           </div>
         ))}
         <Field label={t('settings.checkInTime')} htmlFor="hotel-check-in">
-          <TextInput id="hotel-check-in" type="time" value={checkInTime} onChange={(event) => setCheckInTime(event.target.value)} />
+          <DateField id="hotel-check-in" mode="time" value={checkInTime} onChange={setCheckInTime} />
         </Field>
         <Field label={t('settings.checkOutTime')} htmlFor="hotel-check-out">
-          <TextInput id="hotel-check-out" type="time" value={checkOutTime} onChange={(event) => setCheckOutTime(event.target.value)} />
+          <DateField id="hotel-check-out" mode="time" value={checkOutTime} onChange={setCheckOutTime} />
         </Field>
         <Button
           onClick={() =>
