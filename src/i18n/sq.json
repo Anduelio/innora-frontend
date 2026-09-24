@@ -226,12 +226,28 @@
     "name": "Emri dhe mbiemri",
     "namePlaceholder": "p.sh. Arben Hoxha",
     "phone": "Telefoni",
-    "phonePlaceholder": "+355 69 000 0000",
+    "phonePrefix": "Prefiksi",
+    "phonePlaceholder": "69 000 0000",
+    "phoneRequired": "Prefiksi dhe numri i telefonit kërkohen për të regjistruar klientin.",
+    "registerCustomer": "Regjistro klientin",
     "total": "Çmimi total",
     "notes": "Shënime",
     "notesPlaceholder": "p.sh. mbërrin vonë",
     "sourceNote": "Burimi: <strong>{{source}}</strong> · dhomat e lira përditësohen vetë",
     "nameRequired": "Shkruani emrin e klientit"
+  },
+  "phonePrefix": {
+    "AL": "Shqipëri +355",
+    "XK": "Kosovë +383",
+    "IT": "Itali +39",
+    "GR": "Greqi +30",
+    "MK": "Maqedoni +389",
+    "ME": "Mal i Zi +382",
+    "RS": "Serbi +381",
+    "DE": "Gjermani +49",
+    "FR": "Francë +33",
+    "GB": "Britani +44",
+    "US": "SHBA +1"
   },
   "detail": {
     "phone": "Telefon",
@@ -264,6 +280,10 @@
     "name": "Emri",
     "city": "Qyteti",
     "checkInOutTime": "Ora e hyrjes / daljes",
+    "currency": "Monedha",
+    "eur": "Euro (EUR)",
+    "all": "Lek (ALL)",
+    "saved": "Cilësimet u ruajtën",
     "checkInTime": "Ora standarde e hyrjes",
     "checkOutTime": "Ora standarde e daljes",
     "hoursSaved": "Orari u ruajt",
@@ -281,7 +301,7 @@
     "hoursValue": "14:00 / 11:00",
     "simulateProblem": "Simulo një problem lidhjeje",
     "channels": "Kanalet e rezervimit",
-    "channelHint": "Çelësat e HotelRunner, SiteMinder dhe Beds24 shkruhen këtu dhe ruhen të koduar për këtë hotel. Nuk mbahen në skedarin e mjedisit.",
+    "channelHint": "Çelësi i Beds24 shkruhet këtu dhe ruhet i koduar për këtë hotel. Kanale të tjera mund të shtohen më vonë.",
     "provider": "Kanali",
     "channelActive": "Kjo është lidhja aktive",
     "channelSaved": "Lidhja u ruajt",
@@ -387,7 +407,7 @@
       "dhomat": "{{total}} dhoma · {{occupied}} të zëna sot",
       "klientet": "Klientët që kanë qëndruar te ju",
       "raporte": "Të ardhurat, pagesat dhe raporti ditor",
-      "cilesimet": "Hoteli dhe lidhja me Booking.com"
+      "cilesimet": "Hoteli, monedha dhe Beds24"
     },
     "roomOption": "{{id}} — {{type}} · {{persons}}",
     "weekdayDate": "{{weekday}}, {{date}}"

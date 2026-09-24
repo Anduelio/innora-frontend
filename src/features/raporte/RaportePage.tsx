@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { downloadReportCsv, type ReportPreset, useDailyReport, useOccupancyReport, useOutstandingReport, usePaymentsReport, useRevenueReport, useSourceReport } from '@/lib/api/reports'
-import { formatEuro } from '@/lib/format/money'
+import { useMoney } from '@/lib/format/useMoney'
 import { TODAY } from '@/lib/date/today'
 import { useUiStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/Button/Button'
@@ -12,6 +12,7 @@ const presets: ReportPreset[] = ['today', 'this_week', 'this_month', 'last_month
 
 export function RaportePage() {
   const { t } = useTranslation()
+  const money = useMoney()
   const [preset, setPreset] = useState<ReportPreset>('this_month')
   const openFolio = useUiStore((state) => state.openFolio)
   const showToast = useUiStore((state) => state.showToast)
@@ -44,20 +45,20 @@ export function RaportePage() {
           </Button>
         </div>
         <p className={s.note}>{revenue.data?.note ?? t('reports.revenueNote')}</p>
-        <p className={s.kpi}>{formatEuro(revenue.data?.totalCents ?? 0)}</p>
+        <p className={s.kpi}>{money(revenue.data?.totalCents ?? 0)}</p>
         <div className={s.split}>
           <span>{t('reports.roomRevenue')}</span>
-          <strong>{formatEuro(revenue.data?.roomCents ?? 0)}</strong>
+          <strong>{money(revenue.data?.roomCents ?? 0)}</strong>
         </div>
         <div className={s.split}>
           <span>{t('reports.extraRevenue')}</span>
-          <strong>{formatEuro(revenue.data?.extraCents ?? 0)}</strong>
+          <strong>{money(revenue.data?.extraCents ?? 0)}</strong>
         </div>
         <ul className={s.list}>
           {(revenue.data?.byCategory ?? []).map((row) => (
             <li key={row.code}>
               <span>{row.name}</span>
-              <strong>{formatEuro(row.amountCents)}</strong>
+              <strong>{money(row.amountCents)}</strong>
             </li>
           ))}
         </ul>
@@ -76,12 +77,12 @@ export function RaportePage() {
           </Button>
         </div>
         <p className={s.note}>{payments.data?.note ?? t('reports.paymentsNote')}</p>
-        <p className={s.kpi}>{formatEuro(payments.data?.totalCents ?? 0)}</p>
+        <p className={s.kpi}>{money(payments.data?.totalCents ?? 0)}</p>
         <ul className={s.list}>
           {(payments.data?.byMethod ?? []).map((row) => (
             <li key={row.method}>
               <span>{t(`folio.methods.${row.method}`, { defaultValue: row.method })}</span>
-              <strong>{formatEuro(row.amountCents)}</strong>
+              <strong>{money(row.amountCents)}</strong>
             </li>
           ))}
         </ul>
@@ -99,7 +100,7 @@ export function RaportePage() {
             {t('reports.exportCsv')}
           </Button>
         </div>
-        <p className={s.kpi}>{formatEuro(outstanding.data?.totalBalanceCents ?? 0)}</p>
+        <p className={s.kpi}>{money(outstanding.data?.totalBalanceCents ?? 0)}</p>
         <p className={s.note}>{t('reports.outstandingCount', { count: outstanding.data?.count ?? 0 })}</p>
         <ul className={s.list}>
           {(outstanding.data?.rows ?? []).map((row) => (
@@ -107,7 +108,7 @@ export function RaportePage() {
               <button type="button" className={s.link} onClick={() => openFolio(row.folioId)}>
                 {row.guestName} · {row.folioNumber}
               </button>
-              <strong>{formatEuro(row.balanceCents)}</strong>
+              <strong>{money(row.balanceCents)}</strong>
             </li>
           ))}
         </ul>
@@ -119,7 +120,7 @@ export function RaportePage() {
           {(source.data?.bySource ?? []).map((row) => (
             <li key={row.source}>
               <span>{row.source}</span>
-              <strong>{formatEuro(row.amountCents)}</strong>
+              <strong>{money(row.amountCents)}</strong>
             </li>
           ))}
         </ul>
@@ -143,15 +144,15 @@ export function RaportePage() {
           </div>
           <div>
             <span>{t('reports.revenueToday')}</span>
-            <strong>{formatEuro(daily.data?.finance.revenueCents ?? 0)}</strong>
+            <strong>{money(daily.data?.finance.revenueCents ?? 0)}</strong>
           </div>
           <div>
             <span>{t('reports.paymentsToday')}</span>
-            <strong>{formatEuro(daily.data?.finance.paymentsCents ?? 0)}</strong>
+            <strong>{money(daily.data?.finance.paymentsCents ?? 0)}</strong>
           </div>
           <div>
             <span>{t('reports.dueToday')}</span>
-            <strong>{formatEuro(daily.data?.finance.outstandingCents ?? 0)}</strong>
+            <strong>{money(daily.data?.finance.outstandingCents ?? 0)}</strong>
           </div>
         </div>
       </section>
@@ -165,11 +166,11 @@ export function RaportePage() {
           </div>
           <div>
             <span>ADR</span>
-            <strong>{formatEuro(occupancy.data?.adrCents ?? 0)}</strong>
+            <strong>{money(occupancy.data?.adrCents ?? 0)}</strong>
           </div>
           <div>
             <span>RevPAR</span>
-            <strong>{formatEuro(occupancy.data?.revparCents ?? 0)}</strong>
+            <strong>{money(occupancy.data?.revparCents ?? 0)}</strong>
           </div>
           <div>
             <span>{t('reports.roomsSold')}</span>

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { formatPhone } from '@/lib/phone'
 import type { Guest } from '@/types/domain'
 import { fmtShkurter } from '@/lib/date/calendar'
 import { guestInitials } from '@/lib/format/persons'
@@ -12,7 +13,7 @@ export function GuestRow({ guest, monthsShort }: { guest: Guest; monthsShort: st
       <Avatar initials={guestInitials(guest.name)} />
       <div className={s.body}>
         <div className={s.name}>{guest.name}</div>
-        <div className={s.phone}>{guest.phone || t('common.empty')}</div>
+        <div className={s.phone}>{formatPhone(guest.phonePrefix, guest.phone) || t('common.empty')}</div>
       </div>
       <div className={s.meta}>
         <div>{t('common.stay', { count: guest.stays })}</div>

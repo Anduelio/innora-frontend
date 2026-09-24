@@ -6,7 +6,9 @@ import { Trans, useTranslation } from 'react-i18next'
 import { DESK_SOURCES, type DeskSource, type Reservation, type ReservationSource, type Room } from '@/types/domain'
 import { addDaysIso, dayIndex, fmtGjate } from '@/lib/date/calendar'
 import { TODAY } from '@/lib/date/today'
-import { centsToInput, eurosToCents } from '@/lib/format/money'
+import { centsToInput, currencyMark, eurosToCents } from '@/lib/format/money'
+import { useCurrency } from '@/lib/format/useMoney'
+import { nationalPhone, splitPhone } from '@/lib/phone'
 import { errorText } from '@/lib/api/client'
 import { useCreateReservation, useUpdateReservation } from '@/lib/api/reservations'
 import { useRoomTypes } from '@/lib/api/rooms'
@@ -19,6 +21,7 @@ import { Field } from '@/components/ui/Field/Field'
 import { Modal } from '@/components/ui/Modal/Modal'
 import { NumberStepper } from '@/components/ui/NumberStepper/NumberStepper'
 import { Select } from '@/components/ui/Select/Select'
+import { PhoneField } from '@/components/ui/PhoneField/PhoneField'
 import { TextInput } from '@/components/ui/TextInput/TextInput'
 import {
   createReservationSchema,
@@ -32,11 +35,14 @@ function deskSource(source: ReservationSource): DeskSource {
 
 function buildDefaults(modal: ModalState, reservation?: Reservation): ReservationFormValues {
   if (modal?.mode === 'edit' && reservation) {
+    const phone = splitPhone(reservation.phonePrefix, reservation.phone)
     return {
       roomId: reservation.roomId,
       roomTypeId: reservation.roomTypeId ? String(reservation.roomTypeId) : '',
       guestName: reservation.guestName,
-      phone: reservation.phone,
+      phonePrefix: phone.prefix,
+      phone: phone.phone,
+      registerCustomer: true,
       persons: reservation.persons,
       source: deskSource(reservation.source),
       nights: Math.max(1, dayIndex(reservation.checkIn, reservation.checkOut)),
@@ -49,7 +55,9 @@ function buildDefaults(modal: ModalState, reservation?: Reservation): Reservatio
       roomId: modal.roomId,
       roomTypeId: '',
       guestName: '',
+      phonePrefix: '+355',
       phone: '',
+      registerCustomer: true,
       persons: 2,
       source: 'TELEFON',
       nights: modal.nights,
@@ -57,7 +65,19 @@ function buildDefaults(modal: ModalState, reservation?: Reservation): Reservatio
       notes: '',
     }
   }
-  return { roomId: '101', roomTypeId: '', guestName: '', phone: '', persons: 2, source: 'TELEFON', nights: 1, total: '', notes: '' }
+  return {
+    roomId: '101',
+    roomTypeId: '',
+    guestName: '',
+    phonePrefix: '+355',
+    phone: '',
+    registerCustomer: true,
+    persons: 2,
+    source: 'TELEFON',
+    nights: 1,
+    total: '',
+    notes: '',
+  }
 }
 
 export function ReservationFormModal({
@@ -73,13 +93,15 @@ export function ReservationFormModal({
   const closeModal = useUiStore((state) => state.closeModal)
   const showToast = useUiStore((state) => state.showToast)
   const roomTypes = useRoomTypes()
+  const currency = useCurrency()
+  const mark = currencyMark(currency)
   const create = useCreateReservation()
   const update = useUpdateReservation()
   const editing = modal?.mode === 'edit' ? reservations.find((item) => item.id === modal.reservationId) : undefined
   const months = t('calendar.months', { returnObjects: true }) as string[]
 
   const form = useForm<ReservationFormValues>({
-    resolver: zodResolver(createReservationSchema(t('form.nameRequired'))),
+    resolver: zodResolver(createReservationSchema(t('form.nameRequired'), t('form.phoneRequired'))),
     mode: 'onChange',
     defaultValues: buildDefaults(modal, editing),
   })
@@ -122,7 +144,9 @@ export function ReservationFormModal({
         {
           ...(values.roomId ? { roomId: values.roomId } : { roomTypeId: Number(values.roomTypeId) }),
           guestName: values.guestName.trim(),
-          phone: values.phone.trim(),
+          phonePrefix: values.phonePrefix,
+          phone: nationalPhone(values.phone),
+          registerCustomer: values.registerCustomer,
           persons: values.persons,
           source: values.source,
           checkIn: modal.checkIn,
@@ -149,7 +173,9 @@ export function ReservationFormModal({
         patch: {
           ...(values.roomId ? { roomId: values.roomId } : {}),
           guestName: values.guestName.trim(),
-          phone: values.phone.trim(),
+          phonePrefix: values.phonePrefix,
+          phone: nationalPhone(values.phone),
+          registerCustomer: values.registerCustomer,
           persons: values.persons,
           checkIn: current.checkIn,
           checkOut: addDaysIso(current.checkIn, stayNights),
@@ -270,22 +296,29 @@ export function ReservationFormModal({
             {...form.register('guestName')}
           />
         </Field>
-        <div className={s.pair}>
-          <Field label={t('form.phone')} htmlFor="guest-phone">
-            <TextInput
-              id="guest-phone"
-              placeholder={t('form.phonePlaceholder')}
-              autoComplete="tel"
-              {...form.register('phone')}
-            />
-          </Field>
-          <Field label={t('form.total')} htmlFor="guest-total">
-            <div className={s.price}>
-              <input id="guest-total" className={s.priceInput} inputMode="decimal" placeholder="0" {...form.register('total')} />
-              <span>€</span>
-            </div>
-          </Field>
-        </div>
+        <Field label={t('form.phone')} htmlFor="guest-phone" error={form.formState.errors.phone?.message}>
+          <PhoneField
+            id="guest-phone"
+            prefix={form.watch('phonePrefix')}
+            phone={form.watch('phone')}
+            onPrefixChange={(value) => form.setValue('phonePrefix', value, { shouldValidate: true })}
+            onPhoneChange={(value) => form.setValue('phone', value, { shouldValidate: true })}
+          />
+        </Field>
+        <label className={s.check}>
+          <input
+            type="checkbox"
+            checked={form.watch('registerCustomer')}
+            onChange={(event) => form.setValue('registerCustomer', event.target.checked, { shouldValidate: true })}
+          />
+          {t('form.registerCustomer')}
+        </label>
+        <Field label={t('form.total')} htmlFor="guest-total">
+          <div className={s.price}>
+            <input id="guest-total" className={s.priceInput} inputMode="decimal" placeholder="0" {...form.register('total')} />
+            <span>{mark}</span>
+          </div>
+        </Field>
         <Field label={t('form.notes')} htmlFor="guest-notes">
           <TextInput id="guest-notes" placeholder={t('form.notesPlaceholder')} {...form.register('notes')} />
         </Field>

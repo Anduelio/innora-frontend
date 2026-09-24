@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import type { Reservation, Room } from '@/types/domain'
 import { dayIndex, fmtGjate } from '@/lib/date/calendar'
 import { TODAY } from '@/lib/date/today'
-import { formatEuro } from '@/lib/format/money'
+import { useMoney } from '@/lib/format/useMoney'
+import { formatPhone } from '@/lib/phone'
 import { errorText } from '@/lib/api/client'
 import { useAssignReservation, useCancelReservation, useCheckIn, useCheckOut } from '@/lib/api/reservations'
 import { useUiStore } from '@/store/uiStore'
@@ -24,6 +25,7 @@ export function ReservationDrawer({
   reservations: Reservation[]
 }) {
   const { t } = useTranslation()
+  const money = useMoney()
   const drawerId = useUiStore((state) => state.drawerId)
   const closeDrawer = useUiStore((state) => state.closeDrawer)
   const openEdit = useUiStore((state) => state.openEdit)
@@ -90,18 +92,18 @@ export function ReservationDrawer({
               <dl className={s.facts}>
                 <div>
                   <dt>{t('folio.total')}</dt>
-                  <dd>{formatEuro(charges)}</dd>
+                  <dd>{money(charges, reservation.currency)}</dd>
                 </div>
                 <div>
                   <dt>{t('folio.paid')}</dt>
-                  <dd>{formatEuro(paid)}</dd>
+                  <dd>{money(paid, reservation.currency)}</dd>
                 </div>
                 <div>
                   <dt>{t('folio.due')}</dt>
-                  <dd className={due > 0 ? s.due : s.paid}>{formatEuro(due)}</dd>
+                  <dd className={due > 0 ? s.due : s.paid}>{money(due, reservation.currency)}</dd>
                 </div>
               </dl>
-              {due > 0 ? <p className={s.dueWarn}>{t('checkout.dueWarn', { amount: formatEuro(due) })}</p> : null}
+              {due > 0 ? <p className={s.dueWarn}>{t('checkout.dueWarn', { amount: money(due, reservation.currency) })}</p> : null}
               {due > 0 && reservation.folioId ? (
                 <Button
                   variant="secondary"
@@ -218,19 +220,19 @@ export function ReservationDrawer({
       <dl className={s.facts}>
         <div>
           <dt>{t('detail.phone')}</dt>
-          <dd>{reservation.phone || t('common.empty')}</dd>
+          <dd>{formatPhone(reservation.phonePrefix, reservation.phone) || t('common.empty')}</dd>
         </div>
         <div>
           <dt>{t('folio.total')}</dt>
-          <dd>{formatEuro(charges)}</dd>
+          <dd>{money(charges, reservation.currency)}</dd>
         </div>
         <div>
           <dt>{t('folio.paid')}</dt>
-          <dd className={s.paid}>{formatEuro(paid)}</dd>
+          <dd className={s.paid}>{money(paid, reservation.currency)}</dd>
         </div>
         <div>
           <dt>{t('folio.due')}</dt>
-          <dd className={due > 0 ? s.due : s.paid}>{due > 0 ? formatEuro(due) : t('detail.nothingDue')}</dd>
+          <dd className={due > 0 ? s.due : s.paid}>{due > 0 ? money(due, reservation.currency) : t('detail.nothingDue')}</dd>
         </div>
       </dl>
       <div className={s.actions}>

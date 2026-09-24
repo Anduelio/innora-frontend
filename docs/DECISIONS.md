@@ -56,7 +56,7 @@ Channel room ids will live in `channel_room_type_maps`. The reception role may e
 
 ## D13 — Channel credentials live on the property
 
-HotelRunner, SiteMinder, and Beds24 tokens are entered in Cilësimet and stored encrypted on `channel_connections`. The API masks secrets. Base URLs may be set with `HOTELRUNNER_BASE_URL`, `SITEMINDER_BASE_URL`, and `BEDS24_BASE_URL`. Saving a connection does not call the provider yet.
+Beds24 is the only channel in the catalog for now. The list can take another provider later. Tokens are entered in Cilësimet and stored encrypted on `channel_connections`. The API masks secrets. The public base URL may be set with `BEDS24_BASE_URL`. Saving a connection does not call Beds24 yet.
 
 ## D14 — Checkout requires a settled folio unless the owner overrides
 

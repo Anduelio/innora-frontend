@@ -1,0 +1,14 @@
+.row {
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.prefix {
+  flex: 0 0 11rem;
+}
+
+.number {
+  flex: 1;
+  min-inline-size: 0;
+}

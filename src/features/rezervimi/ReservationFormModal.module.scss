@@ -63,6 +63,13 @@
   font: var(--t-meta);
 }
 
+.check {
+  display: flex;
+  gap: var(--s-2);
+  align-items: center;
+  font: var(--t-body-md);
+}
+
 .submit {
   flex: 1;
 }

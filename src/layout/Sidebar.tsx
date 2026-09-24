@@ -3,7 +3,6 @@ import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { IconBed, IconCalendar, IconGrid, IconList, IconSettings, IconUsers } from '@/components/icons'
 import { useMe } from '@/lib/api/auth'
-import { useSyncStatus } from '@/lib/api/sync'
 import { useRooms } from '@/lib/api/rooms'
 import s from './Sidebar.module.scss'
 
@@ -20,8 +19,6 @@ export function Sidebar() {
   const { t } = useTranslation()
   const me = useMe()
   const rooms = useRooms()
-  const sync = useSyncStatus()
-  const ok = sync.data?.ok !== false
   const permissions = me.data?.permissions ?? []
   const visible = links.filter((link) => !('permission' in link && link.permission) || permissions.includes(link.permission))
 
@@ -52,13 +49,6 @@ export function Sidebar() {
           })}
         </nav>
         <div className={s.footer}>
-          <div className={s.sync}>
-            <span className={clsx(s.dot, ok ? s.isOk : s.isWarn)} />
-            <span>
-              <span className={s.syncName}>{t('source.BOOKING')}</span>
-              <span className={s.syncState}>{ok ? t('settings.synced') : t('settings.syncProblem')}</span>
-            </span>
-          </div>
           <NavLink to="/cilesimet" className={({ isActive }) => clsx(s.link, isActive && s.isActive)}>
             <IconSettings />
             <span>{t('nav.cilesimet')}</span>

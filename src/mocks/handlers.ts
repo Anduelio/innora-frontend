@@ -48,6 +48,7 @@ export const handlers = [
       roomId: body.roomId ?? '',
       roomTypeId: body.roomTypeId,
       guestName: body.guestName.trim(),
+      phonePrefix: body.phonePrefix,
       phone: body.phone?.trim() ?? '',
       persons: body.persons,
       checkIn: body.checkIn,
@@ -118,26 +119,6 @@ export const handlers = [
   }),
 
   http.get('/api/guests', () => HttpResponse.json(toGuests(getDb().reservations))),
-
-  http.get('/api/sync/status', () => HttpResponse.json(getDb().sync)),
-
-  http.post('/api/sync/retry', async () => {
-    await delay(200)
-    const sync = getDb().sync
-    sync.ok = true
-    sync.lastSyncAt = new Date().toISOString()
-    sync.message = undefined
-    publish({ type: 'sync.status', status: sync })
-    return HttpResponse.json(sync)
-  }),
-
-  http.post('/api/sync/fail', () => {
-    const sync = getDb().sync
-    sync.ok = false
-    sync.message = 'Problem me lidhjen'
-    publish({ type: 'sync.status', status: sync })
-    return HttpResponse.json(sync)
-  }),
 
   http.post('/api/__reset', () => {
     resetDb()
