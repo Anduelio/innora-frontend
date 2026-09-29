@@ -4,8 +4,9 @@ import type { OperationalStatus, Reservation, Room } from '@/types/domain'
 import { fmtGjate } from '@/lib/date/calendar'
 import { TODAY } from '@/lib/date/today'
 import { blocksRoom, coversDay } from '@/lib/stay'
+import { roomHasCurrentOrFutureStay, roomIsOccupiedToday, stayIndicator } from '@/lib/roomIndicators'
 import { errorText } from '@/lib/api/client'
-import { useBlockRoom, useRoomStatus } from '@/lib/api/rooms'
+import { useBlockRoom, useRoomStatus, useUpdateRoom } from '@/lib/api/rooms'
 import { useUiStore } from '@/store/uiStore'
 import { Button } from '@/components/ui/Button/Button'
 import { Drawer } from '@/components/ui/Drawer/Drawer'
@@ -30,6 +31,7 @@ export function RoomDetailDrawer({
   const showToast = useUiStore((state) => state.showToast)
   const openDrawer = useUiStore((state) => state.openDrawer)
   const status = useRoomStatus()
+  const update = useUpdateRoom()
   const block = useBlockRoom()
   const [startsOn, setStartsOn] = useState(TODAY)
   const [endsOn, setEndsOn] = useState(TODAY)
@@ -40,6 +42,12 @@ export function RoomDetailDrawer({
   const next = room
     ? reservations.filter((item) => item.roomId === room.id && blocksRoom(item) && item.checkIn > TODAY).sort((a, b) => a.checkIn.localeCompare(b.checkIn))[0]
     : undefined
+  const occupied = room ? roomIsOccupiedToday(room, reservations) : false
+  const locked = room ? roomHasCurrentOrFutureStay(room, reservations) : false
+  const stay = room ? stayIndicator(room, reservations) : 'free'
+  const statusOptions = statuses
+    .filter((item) => !(occupied && item === 'out_of_order'))
+    .map((item) => ({ value: item, label: t(`ops.${item}`) }))
 
   return (
     <Drawer open={Boolean(room)} title={room ? t('room.detailTitle', { number: room.id }) : ''} onClose={onClose}>
@@ -47,12 +55,15 @@ export function RoomDetailDrawer({
         <div className={s.body}>
           <p className={s.type}>{room.typeName || room.type}</p>
           {room.floor ? <p>{t('room.floor', { floor: room.floor })}</p> : null}
+          <p>
+            {t(`stay.${stay}`)} · {t(`ops.${room.operationalStatus ?? 'ready'}`)}
+          </p>
           <Field label={t('room.state')} htmlFor="detail-status">
             <Dropdown
               id="detail-status"
               label={t('room.state')}
               value={room.operationalStatus ?? 'ready'}
-              options={statuses.map((item) => ({ value: item, label: t(`ops.${item}`) }))}
+              options={statusOptions}
               onChange={(value) =>
                 status.mutate(
                   { number: room.id, operationalStatus: value as OperationalStatus },
@@ -64,13 +75,34 @@ export function RoomDetailDrawer({
               }
             />
           </Field>
+          {room.isActive !== false && !locked ? (
+            <Button
+              variant="secondary"
+              onClick={() =>
+                update.mutate(
+                  { number: room.id, isActive: false },
+                  {
+                    onSuccess: () => showToast([t('room.deactivated')]),
+                    onError: (error) => showToast([errorText(error, t('toast.failed'))]),
+                  },
+                )
+              }
+            >
+              {t('room.deactivate')}
+            </Button>
+          ) : null}
+          {locked ? <p className={s.type}>{t('room.cannotDeactivate')}</p> : null}
           <section>
             <h3>{t('room.currentStay')}</h3>
             {current ? (
               <>
                 <p>{current.guestName}</p>
-                <p>{fmtGjate(current.checkIn, months)} → {fmtGjate(current.checkOut, months)}</p>
-                <Button variant="secondary" onClick={() => openDrawer(current.id)}>{t('room.openStay')}</Button>
+                <p>
+                  {fmtGjate(current.checkIn, months)} → {fmtGjate(current.checkOut, months)}
+                </p>
+                <Button variant="secondary" onClick={() => openDrawer(current.id)}>
+                  {t('room.openStay')}
+                </Button>
               </>
             ) : (
               <p>{t('room.noStay')}</p>
@@ -79,7 +111,9 @@ export function RoomDetailDrawer({
           <section>
             <h3>{t('room.nextStay')}</h3>
             {next ? (
-              <p>{next.guestName} · {fmtGjate(next.checkIn, months)}</p>
+              <p>
+                {next.guestName} · {fmtGjate(next.checkIn, months)}
+              </p>
             ) : (
               <p>{t('room.noStay')}</p>
             )}

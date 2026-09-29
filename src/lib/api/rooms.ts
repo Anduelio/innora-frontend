@@ -50,6 +50,27 @@ export function useRoomStatus() {
   })
 }
 
+export function useUpdateRoom() {
+  const refresh = useRoomRefresh()
+  return useMutation({
+    mutationFn: (input: {
+      number: string
+      roomTypeId?: number
+      floor?: string | null
+      building?: string | null
+      notes?: string | null
+      isActive?: boolean
+    }) => {
+      const { number, ...body } = input
+      return api<Room>(`/api/rooms/${encodeURIComponent(number)}`, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+      })
+    },
+    ...refresh,
+  })
+}
+
 export function useBlockRoom() {
   const refresh = useRoomRefresh()
   return useMutation({

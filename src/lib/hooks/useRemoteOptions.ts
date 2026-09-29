@@ -26,7 +26,7 @@ export function useRemoteOptions<T>({
     getNextPageParam: (last, _pages, lastPage) => (last.hasMore ? (lastPage as number) + 1 : undefined),
   })
 
-  const options = (result.data?.pages ?? []).flatMap((page) => page.items.map(mapOption))
+  const options = (result.data?.pages ?? []).flatMap((page) => (page.items ?? []).map(mapOption))
 
   return {
     query,

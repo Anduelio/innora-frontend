@@ -41,7 +41,43 @@
     "rangeFrom": "Nga",
     "rangeTo": "Deri",
     "withPhone": "Vetëm me telefon",
-    "showPhone": "Shfaq telefonin"
+    "showPhone": "Shfaq telefonin",
+    "edit": "Ndrysho",
+    "delete": "Fshi"
+  },
+  "guest": {
+    "add": "Klient i ri",
+    "edit": "Ndrysho klientin",
+    "save": "Ruaj",
+    "lead": "Emri dhe telefoni. Një klient me qëndrime nuk fshihet.",
+    "search": "Kërko me emër ose telefon",
+    "created": "Klienti u krijua",
+    "updated": "Klienti u ndryshua",
+    "deleted": "Klienti u fshi",
+    "emptyTitle": "Asnjë klient",
+    "emptyHint": "Ndryshoni kërkimin ose shtoni një klient të ri.",
+    "pages": "Faqet e klientëve",
+    "page": "Faqja {{page}} nga {{pages}}",
+    "previous": "Para",
+    "next": "Tjetra",
+    "pageSize": "Klientë për faqe",
+    "confirmDelete": "Fshije?",
+    "count_one": "{{count}} klient",
+    "count_other": "{{count}} klientë",
+    "columns": {
+      "name": "Klienti",
+      "phone": "Telefoni",
+      "stays": "Qëndrime",
+      "last": "I fundit",
+      "actions": "Veprime"
+    }
+  },
+  "stay": {
+    "free": "E lirë",
+    "occupied": "E zënë",
+    "arriving": "Mbërritje",
+    "departing": "Largim",
+    "blocked": "Bllokuar"
   },
   "status": {
     "RESERVED": "Rezervuar",
@@ -122,7 +158,10 @@
     "chooseRoom": "Zgjidhni dhomën",
     "assigned": "Dhoma u caktua",
     "addBed": "Shto krevat",
-    "removeBed": "Hiq"
+    "removeBed": "Hiq",
+    "deactivate": "Çaktivizo dhomën",
+    "deactivated": "Dhoma u çaktivizua",
+    "cannotDeactivate": "Kjo dhomë ka qëndrim aktual ose të ardhshëm."
   },
   "ops": {
     "ready": "Gati",
@@ -239,7 +278,9 @@
     "total": "Çmimi total",
     "notes": "Shënime",
     "notesPlaceholder": "p.sh. mbërrin vonë",
-    "sourceNote": "Burimi: <strong>{{source}}</strong> · dhomat e lira përditësohen vetë",
+    "sourceNote": "Burimi: <strong>{{source}}</strong> · kalendari merr lirinë e dhomës nga serveri",
+    "checkoutMorning": "Mëngjesi i daljes mbetet i lirë.",
+    "overlapHint": "Këto netë prekin një qëndrim në kalendar. Serveri vendos nëse dhoma është e lirë.",
     "nameRequired": "Shkruani emrin e klientit"
   },
   "phonePrefix": {

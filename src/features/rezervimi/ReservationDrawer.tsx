@@ -53,9 +53,10 @@ export function ReservationDrawer({
   const due = reservation.balanceCents ?? reservation.totalCents - reservation.paidCents
   const charges = reservation.chargesCents ?? reservation.totalCents
   const paid = reservation.paidCents
-  const canCheckIn = reservation.status === 'RESERVED' && reservation.checkIn <= TODAY
+  const canCheckIn = reservation.status === 'RESERVED' && reservation.checkIn <= TODAY && Boolean(reservation.roomId)
   const canCheckOut = reservation.status === 'IN_HOUSE'
-  const canCancel = reservation.status === 'RESERVED' || reservation.status === 'IN_HOUSE'
+  const canEdit = reservation.status === 'RESERVED' || reservation.status === 'IN_HOUSE'
+  const canCancel = reservation.status === 'RESERVED' && (reservation.paidCents ?? 0) === 0
   const clock = new Date().toLocaleTimeString('sq-AL', { hour: '2-digit', minute: '2-digit' })
 
   return (
@@ -130,9 +131,11 @@ export function ReservationDrawer({
             </div>
           ) : null}
           <div className={s.actions}>
-            <Button variant="secondary" block onClick={() => openEdit(reservation.id)}>
-              {t('actions.edit')}
-            </Button>
+            {canEdit ? (
+              <Button variant="secondary" block onClick={() => openEdit(reservation.id)}>
+                {t('actions.edit')}
+              </Button>
+            ) : null}
             {canCancel ? (
               <Button
                 variant="danger"

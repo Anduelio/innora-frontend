@@ -1,39 +1,120 @@
-.list {
-  max-inline-size: 920px;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  list-style: none;
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  max-inline-size: 1040px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-5);
   border: 1px solid var(--c-line-mid);
   border-radius: var(--r-2xl);
   background: var(--c-surface);
   box-shadow: var(--sh-card);
 }
 
-.page {
+.formHead {
   display: flex;
   flex-direction: column;
-  gap: var(--s-4);
-  max-inline-size: 920px;
+  gap: var(--s-1);
+
+  h2 {
+    margin: 0;
+    font: var(--t-section);
+  }
+
+  p {
+    margin: 0;
+    color: var(--c-ink-3);
+    font: var(--t-meta);
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) auto;
+  gap: var(--s-3);
+  align-items: end;
+
+  @include down(lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: var(--s-2);
+  padding-block-end: 2px;
 }
 
 .filters {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--s-3);
-  align-items: end;
-}
-
-.toggles {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-4);
+  gap: var(--s-3);
   align-items: center;
 }
 
-.switchLabel {
+.showPhone {
   display: inline-flex;
-  align-items: center;
   gap: var(--s-2);
-  font: var(--t-body);
+  align-items: center;
+  color: var(--c-ink-2);
+  font: var(--t-meta);
+}
+
+.count {
+  margin-inline-start: auto;
+  color: var(--c-ink-3);
+  font: var(--t-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+.tableWrap {
+  overflow: auto;
+  border: 1px solid var(--c-line-mid);
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-card);
+
+  &[aria-busy='true'] {
+    opacity: 0.72;
+  }
+}
+
+.table {
+  inline-size: 100%;
+  border-collapse: collapse;
+
+  th {
+    padding: var(--s-3) var(--s-4);
+    background: var(--c-surface-muted);
+    color: var(--c-ink-3);
+    font: var(--t-cap);
+    letter-spacing: var(--ls-cap);
+    text-align: start;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: var(--s-3) var(--s-4);
+    vertical-align: middle;
+  }
+}
+
+.sr {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  align-items: flex-start;
 }

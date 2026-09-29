@@ -27,9 +27,17 @@ export function splitPhone(prefix: string | null | undefined, phone: string): { 
   return { prefix: match.prefix, phone: nationalPhone(compact.slice(match.prefix.length)) }
 }
 
+function groupedNational(phone: string): string {
+  const digits = phone.replace(/\D/g, '')
+  if (digits.length === 9 && digits === phone.replace(/\s/g, '')) {
+    return `${digits.slice(0, 2)} ${digits.slice(2, 5)} ${digits.slice(5)}`
+  }
+  return phone
+}
+
 export function formatPhone(prefix?: string | null, phone?: string | null): string {
   const number = phone?.trim() ?? ''
   if (!number) return ''
   if (!prefix || number.startsWith('+')) return number
-  return `${prefix} ${number}`
+  return `${prefix} ${groupedNational(number)}`
 }

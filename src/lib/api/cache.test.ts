@@ -39,4 +39,12 @@ describe('reservation cache', () => {
     insertReservation(client, reservation({ id: 'r3' }))
     expect(client.getQueryData<Reservation[]>(key)).toHaveLength(1)
   })
+
+  it('does not write a new stay into a desk query', () => {
+    const client = new QueryClient()
+    const key = ['reservations', 'desk', 'arriving', '2026-09-21'] as const
+    client.setQueryData(key, [])
+    insertReservation(client, reservation())
+    expect(client.getQueryData<Reservation[]>(key)).toEqual([])
+  })
 })

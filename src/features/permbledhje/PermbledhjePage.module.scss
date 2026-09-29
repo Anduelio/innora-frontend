@@ -5,6 +5,13 @@
   max-inline-size: 1280px;
 }
 
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  align-items: flex-start;
+}
+
 .kpis {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -21,6 +28,14 @@
   @include card(var(--r-2xl));
 
   overflow: hidden;
+}
+
+.arrival {
+  border-block-start: 3px solid var(--c-accent);
+}
+
+.departure {
+  border-block-start: 3px solid var(--c-warn-line);
 }
 
 .head {
@@ -50,7 +65,7 @@
 
 .list {
   margin: 0;
-  padding: 0 var(--s-5) var(--s-3);
+  padding: 0 0 var(--s-2);
   list-style: none;
 }
 

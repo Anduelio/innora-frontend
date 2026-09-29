@@ -38,7 +38,8 @@
 }
 
 .busy,
-.free {
+.free,
+.warn {
   display: inline-flex;
   gap: var(--s-1);
   align-items: center;
@@ -56,6 +57,18 @@
 .free {
   background: var(--c-st-done-bg);
   color: var(--c-st-done-fg);
+}
+
+.warn {
+  background: var(--c-st-warn-bg, #fff3cd);
+  color: var(--c-st-warn-fg, #856404);
+}
+
+.badges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  align-items: flex-end;
 }
 
 .note {

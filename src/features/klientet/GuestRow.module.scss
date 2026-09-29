@@ -1,29 +1,48 @@
 .row {
-  display: flex;
-  gap: var(--s-4);
-  align-items: center;
-  padding: var(--s-4) var(--s-5);
-  border-block-end: 1px solid var(--c-line);
+  border-block-start: 1px solid var(--c-line);
+
+  &:hover {
+    background: var(--c-hover-wash);
+  }
 }
 
-.body {
-  flex: 1;
+.editing {
+  background: var(--c-accent-tint);
+
+  &:hover {
+    background: var(--c-accent-tint);
+  }
+}
+
+.who {
+  display: flex;
+  gap: var(--s-3);
+  align-items: center;
   min-inline-size: 0;
 }
 
 .name {
+  overflow: hidden;
   font: var(--t-body-md);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .phone,
-.last {
-  margin-block-start: var(--s-1);
-  color: var(--c-ink-3);
-  font: var(--t-meta);
-}
-
 .meta {
   color: var(--c-ink-2);
   font: var(--t-meta);
+  white-space: nowrap;
+}
+
+.actions {
+  inline-size: 1%;
+  white-space: nowrap;
   text-align: end;
+
+  button {
+    block-size: 36px;
+    padding-inline: var(--s-3);
+    font: var(--t-meta);
+  }
 }

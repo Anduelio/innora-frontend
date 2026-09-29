@@ -1,15 +1,17 @@
 import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { IconArrive, IconChevronRight, IconDepart } from '@/components/icons'
+import { Button } from '@/components/ui/Button/Button'
 import { EmptyState } from '@/components/ui/EmptyState/EmptyState'
 import { KpiCard } from '@/components/ui/KpiCard/KpiCard'
 import { Spinner } from '@/components/ui/Spinner/Spinner'
-import { useHotelReservations } from '@/lib/api/reservations'
+import { useDeskReservations } from '@/lib/api/reservations'
 import { useDashboardFinance } from '@/lib/api/reports'
 import { useRooms } from '@/lib/api/rooms'
 import { TODAY } from '@/lib/date/today'
+import { deskRows, isArrivalOn, isDepartureOn, isInHouseOn } from '@/lib/desk'
 import { useMoney } from '@/lib/format/useMoney'
-import { coversDay } from '@/lib/stay'
+import type { Reservation } from '@/types/domain'
 import { ArrivalRow } from '@/features/permbledhje/ArrivalRow'
 import { DepartureRow } from '@/features/permbledhje/DepartureRow'
 import s from './PermbledhjePage.module.scss'
@@ -28,21 +30,41 @@ function OutstandingKpi() {
   )
 }
 
+function byGuest(a: Reservation, b: Reservation): number {
+  return (a.expectedArrival ?? '99:99').localeCompare(b.expectedArrival ?? '99:99') || a.guestName.localeCompare(b.guestName, 'sq')
+}
+
 export function PermbledhjePage() {
   const { t } = useTranslation()
   const rooms = useRooms()
-  const reservations = useHotelReservations()
+  const arrivalsQuery = useDeskReservations({ arrivingOn: TODAY })
+  const departuresQuery = useDeskReservations({ departingOn: TODAY })
+  const inHouseQuery = useDeskReservations({ inHouseOn: TODAY })
+  const desk = [arrivalsQuery, departuresQuery, inHouseQuery]
+  const waiting = (rooms.isLoading && !rooms.data) || desk.some((query) => query.isLoading && !query.data)
+  const failed = rooms.isError || desk.some((query) => query.isError)
 
-  if ((rooms.isLoading && !rooms.data) || (reservations.isLoading && !reservations.data)) return <Spinner />
-  if (rooms.isError || reservations.isError) return <EmptyState title={t('common.loadError')} />
+  if (waiting) return <Spinner />
+  if (failed) {
+    return (
+      <div className={s.error}>
+        <EmptyState title={t('common.loadError')} />
+        <Button
+          onClick={() => {
+            void rooms.refetch()
+            for (const query of desk) void query.refetch()
+          }}
+        >
+          {t('actions.retry')}
+        </Button>
+      </div>
+    )
+  }
 
-  const list = reservations.data ?? []
   const roomCount = rooms.data?.length ?? 0
-  const occupied = new Set(list.filter((item) => coversDay(item, TODAY)).map((item) => item.roomId)).size
-  const arrivals = list
-    .filter((item) => item.checkIn === TODAY && (item.status === 'RESERVED' || item.status === 'IN_HOUSE'))
-    .sort((a, b) => (a.expectedArrival ?? '').localeCompare(b.expectedArrival ?? ''))
-  const departures = list.filter((item) => item.checkOut === TODAY && item.status !== 'CANCELLED')
+  const occupied = new Set(deskRows(inHouseQuery.data, (item) => isInHouseOn(item, TODAY)).map((item) => item.roomId)).size
+  const arrivals = deskRows(arrivalsQuery.data, (item) => isArrivalOn(item, TODAY)).sort(byGuest)
+  const departures = deskRows(departuresQuery.data, (item) => isDepartureOn(item, TODAY)).sort(byGuest)
   const pendingIn = arrivals.filter((item) => item.status === 'RESERVED').length
   const pendingOut = departures.filter((item) => item.status === 'IN_HOUSE').length
 
@@ -66,7 +88,7 @@ export function PermbledhjePage() {
         <OutstandingKpi />
       </div>
       <div className={s.columns}>
-        <section className={s.panel}>
+        <section className={`${s.panel} ${s.arrival}`}>
           <header className={s.head}>
             <IconArrive />
             <h2>{t('overview.arrivalsTitle')}</h2>
@@ -82,7 +104,7 @@ export function PermbledhjePage() {
             </ul>
           )}
         </section>
-        <section className={s.panel}>
+        <section className={`${s.panel} ${s.departure}`}>
           <header className={s.head}>
             <span className={s.depart}>
               <IconDepart />

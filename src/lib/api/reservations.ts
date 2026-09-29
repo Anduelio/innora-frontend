@@ -3,6 +3,7 @@ import type { CreateReservationInput, Reservation, UpdateReservationInput } from
 import { addDaysIso } from '@/lib/date/calendar'
 import { TODAY } from '@/lib/date/today'
 import { useCalendarStore } from '@/store/calendarStore'
+import { deskQuery, type DeskFilters } from '@/lib/desk'
 import { api } from '@/lib/api/client'
 import {
   insertReservation,
@@ -15,6 +16,23 @@ import {
 export function fetchReservations(from: string, to: string): Promise<Reservation[]> {
   const params = new URLSearchParams({ from, to, no_pagination: '1' })
   return api<Reservation[]>(`/api/reservations?${params.toString()}`)
+}
+
+export function fetchDeskReservations(filters: DeskFilters): Promise<Reservation[]> {
+  return api<Reservation[]>(deskQuery(filters))
+}
+
+export function useDeskReservations(filters: DeskFilters) {
+  return useQuery({
+    queryKey: [
+      'reservations',
+      'desk',
+      filters.arrivingOn ?? '',
+      filters.departingOn ?? '',
+      filters.inHouseOn ?? '',
+    ] as const,
+    queryFn: () => fetchDeskReservations(filters),
+  })
 }
 
 export function createReservation(input: CreateReservationInput): Promise<Reservation> {
