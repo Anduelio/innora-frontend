@@ -54,12 +54,26 @@
 .note {
   display: flex;
   gap: var(--s-2);
-  align-items: center;
+  align-items: flex-start;
   margin: 0;
   padding: var(--s-3) var(--s-4);
   border-radius: var(--r-lg);
   background: var(--c-accent-tint);
   color: var(--c-st-in-fg);
+  font: var(--t-meta);
+}
+
+.morning {
+  display: block;
+  margin-block-start: var(--s-1);
+}
+
+.warn {
+  margin: 0;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-lg);
+  background: var(--c-warn-bg);
+  color: var(--c-warn-fg);
   font: var(--t-meta);
 }
 

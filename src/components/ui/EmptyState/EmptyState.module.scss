@@ -1,7 +1,19 @@
 .empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
   margin: 0;
   padding: var(--s-7) var(--s-5);
   color: var(--c-ink-3);
   font: var(--t-body);
   text-align: center;
+}
+
+.title {
+  color: var(--c-ink-2);
+  font: var(--t-body-md);
+}
+
+.hint {
+  font: var(--t-meta);
 }

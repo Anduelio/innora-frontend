@@ -18,7 +18,7 @@ test('regjistron hyrjen pa dialog', async ({ page }) => {
 
 test('anulon një rezervim', async ({ page }) => {
   await page.getByRole('link', { name: 'Rezervimet', exact: true }).click()
-  await page.getByRole('button', { name: /Arben Hoxha/ }).click()
+  await page.getByRole('button', { name: /Mario Rossi/ }).click()
   await page.getByRole('button', { name: 'Anulo rezervimin' }).click()
   await expect(page.getByText('Rezervimi u anulua')).toBeVisible()
 })

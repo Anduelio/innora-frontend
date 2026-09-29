@@ -1,7 +1,9 @@
 import { http, HttpResponse } from 'msw'
 import { DESK_SOURCES, type CreateReservationInput, type Reservation, type UpdateReservationInput } from '@/types/domain'
 import { addDaysIso } from '@/lib/date/calendar'
-import { getDb, publish, resetDb, subscribe, toGuests } from '@/mocks/db'
+import { guestMatches } from '@/lib/guestBook'
+import { isArrivalOn, isDepartureOn, isInHouseOn } from '@/lib/desk'
+import { getDb, listGuests, publish, resetDb, subscribe } from '@/mocks/db'
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -21,11 +23,22 @@ export const handlers = [
 
   http.get('/api/reservations', ({ request }) => {
     const url = new URL(request.url)
-    const from = url.searchParams.get('from') ?? '0000-01-01'
-    const to = url.searchParams.get('to') ?? '9999-12-31'
-    const list = getDb().reservations.filter(
-      (reservation) => reservation.checkOut > from && reservation.checkIn < to,
-    )
+    const arriving = url.searchParams.get('arriving_on')
+    const departing = url.searchParams.get('departing_on')
+    const inHouse = url.searchParams.get('in_house_on')
+    let list = getDb().reservations
+    if (arriving || departing || inHouse) {
+      list = list.filter((reservation) => {
+        if (arriving && !isArrivalOn(reservation, arriving)) return false
+        if (departing && !isDepartureOn(reservation, departing)) return false
+        if (inHouse && !isInHouseOn(reservation, inHouse)) return false
+        return true
+      })
+    } else {
+      const from = url.searchParams.get('from') ?? '0000-01-01'
+      const to = url.searchParams.get('to') ?? '9999-12-31'
+      list = list.filter((reservation) => reservation.checkOut > from && reservation.checkIn < to)
+    }
     return HttpResponse.json(list)
   }),
 
@@ -40,7 +53,7 @@ export const handlers = [
       )
     }
     if (body.roomId && roomTaken(body.roomId, body.checkIn, checkOut)) {
-      return HttpResponse.json({ message: 'Dhoma është e zënë për këto data.' }, { status: 409 })
+      return HttpResponse.json({ message: 'Dhoma është e zënë për këto data.' }, { status: 422 })
     }
     const db = getDb()
     const reservation: Reservation = {
@@ -78,7 +91,7 @@ export const handlers = [
       notes: patch.notes === undefined ? current.notes : patch.notes.trim() || undefined,
     }
     if (roomTaken(next.roomId, next.checkIn, next.checkOut, current.id)) {
-      return HttpResponse.json({ message: 'Dhoma është e zënë për këto data.' }, { status: 409 })
+      return HttpResponse.json({ message: 'Dhoma është e zënë për këto data.' }, { status: 422 })
     }
     Object.assign(current, next)
     publish({ type: 'reservation.updated', reservation: current })
@@ -119,21 +132,87 @@ export const handlers = [
   }),
 
   http.get('/api/guests', ({ request }) => {
-    const guests = toGuests(getDb().reservations)
     const url = new URL(request.url)
-    if (url.searchParams.get('no_pagination') === '1') return HttpResponse.json(guests)
-    const query = (url.searchParams.get('q') ?? '').trim().toLowerCase()
+    const filters = {
+      q: url.searchParams.get('q') ?? '',
+      withPhone: url.searchParams.get('withPhone') === '1',
+    }
+    const filtered = listGuests().filter((guest) => guestMatches(guest, filters))
+    if (url.searchParams.get('no_pagination') === '1') return HttpResponse.json(filtered)
     const page = Math.max(1, Number(url.searchParams.get('page') ?? '1') || 1)
-    const perPage = Math.max(1, Number(url.searchParams.get('per_page') ?? '4') || 4)
-    const filtered = query
-      ? guests.filter((guest) => guest.name.toLowerCase().includes(query) || guest.phone.includes(query))
-      : guests
-    const start = (page - 1) * perPage
+    const perPage = Math.max(
+      1,
+      Number(url.searchParams.get('page_size') ?? url.searchParams.get('per_page') ?? '4') || 4,
+    )
+    const lastPage = Math.max(1, Math.ceil(filtered.length / perPage))
+    const current = Math.min(page, lastPage)
+    const start = (current - 1) * perPage
     return HttpResponse.json({
-      items: filtered.slice(start, start + perPage),
-      page,
-      hasMore: start + perPage < filtered.length,
+      success: true,
+      data: filtered.slice(start, start + perPage),
+      meta: {
+        current_page: current,
+        last_page: lastPage,
+        per_page: perPage,
+        total: filtered.length,
+      },
     })
+  }),
+
+  http.post('/api/guests', async ({ request }) => {
+    const body = (await request.json()) as { name?: string; phonePrefix?: string; phone?: string }
+    const name = body.name?.trim() ?? ''
+    if (!name) return HttpResponse.json({ message: 'Shkruani emrin e klientit.' }, { status: 422 })
+    const phone = (body.phone ?? '').replace(/\D/g, '')
+    const key = `${body.phonePrefix ?? ''}${phone}`.replace(/\D/g, '')
+    const taken =
+      phone.length > 0 &&
+      listGuests().some((guest) => `${guest.phonePrefix ?? ''}${guest.phone}`.replace(/\D/g, '') === key)
+    if (taken) return HttpResponse.json({ message: 'Ky telefon është i regjistruar.' }, { status: 422 })
+    const db = getDb()
+    const guest = {
+      id: `g${db.guestSeq++}`,
+      name,
+      phonePrefix: body.phonePrefix?.trim() || null,
+      phone,
+      stays: 0,
+      lastStay: null,
+    }
+    db.directory.push(guest)
+    return HttpResponse.json({ success: true, data: guest }, { status: 201 })
+  }),
+
+  http.put('/api/guests/:id', async ({ params, request }) => {
+    const body = (await request.json()) as { name?: string; phonePrefix?: string; phone?: string }
+    const name = body.name?.trim() ?? ''
+    if (!name) return HttpResponse.json({ message: 'Shkruani emrin e klientit.' }, { status: 422 })
+    const id = String(params.id)
+    const current = listGuests().find((guest) => guest.id === id)
+    if (!current) return HttpResponse.json({ message: 'Nuk u gjet.' }, { status: 404 })
+    const phone = (body.phone ?? '').replace(/\D/g, '')
+    const db = getDb()
+    const next = {
+      ...current,
+      name,
+      phonePrefix: phone ? body.phonePrefix?.trim() || null : current.phonePrefix,
+      phone,
+    }
+    const index = db.directory.findIndex((guest) => guest.id === id)
+    if (index >= 0) db.directory[index] = next
+    else db.directory.push(next)
+    return HttpResponse.json({ success: true, data: next })
+  }),
+
+  http.delete('/api/guests/:id', ({ params }) => {
+    const id = String(params.id)
+    const current = listGuests().find((guest) => guest.id === id)
+    if (!current) return HttpResponse.json({ message: 'Nuk u gjet.' }, { status: 404 })
+    if (current.stays > 0) {
+      return HttpResponse.json({ message: 'Klienti ka qëndrime dhe nuk fshihet.' }, { status: 422 })
+    }
+    const db = getDb()
+    db.directory = db.directory.filter((guest) => guest.id !== id)
+    return new HttpResponse(null, { status: 204 })
   }),
 
   http.post('/api/__reset', () => {

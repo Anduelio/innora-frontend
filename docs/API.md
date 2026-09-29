@@ -57,12 +57,19 @@ All routes below require `auth:api`. Sensitive folio and report routes also use 
 | DELETE | `/api/channels/{id}` | removes that property's connection |
 | POST | `/api/reservations/{id}/assign` | `{ roomId }` physical room number |
 | GET | `/api/reservations?from&to&no_pagination=1` | stays that overlap `[from, to)` |
+| GET | `/api/reservations?arriving_on&no_pagination=1` | arrivals on that date (`RESERVED` or `IN_HOUSE`) |
+| GET | `/api/reservations?departing_on&no_pagination=1` | departures on that date, except cancelled |
+| GET | `/api/reservations?in_house_on&no_pagination=1` | stays occupying that night, `[check_in, check_out)` |
 | POST | `/api/reservations` | `{ roomId }` or `{ roomTypeId }` when the room is not chosen yet. 422 if that inventory is taken |
 | PATCH | `/api/reservations/{id}` | edit room, guest, dates, persons, total, notes |
 | POST | `/api/reservations/{id}/check-in` | only from confirmed/pending |
 | POST | `/api/reservations/{id}/check-out` | only from checked_in |
 | POST | `/api/reservations/{id}/cancel` | sets cancelled |
-| GET | `/api/guests?no_pagination=1` | `{ id, name, phone, stays, lastStay }` |
+| GET | `/api/guests?no_pagination=1` | `{ id, name, phone, phonePrefix, stays, lastStay }` |
+| GET | `/api/guests?q&withPhone&page&page_size` | the same guest rows in `data`, with `meta.current_page`, `meta.last_page`, `meta.per_page`, and `meta.total`. `withPhone=1` keeps guests that have a phone |
+| POST | `/api/guests` | `{ name, phonePrefix?, phone? }` |
+| PUT | `/api/guests/{id}` | same body as create |
+| DELETE | `/api/guests/{id}` | only when the guest has no stays |
 | GET | `/api/sync/status` | `{ ok, lastSyncAt, message? }` |
 | POST | `/api/sync/retry` | requeues the availability job for the property |
 | POST | `/api/sync/fail` | local demo only: marks the connection unhealthy |

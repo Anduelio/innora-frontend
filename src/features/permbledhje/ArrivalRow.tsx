@@ -10,7 +10,7 @@ export function ArrivalRow({ reservation }: { reservation: Reservation }) {
   const { t } = useTranslation()
   const checkIn = useCheckIn()
   const showToast = useUiStore((state) => state.showToast)
-  const pending = reservation.status === 'RESERVED'
+  const pending = reservation.status === 'RESERVED' && Boolean(reservation.roomId)
 
   return (
     <li className={s.row}>
@@ -19,7 +19,7 @@ export function ArrivalRow({ reservation }: { reservation: Reservation }) {
         <div className={s.name}>{reservation.guestName}</div>
         <div className={s.meta}>
           <span>
-            {t('common.room')} {reservation.roomId}
+            {t('common.room')} {reservation.roomId || t('room.unassigned')}
           </span>
           <span aria-hidden="true">·</span>
           <span>{t('common.person', { count: reservation.persons })}</span>
@@ -39,9 +39,11 @@ export function ArrivalRow({ reservation }: { reservation: Reservation }) {
         >
           {t('actions.checkIn')}
         </button>
-      ) : (
+      ) : reservation.status === 'IN_HOUSE' ? (
         <span className={s.done}>{t('actions.inHouse')}</span>
-      )}
+      ) : reservation.status === 'RESERVED' ? (
+        <span className={s.wait}>{t('room.unassigned')}</span>
+      ) : null}
     </li>
   )
 }

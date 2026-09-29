@@ -12,8 +12,11 @@ export function DepartureRow({ reservation }: { reservation: Reservation }) {
   const money = useMoney()
   const checkOut = useCheckOut()
   const showToast = useUiStore((state) => state.showToast)
+  const openFolio = useUiStore((state) => state.openFolio)
+  const openDrawer = useUiStore((state) => state.openDrawer)
   const due = reservation.balanceCents ?? reservation.totalCents - reservation.paidCents
   const pending = reservation.status === 'IN_HOUSE'
+  const canCheckout = pending && due <= 0
 
   return (
     <li className={s.row}>
@@ -21,7 +24,7 @@ export function DepartureRow({ reservation }: { reservation: Reservation }) {
         <div className={s.name}>{reservation.guestName}</div>
         <div className={s.meta}>
           <span>
-            {t('common.room')} {reservation.roomId}
+            {t('common.room')} {reservation.roomId || t('room.unassigned')}
           </span>
           <span aria-hidden="true">·</span>
           <span>{t('overview.untilEleven')}</span>
@@ -30,7 +33,7 @@ export function DepartureRow({ reservation }: { reservation: Reservation }) {
           </Badge>
         </div>
       </div>
-      {pending ? (
+      {canCheckout ? (
         <button
           type="button"
           className={s.action}
@@ -42,6 +45,14 @@ export function DepartureRow({ reservation }: { reservation: Reservation }) {
           }
         >
           {t('actions.checkOut')}
+        </button>
+      ) : pending && due > 0 && reservation.folioId ? (
+        <button type="button" className={s.action} onClick={() => openFolio(reservation.folioId!)}>
+          {t('folio.addPayment')}
+        </button>
+      ) : pending && due > 0 ? (
+        <button type="button" className={s.action} onClick={() => openDrawer(reservation.id)}>
+          {t('room.openStay')}
         </button>
       ) : reservation.status === 'COMPLETED' ? (
         <span className={s.done}>{t('actions.checkedOut')}</span>

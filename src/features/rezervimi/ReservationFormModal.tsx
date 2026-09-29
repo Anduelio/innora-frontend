@@ -6,13 +6,13 @@ import { Trans, useTranslation } from 'react-i18next'
 import { DESK_SOURCES, type Reservation, type ReservationSource, type Room } from '@/types/domain'
 import { addDaysIso, fmtGjate } from '@/lib/date/calendar'
 import { TODAY } from '@/lib/date/today'
-import { currencyMark, eurosToCents } from '@/lib/format/money'
+import { currencyMark } from '@/lib/format/money'
 import { useCurrency } from '@/lib/format/useMoney'
-import { nationalPhone } from '@/lib/phone'
 import { errorText } from '@/lib/api/client'
 import { useCreateReservation, useUpdateReservation } from '@/lib/api/reservations'
 import { useRoomTypes } from '@/lib/api/rooms'
 import { maxFreeNights } from '@/lib/stay'
+import { stayCreateBody, stayUpdatePatch } from '@/features/rezervimi/form/payload'
 import { useUiStore } from '@/store/uiStore'
 import { IconArrive, IconCheck, IconDepart } from '@/components/icons'
 import { Button } from '@/components/ui/Button/Button'
@@ -78,42 +78,22 @@ export function ReservationFormModal({
   const guestName = form.watch('guestName')
   const checkIn = modal?.mode === 'edit' ? (editing?.checkIn ?? TODAY) : modal?.mode === 'create' ? modal.checkIn : TODAY
   const ignoreId = modal?.mode === 'edit' ? modal.reservationId : undefined
-  const maxNights = Math.max(1, maxFreeNights(reservations, roomId, checkIn, ignoreId))
+  const freeNights = roomId ? maxFreeNights(reservations, roomId, checkIn, ignoreId) : 30
   const source: ReservationSource = modal?.mode === 'edit' && editing ? editing.source : form.watch('source')
   const sourceLocked = source === 'BOOKING'
   const pending = create.isPending || update.isPending
 
-  useEffect(() => {
-    if (nights > maxNights) form.setValue('nights', maxNights)
-  }, [form, maxNights, nights])
-
   const onSubmit = (values: ReservationFormValues) => {
     if (!modal || !values.guestName.trim()) return
-    const stayNights = Math.min(values.nights, maxNights)
     if (modal.mode === 'create') {
-      create.mutate(
-        {
-          ...(values.roomId ? { roomId: values.roomId } : { roomTypeId: Number(values.roomTypeId) }),
-          guestName: values.guestName.trim(),
-          phonePrefix: values.phonePrefix,
-          phone: nationalPhone(values.phone),
-          registerCustomer: values.registerCustomer,
-          persons: values.persons,
-          source: values.source,
-          checkIn: modal.checkIn,
-          nights: stayNights,
-          totalCents: eurosToCents(values.total),
-          notes: values.notes.trim(),
+      create.mutate(stayCreateBody(values, modal.checkIn), {
+        onSuccess: () => {
+          showToast([t('toast.created'), t('toast.availabilityUpdated')])
+          closeModal()
+          void navigate('/kalendari')
         },
-        {
-          onSuccess: () => {
-            showToast([t('toast.created'), t('toast.availabilityUpdated')])
-            closeModal()
-            void navigate('/kalendari')
-          },
-          onError: (error) => showToast([errorText(error, t('toast.failed'))]),
-        },
-      )
+        onError: (error) => showToast([errorText(error, t('toast.failed'))]),
+      })
       return
     }
     const current = reservations.find((item) => item.id === modal.reservationId)
@@ -121,18 +101,7 @@ export function ReservationFormModal({
     update.mutate(
       {
         id: current.id,
-        patch: {
-          ...(values.roomId ? { roomId: values.roomId } : {}),
-          guestName: values.guestName.trim(),
-          phonePrefix: values.phonePrefix,
-          phone: nationalPhone(values.phone),
-          registerCustomer: values.registerCustomer,
-          persons: values.persons,
-          checkIn: current.checkIn,
-          checkOut: addDaysIso(current.checkIn, stayNights),
-          totalCents: eurosToCents(values.total),
-          notes: values.notes.trim(),
-        },
+        patch: stayUpdatePatch(values, current.checkIn),
       },
       {
         onSuccess: () => {
@@ -237,7 +206,7 @@ export function ReservationFormModal({
             <NumberStepper
               value={nights}
               min={1}
-              max={maxNights}
+              max={30}
               decreaseLabel={t('common.decrease')}
               increaseLabel={t('common.increase')}
               onChange={(value) => form.setValue('nights', value)}
@@ -286,9 +255,13 @@ export function ReservationFormModal({
         <Field label={t('form.notes')} htmlFor="guest-notes">
           <Textarea id="guest-notes" placeholder={t('form.notesPlaceholder')} {...form.register('notes')} />
         </Field>
+        {roomId && nights > freeNights ? <p className={s.warn}>{t('form.overlapHint')}</p> : null}
         <p className={s.note}>
           <IconCheck />
-          <Trans i18nKey="form.sourceNote" values={{ source: t(`source.${source}`) }} components={{ strong: <strong /> }} />
+          <span>
+            <Trans i18nKey="form.sourceNote" values={{ source: t(`source.${source}`) }} components={{ strong: <strong /> }} />
+            <span className={s.morning}>{t('form.checkoutMorning')}</span>
+          </span>
         </p>
       </form>
     </Modal>

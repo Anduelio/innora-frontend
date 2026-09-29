@@ -105,7 +105,7 @@ export interface Guest {
   phonePrefix?: string | null
   phone: string
   stays: number
-  lastStay: string
+  lastStay: string | null
 }
 
 export interface CreateReservationInput {

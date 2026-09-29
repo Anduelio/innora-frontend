@@ -13,7 +13,7 @@ export function HyrjePage() {
   const { t } = useTranslation()
   const me = useMe()
   const qc = useQueryClient()
-  const [email, setEmail] = useState('recepsion@viladea.al')
+  const [email, setEmail] = useState('recepsion@innora.al')
   const [password, setPassword] = useState('Admin1234.2')
   const [error, setError] = useState('')
   const [pending, setPending] = useState(false)

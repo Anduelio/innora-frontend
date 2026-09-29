@@ -3,6 +3,7 @@ import type { Reservation, Room } from '@/types/domain'
 import { fmtShkurter } from '@/lib/date/calendar'
 import { TODAY } from '@/lib/date/today'
 import { blocksRoom, coversDay } from '@/lib/stay'
+import { stayIndicator } from '@/lib/roomIndicators'
 import { roomTypeKey } from '@/lib/rooms'
 import s from './RoomCard.module.scss'
 
@@ -22,8 +23,11 @@ export function RoomCard({
   const next = reservations
     .filter((item) => item.roomId === room.id && blocksRoom(item) && item.checkIn > TODAY)
     .sort((a, b) => a.checkIn.localeCompare(b.checkIn))[0]
-  const status = room.operationalStatus ?? 'ready'
+  const housekeeping = room.operationalStatus ?? 'ready'
+  const stay = stayIndicator(room, reservations)
   const typeLabel = room.typeName || (room.type in roomTypeKey ? t(roomTypeKey[room.type]) : room.type)
+  const stayTone = stay === 'free' ? s.free : stay === 'blocked' ? s.warn : s.busy
+  const houseTone = housekeeping === 'ready' || housekeeping === 'inspected' ? s.free : s.busy
 
   return (
     <button type="button" className={s.card} onClick={() => onOpen(room)}>
@@ -35,9 +39,10 @@ export function RoomCard({
             {room.floor ? t('room.floor', { floor: room.floor }) : t('common.person', { count: room.capacity })}
           </div>
         </div>
-        <span className={status === 'ready' || status === 'inspected' ? s.free : s.busy}>
-          {t(`ops.${status}`)}
-        </span>
+        <div className={s.badges}>
+          <span className={stayTone}>{t(`stay.${stay}`)}</span>
+          <span className={houseTone}>{t(`ops.${housekeeping}`)}</span>
+        </div>
       </div>
       <p className={s.note}>
         {current
