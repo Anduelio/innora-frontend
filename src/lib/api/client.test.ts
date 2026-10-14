@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { api, ApiError, errorText } from '@/lib/api/client'
-import { fetchGuestPage } from '@/lib/api/guests'
+import { fetchCustomers } from '@/lib/api/customers'
 
 afterEach(() => {
   vi.unstubAllGlobals()
@@ -40,15 +40,13 @@ describe('api', () => {
     await expect(api('/api/reservations')).rejects.toMatchObject({ status: 409, code: 'NO_AVAILABILITY', message: 'Nuk ka dhomë të lirë.' })
   })
 
-  it('requests a guest page', async () => {
+  it('requests the customer list', async () => {
     const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
-      expect(String(input)).toContain('/api/guests?')
-      expect(String(input)).toContain('q=ana')
-      expect(String(input)).toContain('page=2')
-      return jsonResponse({ items: [], page: 2, hasMore: false })
+      expect(String(input)).toContain('/api/customers')
+      return jsonResponse([])
     })
     vi.stubGlobal('fetch', fetchMock)
-    await fetchGuestPage('ana', 2)
+    await fetchCustomers()
     expect(fetchMock).toHaveBeenCalledOnce()
   })
 })

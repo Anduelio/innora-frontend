@@ -1,0 +1,107 @@
+.blocks {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+
+  & + & {
+    border-block-start: 1px solid var(--border-subtle);
+  }
+}
+
+.blockMain {
+  display: flex;
+  flex: 1 1 260px;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-inline-size: 0;
+}
+
+.blockRoom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  color: var(--fg-default);
+  font: var(--weight-semibold) var(--text-md) / 1.35 var(--font-sans);
+}
+
+.blockType {
+  color: var(--fg-subtle);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+}
+
+.blockDates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  align-items: baseline;
+  color: var(--fg-default);
+  font: var(--weight-medium) var(--text-md) / 1.4 var(--font-sans);
+}
+
+.blockNights {
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+}
+
+.blockReason {
+  color: var(--fg-muted);
+  font: var(--weight-regular) var(--text-md) / 1.45 var(--font-sans);
+}
+
+.blockBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.dates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+
+  @include down(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summary {
+  color: var(--fg-muted);
+  font: var(--weight-medium) var(--text-md) / 1.4 var(--font-sans);
+}
+
+.clashList {
+  margin: var(--space-1) 0 var(--space-2);
+  padding-inline-start: var(--space-5);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.blockActions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}

@@ -87,6 +87,15 @@
   --shadow-sm: 0 1px 3px rgb(16 24 40 / 8%), 0 1px 2px rgb(16 24 40 / 4%);
   --shadow-md: 0 8px 16px -4px rgb(16 24 40 / 10%), 0 2px 6px -2px rgb(16 24 40 / 5%);
   --shadow-lg: 0 24px 48px -12px rgb(16 24 40 / 22%);
+
+  --chart-1: #3b6cf6;
+  --chart-2: #12b76a;
+  --chart-3: #f79009;
+  --chart-4: #7a5af8;
+  --chart-5: #f04438;
+  --chart-6: #98a2b3;
+  --chart-grid: var(--gray-150);
+  --chart-hover: rgb(16 24 40 / 5%);
 }
 
 @mixin dark-theme {
@@ -178,6 +187,15 @@
   --shadow-sm: 0 1px 3px rgb(0 0 0 / 45%);
   --shadow-md: 0 8px 20px -4px rgb(0 0 0 / 55%);
   --shadow-lg: 0 24px 56px -12px rgb(0 0 0 / 70%);
+
+  --chart-1: #7aa2ff;
+  --chart-2: #32d583;
+  --chart-3: #fdb022;
+  --chart-4: #a48afb;
+  --chart-5: #f97066;
+  --chart-6: #8f9aab;
+  --chart-grid: #283345;
+  --chart-hover: rgb(255 255 255 / 6%);
 }
 
 :root {

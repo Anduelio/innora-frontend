@@ -159,6 +159,33 @@ export const reservations: Reservation[] = [
   r('r23', '201', 'Elsa Koci', '2026-09-10', '2026-09-14', 2, 'BOOKING', 'COMPLETED', 440, 440, '+355 68 330 4455', {
     externalRef: 'BDC-4460021',
   }),
+  // Qëndrime të mëparshme: klientë që janë kthyer te ne.
+  r('h1', '101', 'Ana Kola', '2026-08-02', '2026-08-05', 2, 'TELEFON', 'COMPLETED', 180, 180, '+355 69 234 5566', {
+    email: 'ana.kola@gmail.com',
+  }),
+  r('h2', '103', 'Arben Hoxha', '2026-07-28', '2026-07-31', 2, 'BOOKING', 'COMPLETED', 180, 180, '+355 69 123 4567', {
+    externalRef: 'BDC-4390112',
+  }),
+  r('h3', '202', 'Sofia Müller', '2026-08-12', '2026-08-16', 2, 'BOOKING', 'COMPLETED', 440, 440, '+49 151 2233 445', {
+    externalRef: 'BDC-4402288',
+    email: 'sofia.mueller@web.de',
+  }),
+  r('h4', '201', 'Mario Rossi', '2026-08-20', '2026-08-23', 2, 'RECEPSION', 'COMPLETED', 330, 330, '+39 335 778 9911'),
+  r('h5', '105', 'Arta Dervishi', '2026-08-05', '2026-08-08', 1, 'TELEFON', 'COMPLETED', 135, 135, '+355 67 990 1122'),
+  r('h6', '105', 'Arta Dervishi', '2026-07-25', '2026-07-27', 1, 'TELEFON', 'COMPLETED', 90, 90, '+355 67 990 1122'),
+  r('h7', '301', 'Luan Berisha', '2026-08-15', '2026-08-17', 2, 'TELEFON', 'COMPLETED', 220, 220, '+355 69 300 1200'),
+  r('h8', '102', 'Marco Bianchi', '2026-08-09', '2026-08-12', 2, 'BOOKING', 'COMPLETED', 180, 180, '+39 340 111 2233', {
+    externalRef: 'BDC-4405521',
+  }),
+  r('h9', '106', 'Besnik Gashi', '2026-08-18', '2026-08-20', 2, 'RECEPSION', 'COMPLETED', 1400000, 1400000, '+355 69 887 6543', {
+    currency: 'ALL',
+    totalCents: 1400000,
+    paidCents: 1400000,
+  }),
+  r('h10', '204', 'Vera Sula', '2026-08-24', '2026-08-26', 2, 'TELEFON', 'COMPLETED', 120, 120, '+355 69 202 3040', {
+    email: 'vera.sula@gmail.com',
+  }),
+  r('h11', '101', 'Ana Kola', '2026-06-14', '2026-06-17', 2, 'TELEFON', 'COMPLETED', 180, 180, '+355 69 234 5566'),
 ]
 
 const methods: PaymentMethod[] = ['cash', 'card', 'bank_transfer']
@@ -196,3 +223,12 @@ export const channelMappings: ChannelMapping[] = roomTypes.map((type) => ({
   externalRatePlanId: null,
   isActive: false,
 }))
+
+export interface ChannelState {
+  connected: boolean
+  accountId: string | null
+  lastInboundAt: string | null
+  lastOutboundAt: string | null
+}
+
+export const channel: ChannelState = { connected: false, accountId: null, lastInboundAt: null, lastOutboundAt: null }

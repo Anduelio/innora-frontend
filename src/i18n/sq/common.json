@@ -7,6 +7,7 @@
   "pages": {
     "kalendari": "Dhomat natë për natë, me disponueshmërinë sipas tipit",
     "rezervimet": "Gjej çdo rezervim të kaluar, aktual ose të ardhshëm",
+    "klientet": "Gjithë njerëzit që kanë rezervuar te ne ose i keni shtuar me dorë",
     "pagesat": "Paratë e marra dhe mbetjet e hapura",
     "raportet": "Zënia, të ardhurat dhe arkëtimet sipas periudhës",
     "cilesimet": "Hoteli, dhomat, Booking.com dhe përdoruesit"
@@ -21,6 +22,7 @@
     "sot": "Sot",
     "kalendari": "Kalendari",
     "rezervimet": "Rezervimet",
+    "klientet": "Klientët",
     "pagesat": "Pagesat",
     "raportet": "Raportet",
     "cilesimet": "Cilësimet",
@@ -135,13 +137,53 @@
     "lastRoomWarn": "Kujdes: dhoma e fundit e tipit {{type}} mund të shitet edhe në Booking.com."
   },
   "search": {
-    "label": "Kërko rezervim",
-    "placeholder": "Kërko emër, telefon, kod ose dhomë",
+    "label": "Kërko në aplikacion",
+    "placeholder": "Kërko faqe, rezervime, klientë, dhoma…",
     "results": "Rezultatet e kërkimit",
-    "empty": "Nuk u gjet asnjë rezervim."
+    "empty": "Nuk u gjet asgjë për “{{query}}”. Provoni një emër, telefon, kod rezervimi, numër dhome ose emrin e një faqeje.",
+    "hint": "↑ ↓ për të lëvizur · Enter për të hapur · Esc për të mbyllur",
+    "open": "Kërko",
+    "close": "Mbyll kërkimin",
+    "sotMeta": "Arritjet dhe largimet e ditës",
+    "noContact": "Pa kontakt",
+    "floor": "kati {{floor}}",
+    "capacity_one": "{{count}} person",
+    "capacity_other": "{{count}} persona",
+    "groups": {
+      "actions": "Veprime të shpejta",
+      "pages": "Faqet",
+      "reservations": "Rezervime",
+      "customers": "Klientë",
+      "rooms": "Dhoma"
+    },
+    "actions": {
+      "newReservationMeta": "Hap formën e rezervimit",
+      "newCustomerMeta": "Shto një kontakt pa rezervim"
+    },
+    "keywords": {
+      "sot": "arritje largime check-in check-out mbërritje sot dita aktivë në hotel",
+      "kalendari": "disponueshmëria dhomat netë tabela grid rezervo zënie tipi",
+      "rezervimet": "lista kërko anulo kod status mysafir qëndrim",
+      "klientet": "mysafirë kontakte telefon email njerëz historik",
+      "pagesat": "para arkëtim mbetje borxh rimbursim paguar depozitë cash kartë",
+      "raportet": "zënia të ardhura arkëtime grafik eksport csv periudhë parashikim kanal",
+      "cilesimet": "konfigurim opsione rregullime",
+      "hoteli": "emri qyteti monedha euro lekë orari hyrje largim check-in",
+      "dhomat": "dhomë tipi kapacitet kat çmim shto dhomë",
+      "mirembajtje": "mbyll bllokim riparim jashtë shërbimit pastrim mirëmbajtje",
+      "booking": "booking.com beds24 sinkronizim kanal lidhje mapping ota",
+      "perdoruesit": "staf roli recepsion pronar përdorues llogari fjalëkalim lejet",
+      "pamja": "temë errët çelët dark light pamja pajisja pamje",
+      "demo": "rivendos shkarko csv prova eksport të dhëna demo"
+    }
   },
   "toast": {
+    "failedTitle": "Veprimi nuk u krye",
     "failed": "Nuk u ruajt. Provoni përsëri.",
+    "conflictTitle": "Rezervimi u ndryshua nga dikush tjetër",
+    "saving": "Po ruhet rezervimi…",
+    "open": "Hap",
+    "notifications": "Njoftime",
     "conflict": "Dikush tjetër e ndryshoi këtë rezervim — rifreskuam të dhënat.",
     "created": "Rezervimi u ruajt",
     "createdDetail": "{{name}} · {{dates}}",

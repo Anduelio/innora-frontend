@@ -136,6 +136,7 @@ export interface SyncStatus {
   level: SyncLevel
   provider: string
   connected: boolean
+  accountId?: string | null
   lastInboundAt: string | null
   lastOutboundAt: string | null
   openIssues: SyncIssue[]
@@ -147,13 +148,86 @@ export interface SyncIssue {
   subject: string
 }
 
-export interface Guest {
+/** Klient = person që ka të paktën një rezervim te ne. Ndërtohet nga rezervimet, nuk ruhet më vete. */
+export interface Customer {
   id: string
   name: string
-  phonePrefix?: string | null
   phone: string
+  email: string | null
+  /** Rezervime jo të anuluara. */
+  bookings: number
+  /** Qëndrime të përfunduara ose në vazhdim. */
   stays: number
+  upcoming: number
+  cancelled: number
+  noShows: number
+  nights: number
+  firstStay: string
   lastStay: string
+  inHouse: boolean
+  sources: ReservationSource[]
+  /** Vlera e rezervimeve jo të anuluara; monedhat nuk mblidhen bashkë. */
+  value: { currency: string; cents: number }[]
+  /** Mbetja e papaguar, sipas monedhës. */
+  balance: { currency: string; cents: number }[]
+  reservations: Reservation[]
+  /** Id e kontaktit të shtuar me dorë, ose null kur klienti vjen vetëm nga rezervimet. */
+  contactId: string | null
+  notes: string | null
+  /** Data kur u shtua me dorë (YYYY-MM-DD), ose null. */
+  addedAt: string | null
+}
+
+/** Klient i shtuar me dorë, edhe pa rezervim. */
+export interface Contact {
+  id: string
+  name: string
+  phone: string
+  email: string | null
+  notes: string | null
+  createdAt: string
+}
+
+export interface SaveContactInput {
+  name: string
+  phone: string
+  email?: string | null
+  notes?: string | null
+}
+
+export interface SaveHotelInput {
+  name?: string
+  city?: string
+  currency?: string
+  checkInTime?: string
+  checkOutTime?: string
+}
+
+export interface SaveRoomTypeInput {
+  name?: string
+  code?: string
+  maxOccupancy?: number
+  basePriceCents?: number
+}
+
+export interface SaveRoomInput {
+  id?: string
+  roomTypeId?: number
+  floor?: string
+  notes?: string
+  isActive?: boolean
+}
+
+export interface AddBlockInput {
+  startsOn: string
+  endsOn: string
+  type: BlockKind
+  reason?: string
+}
+
+export interface SaveMappingInput {
+  externalRoomId: string | null
+  externalRatePlanId: string | null
 }
 
 export interface CreateReservationInput {

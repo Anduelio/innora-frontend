@@ -18,8 +18,11 @@ test('refuzon fjalëkalimin e gabuar me mesazh në shqip', async ({ page }) => {
 
 test('gjen një rezervim nga kërkimi në krye', async ({ page }) => {
   await signIn(page, 'ilir@devollihotel.al', 'Pronari2026!')
-  await page.getByRole('combobox', { name: 'Kërko rezervim' }).fill('Hoxha')
-  await page.getByRole('option', { name: /Arben Hoxha/ }).click()
+  await page.getByRole('combobox', { name: 'Kërko në aplikacion' }).fill('Hoxha')
+  await page
+    .getByRole('option', { name: /Arben Hoxha/ })
+    .first()
+    .click()
   await expect(page.getByRole('dialog', { name: 'Arben Hoxha' })).toBeVisible()
 })
 

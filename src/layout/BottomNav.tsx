@@ -31,7 +31,12 @@ export function BottomNav() {
           .map((item) => {
             const Icon = item.icon
             return (
-              <NavLink key={item.key} to={item.to} end={item.end} className={({ isActive }) => clsx(s.tab, isActive && s.isActive)}>
+              <NavLink
+                key={item.key}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) => clsx(s.tab, isActive && s.isActive)}
+              >
                 <Icon size={22} />
                 <span>{t(`nav.${item.key}`)}</span>
               </NavLink>

@@ -2,6 +2,14 @@ import { create } from 'zustand'
 import type { CalendarView, DaySelection } from '@/types/domain'
 import { addDaysIso, addMonthsIso, daysInMonth, startOfMonthIso } from '@/lib/date/calendar'
 import { TODAY } from '@/lib/date/today'
+import { readPersistent } from '@/lib/hooks/usePersistentState'
+
+export const DEFAULT_VIEW_KEY = 'calendar-view'
+
+function defaultView(): CalendarView {
+  const stored = readPersistent<number>(DEFAULT_VIEW_KEY, 7)
+  return stored === 1 || stored === 30 ? stored : 7
+}
 
 export const VIEW_PARAM: Record<CalendarView, string> = { 1: 'dite', 7: 'jave', 30: 'muaj' }
 
@@ -20,7 +28,7 @@ function readInitial(): { view: CalendarView; startDate: string; typeId: number 
   if (typeof window === 'undefined') return { view: 7, startDate: TODAY, typeId: 0 }
   const params = new URLSearchParams(window.location.search)
   return {
-    view: viewFromParam(params.get('pamja')) ?? 7,
+    view: viewFromParam(params.get('pamja')) ?? defaultView(),
     startDate: params.get('nga') || TODAY,
     typeId: Number(params.get('tipi')) || 0,
   }

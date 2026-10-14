@@ -8,7 +8,6 @@ import {
   type Reservation,
   type SaveUserInput,
   type StaffUser,
-  type SyncStatus,
   type UpdateReservationInput,
 } from '@/types/domain'
 import { TODAY } from '@/lib/date/today'
@@ -16,8 +15,8 @@ import { freeRoomsForStay, typeFreeForStay } from '@/lib/inventory'
 import { hasPermission } from '@/lib/permissions'
 import { stayNights } from '@/lib/reservation'
 import { authed, fail, login, logout, toCurrentUser } from '@/mocks/auth'
-import { channelMappings, hotel } from '@/mocks/data'
-import { getDb, persist, publish, resetDb, subscribe, toGuests } from '@/mocks/db'
+import { getDb, persist, publish, subscribe } from '@/mocks/db'
+import { settingsHandlers } from '@/mocks/settingsHandlers'
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -53,6 +52,8 @@ function activeOwners(users: StaffUser[]): number {
 }
 
 export const handlers = [
+  ...settingsHandlers,
+
   http.post('/api/login', async ({ request }) => {
     await delay(300)
     const body = (await request.json()) as { email?: string; password?: string }
@@ -67,10 +68,6 @@ export const handlers = [
 
   http.get('/api/me', authed(null, (_info, user) => HttpResponse.json(toCurrentUser(user)))),
 
-  http.get('/api/rooms', authed('desk.use', () => HttpResponse.json(getDb().rooms))),
-  http.get('/api/room-types', authed('desk.use', () => HttpResponse.json(getDb().roomTypes))),
-  http.get('/api/settings/hotel', authed('desk.use', () => HttpResponse.json(hotel))),
-  http.get('/api/settings/channel-mappings', authed('channel.manage', () => HttpResponse.json(channelMappings))),
 
   http.get('/api/users', authed('users.manage', () => HttpResponse.json(getDb().users))),
 
@@ -138,21 +135,6 @@ export const handlers = [
       }
       persist(db)
       return HttpResponse.json(user)
-    }),
-  ),
-
-  http.get(
-    '/api/sync/status',
-    authed('desk.use', () => {
-      const status: SyncStatus = {
-        level: 'problem',
-        provider: 'Beds24',
-        connected: false,
-        lastInboundAt: null,
-        lastOutboundAt: null,
-        openIssues: [{ id: 1, type: 'mapping_missing', subject: 'Booking.com nuk është lidhur ende' }],
-      }
-      return HttpResponse.json(status)
     }),
   ),
 
@@ -385,28 +367,6 @@ export const handlers = [
       return updated(current)
     }),
   ),
-
-  http.get(
-    '/api/guests',
-    authed('desk.use', ({ request }) => {
-      const guests = toGuests(getDb().reservations)
-      const url = new URL(request.url)
-      if (url.searchParams.get('no_pagination') === '1') return HttpResponse.json(guests)
-      const query = (url.searchParams.get('q') ?? '').trim().toLowerCase()
-      const page = Math.max(1, Number(url.searchParams.get('page') ?? '1') || 1)
-      const perPage = Math.max(1, Number(url.searchParams.get('per_page') ?? '4') || 4)
-      const filtered = query
-        ? guests.filter((guest) => guest.name.toLowerCase().includes(query) || guest.phone.includes(query))
-        : guests
-      const start = (page - 1) * perPage
-      return HttpResponse.json({ items: filtered.slice(start, start + perPage), page, hasMore: start + perPage < filtered.length })
-    }),
-  ),
-
-  http.post('/api/__reset', () => {
-    resetDb()
-    return new HttpResponse(null, { status: 204 })
-  }),
 
   http.get('/api/stream', () => {
     const encoder = new TextEncoder()

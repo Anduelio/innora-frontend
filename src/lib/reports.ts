@@ -348,6 +348,87 @@ export function forecastRevenue(
   return { totals: toAmounts(totals, primary), nights, window }
 }
 
+/* ---------- Seri ditore për grafikët ---------- */
+
+export interface DailyCents {
+  day: string
+  cents: number
+  /** Dita është pas `asOf`: vlera është parashikim, jo e fituar. */
+  future: boolean
+}
+
+export interface CurrencySeries {
+  currency: string
+  days: DailyCents[]
+}
+
+/**
+ * Një vlerë për ditë dhe monedhë: e fituar deri `asOf`, parashikim pas tij.
+ * Asnjëherë të dyja për të njëjtën ditë, kështu që nuk mblidhen kurrë bashkë.
+ */
+export function revenueSeries(
+  reservations: readonly Reservation[],
+  period: ReportPeriod,
+  asOf: string,
+  primary = 'EUR',
+): CurrencySeries[] {
+  const byCurrency = new Map<string, Map<string, number>>()
+  nightValues(
+    reservations,
+    period,
+    () => true,
+    (reservation, day, cents) => {
+      const future = day > asOf
+      if (future && reservation.status !== 'RESERVED' && reservation.status !== 'IN_HOUSE') return
+      const days = byCurrency.get(reservation.currency) ?? new Map<string, number>()
+      addTo(days, day, cents)
+      byCurrency.set(reservation.currency, days)
+    },
+  )
+  const all = periodDays(period)
+  return orderCurrencies(byCurrency.keys(), primary).map((currency) => {
+    const days = byCurrency.get(currency) ?? new Map<string, number>()
+    return { currency, days: all.map((day) => ({ day, cents: days.get(day) ?? 0, future: day > asOf })) }
+  })
+}
+
+/** Arkëtimet neto për ditë dhe monedhë (pagesa minus rimbursime). */
+export function collectedSeries(payments: readonly Payment[], period: ReportPeriod, primary = 'EUR'): CurrencySeries[] {
+  const byCurrency = new Map<string, Map<string, number>>()
+  for (const payment of payments) {
+    const day = paymentDay(payment)
+    if (!inPeriod(day, period)) continue
+    const days = byCurrency.get(payment.currency) ?? new Map<string, number>()
+    addTo(days, day, signedAmount(payment))
+    byCurrency.set(payment.currency, days)
+  }
+  const all = periodDays(period)
+  return orderCurrencies(byCurrency.keys(), primary).map((currency) => {
+    const days = byCurrency.get(currency) ?? new Map<string, number>()
+    return { currency, days: all.map((day) => ({ day, cents: days.get(day) ?? 0, future: false })) }
+  })
+}
+
+export interface MonthCents {
+  month: string
+  cents: number
+  /** Muaji përmban vetëm ditë parashikimi. */
+  future: boolean
+}
+
+/** Mbledh ditët e një monedhe sipas muajit, për periudha më të gjata se një muaj. */
+export function seriesByMonth(days: readonly DailyCents[]): MonthCents[] {
+  const months = new Map<string, MonthCents>()
+  for (const item of days) {
+    const month = startOfMonthIso(item.day)
+    const entry = months.get(month) ?? { month, cents: 0, future: true }
+    entry.cents += item.cents
+    entry.future = entry.future && item.future
+    months.set(month, entry)
+  }
+  return [...months.values()]
+}
+
 /* ---------- Paratë e arkëtuara (sipas datës së pagesës) ---------- */
 
 type MethodAmounts = Record<PaymentMethod, number>
@@ -489,6 +570,10 @@ export interface Report {
   futureRoomNights: number
   earned: EarnedReport
   forecast: ForecastReport
+  /** Seri ditore: e fituar ose parashikim, sipas monedhës. */
+  revenueByDay: CurrencySeries[]
+  /** Arkëtime neto ditore, sipas monedhës. */
+  collectedByDay: CurrencySeries[]
   collected: CollectedReport[]
   payments: Payment[]
   outstanding: OutstandingGroup[]
@@ -537,6 +622,8 @@ export function buildReport(input: ReportInput): Report {
     futureRoomNights,
     earned,
     forecast,
+    revenueByDay: revenueSeries(reservations, period, today, primary),
+    collectedByDay: collectedSeries(payments, period, primary),
     collected,
     payments,
     outstanding,

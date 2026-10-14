@@ -1,0 +1,88 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.previews {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include down(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 2px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-canvas);
+
+  &[data-selected] {
+    border-color: var(--accent);
+  }
+}
+
+.light {
+  background: #f6f7f9;
+  color: #101828;
+}
+
+.dark {
+  background: #0c111a;
+  color: #f2f4f7;
+}
+
+.system {
+  background: linear-gradient(110deg, #f6f7f9 50%, #0c111a 50%);
+  color: #667085;
+}
+
+.previewBar {
+  block-size: 10px;
+  inline-size: 40%;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+}
+
+.previewLine,
+.previewLineShort {
+  block-size: 8px;
+  border-radius: var(--radius-full);
+  background: var(--border-strong);
+}
+
+.previewLineShort {
+  inline-size: 65%;
+}
+
+.previewLabel {
+  color: inherit;
+  font: var(--weight-medium) var(--text-sm) / 1.3 var(--font-sans);
+}
+
+.footnote {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  color: var(--fg-subtle);
+  font: var(--weight-regular) var(--text-sm) / 1.45 var(--font-sans);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+
+  @include down(sm) {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,90 +1,69 @@
-.region {
-  position: fixed;
-  inset-block-start: calc(var(--topbar-h) + var(--space-3));
-  inset-inline-start: 50%;
-  z-index: var(--z-toast);
-  display: flex;
-  justify-content: center;
-  inline-size: min(420px, calc(100vw - 24px));
-  pointer-events: none;
-  transform: translateX(-50%);
+// Sonner shton stilet e veta me specifikë [data-sonner-toast][data-styled]; këto rregulla e tejkalojnë qëllimisht.
+.toast[data-sonner-toast][data-styled='true'] {
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-4) 48px var(--space-4) var(--space-4);
+  border-width: 1px;
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-sans);
 
-  @include down(md) {
-    inset-block-start: calc(var(--space-3) + env(safe-area-inset-top));
+  &[data-type='loading'] {
+    border-color: var(--border-default);
   }
 }
 
-.toast {
-  display: flex;
-  gap: var(--space-3);
-  align-items: flex-start;
-  inline-size: min(400px, 100%);
-  padding: var(--space-3) var(--space-2) var(--space-3) var(--space-4);
-  border-radius: var(--radius-lg);
-  background: var(--bg-inverse);
-  color: var(--fg-inverse);
-  box-shadow: var(--shadow-lg);
-  pointer-events: auto;
-  animation: enter 220ms var(--ease-out);
+.toast[data-sonner-toast] [data-icon] {
+  inline-size: 24px;
+  block-size: 24px;
+  margin: 0;
 }
 
 .icon {
-  flex-shrink: 0;
+  align-self: flex-start;
   margin-block-start: 1px;
 }
 
-.success .icon {
-  color: var(--green-500);
+.toast[data-sonner-toast] [data-content] {
+  gap: 4px;
 }
 
-.error .icon {
-  color: var(--red-500);
+.toast[data-sonner-toast] .title[data-title] {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  line-height: 1.35;
 }
 
-.info .icon {
-  color: var(--blue-500);
+.toast[data-sonner-toast] .description[data-description] {
+  color: inherit;
+  font-size: var(--text-md);
+  line-height: 1.5;
+  white-space: pre-line;
+  opacity: 0.88;
 }
 
-.lines {
-  flex: 1;
-  min-inline-size: 0;
+.toast[data-sonner-toast] .action[data-button] {
+  min-block-size: 36px;
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--fg-default);
+  color: var(--bg-surface);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
 }
 
-.first {
-  font: var(--weight-semibold) var(--text-md) / 1.4 var(--font-sans);
-}
-
-.line {
-  margin-block-start: 2px;
-  font: var(--weight-regular) var(--text-sm) / 1.45 var(--font-sans);
-  opacity: 0.8;
-}
-
-.close {
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  inline-size: 32px;
-  block-size: 32px;
-  border: 0;
-  border-radius: var(--radius-sm);
+.toast[data-sonner-toast] .close[data-close-button] {
+  inset-block-start: 10px;
+  inset-inline: auto 10px;
+  inline-size: 28px;
+  block-size: 28px;
+  transform: none;
+  border-color: transparent;
   background: transparent;
   color: inherit;
-  cursor: pointer;
   opacity: 0.7;
 
   &:hover {
+    background: var(--bg-hover);
     opacity: 1;
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--focus-ring);
-  }
-}
-
-@keyframes enter {
-  from {
-    transform: translateY(-8px);
-    opacity: 0;
   }
 }

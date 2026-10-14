@@ -4,24 +4,12 @@
     "sections": {
       "hoteli": "Hoteli",
       "dhomat": "Dhomat dhe tipet",
-      "mirembajtje": "Mirëmbajtje dhe mbyllje",
-      "booking": "Booking.com (Beds24)",
-      "perdoruesit": "Përdoruesit",
-      "pamja": "Pamja"
-    },
-    "tabs": {
-      "hoteli": "Hoteli",
-      "dhomat": "Dhomat",
       "mirembajtje": "Mirëmbajtje",
       "booking": "Booking.com",
       "perdoruesit": "Përdoruesit",
-      "pamja": "Pamja"
+      "pamja": "Pamja",
+      "demo": "Të dhënat demo"
     },
-    "readOnly": {
-      "title": "Vetëm për lexim në këtë version",
-      "text": "Këto të dhëna shfaqen që t’i kontrolloni. Ndryshimet do të mund të bëhen këtu sapo aplikacioni të lidhet me serverin e hotelit."
-    },
-    "backendHint": "Aktivizohet sapo aplikacioni të lidhet me serverin e hotelit.",
     "hotel": {
       "description": "Të dhënat bazë që përdoren në rezervime, fatura dhe kalendar.",
       "name": "Emri i hotelit",
@@ -40,6 +28,28 @@
       "currencies": {
         "EUR": "Euro (€)",
         "ALL": "Lek shqiptar (Lekë)"
+      },
+      "basics": "Të dhënat e hotelit",
+      "basicsHint": "Shfaqen në rezervime, njoftime dhe kokën e aplikacionit.",
+      "nameRequired": "Shkruani emrin e hotelit.",
+      "cityRequired": "Shkruani qytetin.",
+      "timeInvalid": "Shkruani orën si 14:00.",
+      "saved": "Të dhënat e hotelit u ruajtën",
+      "currencyHint": "Raportet e shfaqin këtë monedhë të parën.",
+      "currencyChangeTitle": "Po ndryshoni monedhën kryesore",
+      "currencyChangeText": "Çmimet e tipeve ekzistuese dhe rezervimet e bëra nuk konvertohen. Ndryshon vetëm monedha që shfaqet e para te raportet dhe te tipet e reja.",
+      "times": "Orët e qëndrimit",
+      "timesHint": "Orari standard i hyrjes dhe i largimit të mysafirëve.",
+      "preview": "Mysafirët mbërrijnë nga ora {{checkIn}} dhe largohen deri në orën {{checkOut}}.",
+      "fixedTitle": "Rregulla të përbashkëta",
+      "fixedHint": "Këto nuk ndryshohen, që të gjithë të shohin të njëjtat data dhe net.",
+      "nights": "Netët",
+      "nightsValue": "Mbërritja numërohet, largimi jo",
+      "tiles": {
+        "rooms": "Dhoma aktive",
+        "types": "Tipe dhomash",
+        "capacity": "Vende gjithsej",
+        "capacityHint": "Persona në të gjitha dhomat aktive"
       }
     },
     "rooms": {
@@ -58,7 +68,46 @@
       "statusInactive": "Joaktive",
       "noRooms": "Ky tip nuk ka ende dhoma.",
       "empty": "Nuk ka tipe dhomash",
-      "emptyHint": "Tipet e dhomave shtohen sapo aplikacioni të lidhet me serverin."
+      "emptyHint": "Shtoni tipin e parë të dhomave, pastaj dhomat fizike.",
+      "addType": "Shto tip",
+      "addRoom": "Shto dhomë",
+      "addRoomToType": "Shto dhomë në këtë tip",
+      "editType": "Ndrysho tipin {{name}}",
+      "editRoom": "Ndrysho dhomën {{room}}",
+      "toggle": "Dhoma {{room}} aktive",
+      "activated": "Dhoma {{room}} u aktivizua",
+      "deactivated": "Dhoma {{room}} u çaktivizua",
+      "form": {
+        "typeNew": "Tip i ri dhome",
+        "typeEdit": "Ndrysho: {{name}}",
+        "typeHint": "Çdo tip shitet sipas numrit të dhomave aktive që ka.",
+        "name": "Emri i tipit",
+        "namePlaceholder": "p.sh. Dhomë dyshe",
+        "nameRequired": "Shkruani emrin e tipit.",
+        "code": "Kodi",
+        "codeHint": "2 deri 4 shkronja, p.sh. DBL.",
+        "codeInvalid": "Kodi ka 2 deri 4 shkronja.",
+        "maxHint": "Sa persona lejohen maksimumi në këtë tip.",
+        "priceHint": "Çmimi i parazgjedhur për natë; mund ta ndryshoni në çdo rezervim.",
+        "priceInvalid": "Çmimi duhet të jetë mbi zero.",
+        "create": "Krijo tipin",
+        "typeCreated": "Tipi {{name}} u krijua",
+        "typeSaved": "Tipi {{name}} u ruajt",
+        "roomNew": "Dhomë e re",
+        "roomEdit": "Ndrysho dhomën {{room}}",
+        "roomHint": "Dhoma fizike që caktohet te rezervimet.",
+        "number": "Numri i dhomës",
+        "numberHint": "Deri 6 shkronja ose shifra, p.sh. 205.",
+        "numberLocked": "Numri nuk ndryshohet pas krijimit.",
+        "numberInvalid": "Shkruani një numër të vlefshëm (deri 6 shenja).",
+        "type": "Tipi",
+        "floor": "Kati",
+        "notes": "Shënime",
+        "notesPlaceholder": "p.sh. pamje nga kopshti",
+        "createRoom": "Krijo dhomën",
+        "roomCreated": "Dhoma {{room}} u shtua",
+        "roomSaved": "Dhoma {{room}} u ruajt"
+      }
     },
     "blocks": {
       "description": "Dhomat që nuk mund të shiten për disa net, p.sh. për riparime.",
@@ -77,7 +126,35 @@
         "current": "Aktive tani",
         "upcoming": "E ardhshme",
         "past": "E përfunduar"
-      }
+      },
+      "filterLabel": "Filtro mbylljet",
+      "filters": {
+        "open": "Aktive dhe të ardhshme",
+        "current": "Aktive tani",
+        "upcoming": "Të ardhshme",
+        "past": "Të përfunduara",
+        "all": "Të gjitha"
+      },
+      "remove": "Hiq mbylljen e dhomës {{room}}",
+      "removeTitle": "Të hiqet mbyllja e dhomës {{room}}?",
+      "removeText": "Dhoma rikthehet në shitje për ato data dhe kalendari e shfaq sërish të lirë.",
+      "removeConfirm": "Hiq mbylljen",
+      "removed": "Mbyllja e dhomës {{room}} u hoq",
+      "removedHint": "Dhoma është përsëri në shitje.",
+      "added": "Dhoma {{room}} u mbyll",
+      "addedHint": "Disponueshmëria e tipit u zvogëlua për ato net.",
+      "sheetTitle": "Mbyll një dhomë",
+      "sheetHint": "Dhoma nuk shitet gjatë këtyre netëve.",
+      "room": "Dhoma",
+      "kind": "Arsyeja",
+      "from": "Mbyllur nga",
+      "until": "Rihapet më",
+      "untilHint": "Dita kur dhoma shitet përsëri.",
+      "summary": "{{nights}}: {{from}} → {{to}}",
+      "reasonPlaceholder": "p.sh. riparim i dushit",
+      "clashTitle": "Dhoma {{room}} ka rezervim në këto data",
+      "clashHint": "Zhvendoseni ose anulojeni rezervimin para mbylljes.",
+      "save": "Mbyll dhomën"
     },
     "booking": {
       "statusTitle": "Gjendja e lidhjes",
@@ -139,6 +216,31 @@
         "mapping": "Lidhni çdo tip dhome me dhomën dhe planin e çmimit në Booking.com",
         "import": "Importoni rezervimet e ardhshme dhe krahasojini me ato këtu",
         "approval": "Merrni miratimin e përgjegjësit teknik para nisjes"
+      },
+      "account": "Llogaria Beds24",
+      "syncNow": "Sinkronizo tani",
+      "disconnect": "Shkëput",
+      "disconnectTitle": "Të shkëputet Booking.com?",
+      "disconnectText": "Sinkronizimi ndalon dhe historiku i sinkronizimit pastrohet. Lidhjet e tipeve mbeten, por rezervimet e reja nuk vijnë më.",
+      "disconnected": "Booking.com u shkëput",
+      "synced": "Sinkronizimi u krye",
+      "syncing": "Po sinkronizohet me Booking.com…",
+      "connecting": "Po lidhet Booking.com…",
+      "syncedHint": "Disponueshmëria u dërgua dhe rezervimet u shqyrtuan.",
+      "syncNeedsMapping": "Lidhni të gjithë tipet më poshtë para sinkronizimit.",
+      "choose": "Zgjidhni…",
+      "mappingSaved": "{{name}} u lidh me Booking.com",
+      "mappingLocked": "Lidhni fillimisht Booking.com, pastaj zgjidhni cila dhomë i përgjigjet cilit tip.",
+      "demoTitle": "Version prove",
+      "demoText": "Lidhja dhe sinkronizimi simulohen në shfletues. Asgjë nuk dërgohet te Booking.com dhe asnjë rezervim i vërtetë nuk merret.",
+      "connectForm": {
+        "title": "Lidh Booking.com",
+        "hint": "Shkruani llogarinë Beds24 që është lidhur me Booking.com.",
+        "account": "Numri i llogarisë Beds24",
+        "accountHint": "P.sh. BDS-12345. Të paktën 4 shenja.",
+        "accountInvalid": "Shkruani numrin e llogarisë (të paktën 4 shenja).",
+        "done": "Booking.com u lidh",
+        "doneHint": "Tani lidhni tipet e dhomave."
       }
     },
     "users": {
@@ -192,7 +294,8 @@
         "created": "Llogaria për {{name}} u krijua",
         "shareHint": "Jepini email-in dhe fjalëkalimin e përkohshëm.",
         "saved": "Ndryshimet për {{name}} u ruajtën"
-      }
+      },
+      "listTitle": "Llogaritë e stafit"
     },
     "appearance": {
       "description": "Si duket aplikacioni në këtë pajisje.",
@@ -200,7 +303,49 @@
       "system": "Si pajisja",
       "light": "E çelët",
       "dark": "E errët",
-      "hint": "E çelëta është parazgjedhja. Zgjedhja ruhet vetëm në këtë pajisje; “Si pajisja” ndjek cilësimin e telefonit ose kompjuterit."
+      "hint": "E çelëta është parazgjedhja. Zgjedhja ruhet vetëm në këtë pajisje; “Si pajisja” ndjek cilësimin e telefonit ose kompjuterit.",
+      "calendarTitle": "Kalendari",
+      "calendarHint": "Si hapet kalendari kur futeni.",
+      "calendarView": "Pamja fillestare",
+      "calendarViewHint": "Vlen kur nuk zgjidhni pamje tjetër nga lidhja.",
+      "views": {
+        "1": "Dita",
+        "7": "Java",
+        "30": "Muaji"
+      },
+      "deviceNote": "Këto zgjedhje ruhen vetëm në këtë pajisje."
+    },
+    "descriptions": {
+      "hoteli": "Emri, monedha dhe orët e hyrjes e të largimit.",
+      "dhomat": "Tipet e dhomave, çmimet bazë dhe dhomat fizike.",
+      "mirembajtje": "Mbyll dhoma për riparime ose përdorim të brendshëm.",
+      "booking": "Lidhja me Booking.com, lidhja e tipeve dhe sinkronizimi.",
+      "perdoruesit": "Llogaritë e stafit dhe çfarë sheh secili rol.",
+      "pamja": "Tema e ngjyrave dhe pamja fillestare e kalendarit.",
+      "demo": "Të dhënat e provës, shkarkimi dhe rivendosja."
+    },
+    "unsaved": "Keni ndryshime të paruajtura",
+    "allSaved": "Gjithçka është e ruajtur",
+    "discard": "Anulo ndryshimet",
+    "saveChanges": "Ruaj ndryshimet",
+    "demo": {
+      "noticeTitle": "Të dhëna prove",
+      "noticeText": "Gjithçka që shtoni ose ndryshoni ruhet vetëm në këtë shfletues. Mund ta rivendosni kur të doni.",
+      "reservations": "Rezervime",
+      "reservationsHint": "60 ditë prapa, një vit përpara",
+      "customers": "Klientë",
+      "payments": "Pagesa",
+      "exportTitle": "Shkarko rezervimet",
+      "exportText": "Skedar CSV me rezervimet që shfaqen në aplikacion, i hapshëm në Excel.",
+      "exportButton": "Shkarko CSV",
+      "resetTitle": "Rivendos të dhënat demo",
+      "resetText": "Fshin gjithçka që keni shtuar (rezervime, klientë, dhoma, mbyllje) dhe kthen të dhënat fillestare.",
+      "resetButton": "Rivendos të dhënat",
+      "resetConfirmTitle": "Të rivendosen të dhënat demo?",
+      "resetConfirmText": "Çdo rezervim, pagesë, dhomë dhe cilësim që keni ndryshuar do të humbasë. Llogaritë e hyrjes mbeten.",
+      "resetDone": "Të dhënat demo u rivendosën",
+      "resetting": "Po rivendosen të dhënat demo…",
+      "resetDoneHint": "Data e sotme është {{date}}."
     }
   }
 }

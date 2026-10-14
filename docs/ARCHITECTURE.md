@@ -35,13 +35,13 @@ Pages, calendar, and SCSS modules stay as generated. HTTP lives in `src/lib/api`
 
 | Screen | Folder | Job |
 | --- | --- | --- |
-| Hyrje | `features/hyrje` | Login |
+| Hyrje | `features/login` | Login |
 | Përmbledhje | `features/permbledhje` | Today: arrivals and departures |
-| Kalendari | `features/kalendari` | Rooms by night. The main screen |
-| Rezervimet | `features/rezervimet` | Searchable list |
+| Kalendari | `features/calendar` | Rooms by night. The main screen |
+| Rezervimet | `features/reservations` | Searchable list |
 | Dhomat | `features/dhomat` | Room board |
-| Klientët | `features/klientet` | Name and phone |
-| Cilësimet | `features/cilesimet` | “Sinkronizuar” or “Problem me lidhjen” |
+| Klientët | `features/customers` | Name and phone |
+| Cilësimet | `features/settings` | “Sinkronizuar” or “Problem me lidhjen” |
 
 ## What is still mock-only
 

@@ -62,7 +62,7 @@ async function refresh(qc: Client) {
   await Promise.all([
     qc.invalidateQueries({ queryKey: ['reservations'] }),
     qc.invalidateQueries({ queryKey: ['payments'] }),
-    qc.invalidateQueries({ queryKey: ['guests'] }),
+    qc.invalidateQueries({ queryKey: ['customers'] }),
   ])
 }
 

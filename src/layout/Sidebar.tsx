@@ -1,10 +1,11 @@
-import { NavLink } from 'react-router'
+import { NavLink, useLocation } from 'react-router'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { Avatar } from '@/components/atoms/Avatar/Avatar'
 import { IconLogout, IconSidebar } from '@/components/atoms/Icon/icons'
 import { useCurrentUser } from '@/lib/api/auth'
 import { useHotelSettings, useRooms } from '@/lib/api/rooms'
+import { SECTIONS, sectionIcons, sectionPath, sectionPermissions } from '@/features/settings/sections'
 import { NAV_ITEMS } from '@/layout/navigation'
 import { useLogout } from '@/layout/useLogout'
 import s from './Sidebar.module.scss'
@@ -15,6 +16,9 @@ export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle:
   const hotel = useHotelSettings()
   const { user, can } = useCurrentUser()
   const logout = useLogout()
+  const { pathname } = useLocation()
+  const inSettings = pathname.startsWith('/cilesimet')
+  const sections = SECTIONS.filter((key) => can(sectionPermissions[key]))
 
   return (
     <aside className={clsx(s.sidebar, collapsed && s.collapsed)} data-print-hide>
@@ -32,17 +36,38 @@ export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle:
       <nav className={s.nav} aria-label={t('nav.main')}>
         {NAV_ITEMS.filter((item) => can(item.permission)).map((item) => {
           const Icon = item.icon
+          const hasChildren = item.key === 'cilesimet' && inSettings
           return (
-            <NavLink
-              key={item.key}
-              to={item.to}
-              end={item.end}
-              title={collapsed ? t(`nav.${item.key}`) : undefined}
-              className={({ isActive }) => clsx(s.link, isActive && s.isActive)}
-            >
-              <Icon />
-              <span className={s.linkText}>{t(`nav.${item.key}`)}</span>
-            </NavLink>
+            <div key={item.key} className={s.group}>
+              <NavLink
+                to={item.to}
+                end={item.end}
+                title={collapsed ? t(`nav.${item.key}`) : undefined}
+                className={({ isActive }) => clsx(s.link, isActive && (hasChildren ? s.isParent : s.isActive))}
+              >
+                <Icon />
+                <span className={s.linkText}>{t(`nav.${item.key}`)}</span>
+              </NavLink>
+              {hasChildren ? (
+                <ul className={s.subnav} aria-label={t('cilesimet.navLabel')}>
+                  {sections.map((key) => {
+                    const SubIcon = sectionIcons[key]
+                    return (
+                      <li key={key}>
+                        <NavLink
+                          to={sectionPath(key)}
+                          title={t(`cilesimet.sections.${key}`)}
+                          className={({ isActive }) => clsx(s.sublink, isActive && s.isSubActive)}
+                        >
+                          <SubIcon size={18} />
+                          <span className={s.linkText}>{t(`cilesimet.sections.${key}`)}</span>
+                        </NavLink>
+                      </li>
+                    )
+                  })}
+                </ul>
+              ) : null}
+            </div>
           )
         })}
       </nav>
@@ -56,7 +81,13 @@ export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle:
             </span>
           </div>
         ) : null}
-        <button type="button" className={s.toggle} aria-label={t('auth.logout')} title={t('auth.logout')} onClick={() => void logout()}>
+        <button
+          type="button"
+          className={s.toggle}
+          aria-label={t('auth.logout')}
+          title={t('auth.logout')}
+          onClick={() => void logout()}
+        >
           <IconLogout size={18} />
         </button>
         <button

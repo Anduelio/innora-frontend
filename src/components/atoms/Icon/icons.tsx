@@ -474,3 +474,55 @@ export function IconNote(props: IconProps) {
     </Icon>
   )
 }
+
+export function IconEdit(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17z" />
+      <path d="m14.5 7.5 3 3" />
+    </Icon>
+  )
+}
+
+export function IconTrash(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M4 7h16M10 11v6M14 11v6M6 7l1 12.5a1 1 0 0 0 1 .9h8a1 1 0 0 0 1-.9L18 7M9 7V4.5h6V7" />
+    </Icon>
+  )
+}
+
+export function IconPlug(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M9 3v5M15 3v5M6.5 8h11v3.5a5.5 5.5 0 0 1-11 0zM12 17v4" />
+    </Icon>
+  )
+}
+
+export function IconSliders(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
+      <circle cx="15" cy="7" r="2" />
+      <circle cx="9" cy="17" r="2" />
+    </Icon>
+  )
+}
+
+export function IconBuilding(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M5 21V4.5A1.5 1.5 0 0 1 6.5 3h8A1.5 1.5 0 0 1 16 4.5V21M16 10h2.5A1.5 1.5 0 0 1 20 11.5V21M3 21h18" />
+      <path d="M9 7h3M9 11h3M9 15h3" />
+    </Icon>
+  )
+}
+
+export function IconStar(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" />
+    </Icon>
+  )
+}

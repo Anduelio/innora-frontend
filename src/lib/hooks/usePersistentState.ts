@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 
 const PREFIX = 'devolli:v1:'
 
-function read<T>(key: string, fallback: T): T {
+export function readPersistent<T>(key: string, fallback: T): T {
   try {
     const raw = window.localStorage.getItem(PREFIX + key)
     return raw === null ? fallback : (JSON.parse(raw) as T)
@@ -13,7 +13,7 @@ function read<T>(key: string, fallback: T): T {
 
 /** Gjendje e vogël e ndërfaqes që mbahet midis hapjeve (p.sh. menuja e ngushtuar). */
 export function usePersistentState<T>(key: string, fallback: T) {
-  const [value, setValue] = useState<T>(() => read(key, fallback))
+  const [value, setValue] = useState<T>(() => readPersistent(key, fallback))
   const update = useCallback(
     (next: T) => {
       setValue(next)

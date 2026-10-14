@@ -1,0 +1,196 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+
+  @include down(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px auto auto;
+  gap: var(--space-2);
+
+  @include down(md) {
+    grid-template-columns: 1fr 1fr;
+
+    .search,
+    .add {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.summary {
+  color: var(--fg-subtle);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+}
+
+.skeletons {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.table {
+  @include surface;
+
+  inline-size: 100%;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  th {
+    padding: var(--space-3) var(--space-4);
+    border-block-end: 1px solid var(--border-default);
+    background: var(--bg-subtle);
+    color: var(--fg-subtle);
+    font: var(--weight-semibold) 12px/1.2 var(--font-sans);
+    letter-spacing: 0.05em;
+    text-align: start;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: var(--space-3) var(--space-4);
+    border-block-end: 1px solid var(--border-subtle);
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    cursor: pointer;
+
+    &:hover td {
+      background: var(--bg-subtle);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: -2px;
+    }
+
+    &:last-child td {
+      border-block-end: 0;
+    }
+  }
+
+  @include down(md) {
+    display: none;
+  }
+}
+
+.identity {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.name {
+  @include truncate;
+
+  font: var(--weight-semibold) var(--text-md) / 1.35 var(--font-sans);
+}
+
+.sub {
+  @include truncate;
+  @include tnum;
+
+  display: block;
+  color: var(--fg-subtle);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+}
+
+.strong {
+  @include tnum;
+
+  display: block;
+  font: var(--weight-medium) var(--text-md) / 1.35 var(--font-sans);
+  white-space: nowrap;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.amounts {
+  @include tnum;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cards {
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include down(md) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}
+
+.card {
+  @include button-reset;
+  @include surface(var(--radius-lg));
+  @include focusable;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  inline-size: 100%;
+  padding: var(--space-3) var(--space-4);
+}
+
+.cardTop {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+
+  .text {
+    flex: 1;
+  }
+}
+
+.cardMeta {
+  display: flex;
+  gap: var(--space-2);
+  color: var(--fg-muted);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--fg-subtle);
+}

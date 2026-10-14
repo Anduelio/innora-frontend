@@ -68,7 +68,8 @@
       "title": "Net-dhoma",
       "definition": "Një dhomë e zënë për një natë. Mospërfaqësimi numëron vetëm natën e parë, anulimi asnjë.",
       "hint": "Në {{days}} ditë",
-      "future": "Përfshin {{count}} net pas sot që janë vetëm të rezervuara."
+      "future": "Përfshin {{count}} net pas sot që janë vetëm të rezervuara.",
+      "empty": "Nuk ka net të zëna në këtë periudhë."
     },
     "occupancy": {
       "title": "Shkalla e zënies",
@@ -145,6 +146,26 @@
       "title": "Komisione dhe pagesa neto",
       "definition": "Komisioni i Booking.com dhe paratë që kanali i kalon hotelit.",
       "note": "E fshehur derisa të kemi të dhënat e pagesave nga Booking.com/Beds24. Nuk tregojmë shifra të hamendësuara."
+    },
+    "charts": {
+      "label": "Grafik: {{title}}",
+      "labelCurrency": "Grafik: {{title}} ({{currency}})",
+      "perDay": "sipas ditës",
+      "perMonth": "sipas muajit",
+      "average": "Mesatarja e periudhës",
+      "occupancyNow": "Zënia",
+      "occupancyFuture": "Ende pa ndodhur (sipas rezervimeve)",
+      "occupancyTip": "{{sold}} nga {{available}} dhoma",
+      "earnedLegend": "E fituar",
+      "forecastLegend": "Parashikim (nuk është e fituar)",
+      "forecastNote": "Parashikim, jo e fituar",
+      "collectedLegend": "Arkëtuar neto (pagesa minus rimbursime)",
+      "centerNights": "net-dhoma",
+      "centerBookings": "rezervime",
+      "nightsValue_one": "{{count}} natë",
+      "nightsValue_other": "{{count}} net",
+      "bookingsValue_one": "{{count}} rezervim",
+      "bookingsValue_other": "{{count}} rezervime"
     }
   }
 }

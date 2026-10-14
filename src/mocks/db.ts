@@ -1,5 +1,26 @@
-import type { Guest, Payment, Reservation, ReservationEvent, Room, RoomTypeInfo, StaffUser } from '@/types/domain'
-import { demoPasswords, payments, reservations, roomTypes, rooms, users } from '@/mocks/data'
+import type {
+  ChannelMapping,
+  Contact,
+  HotelSettings,
+  Payment,
+  Reservation,
+  ReservationEvent,
+  Room,
+  RoomTypeInfo,
+  StaffUser,
+} from '@/types/domain'
+import {
+  channel,
+  channelMappings,
+  demoPasswords,
+  hotel,
+  payments,
+  reservations,
+  roomTypes,
+  rooms,
+  users,
+  type ChannelState,
+} from '@/mocks/data'
 
 export interface Session {
   userId: number
@@ -7,9 +28,16 @@ export interface Session {
 }
 
 export interface Database {
+  hotel: HotelSettings
+  channel: ChannelState
+  mappings: ChannelMapping[]
+  blockSeq: number
+  roomTypeSeq: number
   rooms: Room[]
   roomTypes: RoomTypeInfo[]
   reservations: Reservation[]
+  contacts: Contact[]
+  contactSeq: number
   payments: Payment[]
   users: StaffUser[]
   passwords: Record<number, string>
@@ -20,14 +48,21 @@ export interface Database {
 }
 
 /** Ndryshoni versionin kur ndryshon forma e të dhënave të provës, që të mos lexohen të vjetrat. */
-const STORAGE_KEY = 'devolli:mock-db:v4'
+const STORAGE_KEY = 'devolli:mock-db:v5'
 const globalDb = globalThis as typeof globalThis & { __devolliDb?: Database }
 
 export function seed(): Database {
   return {
+    hotel: structuredClone(hotel),
+    channel: structuredClone(channel),
+    mappings: structuredClone(channelMappings),
+    blockSeq: 100,
+    roomTypeSeq: roomTypes.length + 1,
     rooms: structuredClone(rooms),
     roomTypes: structuredClone(roomTypes),
     reservations: structuredClone(reservations),
+    contacts: [],
+    contactSeq: 1,
     payments: structuredClone(payments),
     users: structuredClone(users),
     passwords: { ...demoPasswords },
@@ -41,7 +76,10 @@ export function seed(): Database {
 function load(): Database {
   try {
     const raw = globalThis.localStorage?.getItem(STORAGE_KEY)
-    if (raw) return JSON.parse(raw) as Database
+    if (raw) {
+      const saved = JSON.parse(raw) as Database
+      return { ...saved, contacts: saved.contacts ?? [], contactSeq: saved.contactSeq ?? 1 }
+    }
   } catch {
     // ruajtja lokale mund të mungojë (teste, modalitet privat)
   }
@@ -78,25 +116,4 @@ export function subscribe(listener: Listener): () => void {
 export function publish(event: ReservationEvent): void {
   persist(getDb())
   for (const listener of listeners) listener(event)
-}
-
-export function toGuests(list: Reservation[]): Guest[] {
-  const sorted = [...list].sort((a, b) => b.checkIn.localeCompare(a.checkIn))
-  const map = new Map<string, Guest>()
-  for (const reservation of sorted) {
-    const existing = map.get(reservation.guestName)
-    if (existing) {
-      existing.stays += 1
-      continue
-    }
-    map.set(reservation.guestName, {
-      id: reservation.guestName,
-      name: reservation.guestName,
-      phonePrefix: reservation.phonePrefix,
-      phone: reservation.phone,
-      stays: 1,
-      lastStay: reservation.checkIn,
-    })
-  }
-  return [...map.values()]
 }
