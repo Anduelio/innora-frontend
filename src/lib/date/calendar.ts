@@ -26,6 +26,38 @@ export function fmtGjate(iso: string, months: readonly string[]): string {
   return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
 }
 
+/** Formati i hotelit: dd.MM.yyyy, pa kaluar nga zona kohore e shfletuesit. */
+export function fmtDate(iso: string): string {
+  const [year, month, day] = iso.slice(0, 10).split('-')
+  return `${day}.${month}.${year}`
+}
+
+export function fmtDayMonth(iso: string): string {
+  const [, month, day] = iso.slice(0, 10).split('-')
+  return `${day}.${month}`
+}
+
+/** E hëna e javës që përmban `iso`. */
+export function startOfWeekIso(iso: string): string {
+  const offset = (weekdayIndex(iso) + 6) % 7
+  return addDaysIso(iso, -offset)
+}
+
+export function startOfMonthIso(iso: string): string {
+  return `${iso.slice(0, 7)}-01`
+}
+
+export function addMonthsIso(iso: string, months: number): string {
+  const date = parseISODate(startOfMonthIso(iso))
+  date.setMonth(date.getMonth() + months)
+  return formatISODate(date)
+}
+
+export function daysInMonth(iso: string): number {
+  const date = parseISODate(startOfMonthIso(iso))
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+}
+
 export function fmtShkurter(iso: string, monthsShort: readonly string[]): string {
   const date = parseISODate(iso)
   return `${date.getDate()} ${monthsShort[date.getMonth()]}`
@@ -58,7 +90,10 @@ export function isWeekend(iso: string): boolean {
   return day === 0 || day === 6
 }
 
-const COLUMN_WIDTH: Record<CalendarView, number> = { 7: 152, 14: 98, 30: 56 }
+const COLUMN_WIDTH: Record<CalendarView, number> = { 1: 148, 7: 148, 30: 56 }
+
+/** Duhet të përputhet me --cal-room-col te _tokens.scss. */
+export const ROOM_COLUMN_PX = 176
 
 export function columnWidth(view: CalendarView): number {
   return COLUMN_WIDTH[view]

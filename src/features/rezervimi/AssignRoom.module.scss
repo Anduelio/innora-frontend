@@ -1,0 +1,22 @@
+.form,
+.compact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.compact {
+  min-inline-size: min(100%, 300px);
+}
+
+.hint {
+  grid-column: 1 / -1;
+  color: var(--fg-subtle);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+}
+
+.empty {
+  color: var(--tone-warning-fg);
+  font: var(--weight-medium) var(--text-sm) / 1.5 var(--font-sans);
+}

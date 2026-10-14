@@ -1,43 +1,185 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--s-4);
-  max-inline-size: 1280px;
+  gap: var(--space-4);
 }
 
-.tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-3);
-  align-items: center;
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px 200px;
+  gap: var(--space-2);
+
+  @include down(md) {
+    grid-template-columns: 1fr 1fr;
+
+    .search {
+      grid-column: 1 / -1;
+    }
+  }
 }
 
-.filters {
+.filter {
+  min-inline-size: 0;
+}
+
+.panel {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-2);
+  flex-direction: column;
+  gap: var(--space-3);
+  outline: none;
+}
+
+.summary {
+  color: var(--fg-subtle);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+}
+
+.skeletons {
+  display: grid;
+  gap: var(--space-2);
 }
 
 .table {
-  overflow: hidden;
-  border: 1px solid var(--c-line-mid);
-  border-radius: var(--r-2xl);
-  background: var(--c-surface);
-  box-shadow: var(--sh-card);
-}
+  @include surface;
 
-.head {
-  display: grid;
-  grid-template-columns: 1.7fr 0.8fr 0.9fr 0.9fr 1fr 1fr;
-  gap: var(--s-3);
-  padding: var(--s-3) var(--s-5);
-  border-block-end: 1px solid var(--c-line-mid);
-  background: var(--c-surface-muted);
-  color: var(--c-ink-3);
-  font: var(--t-cap);
-  letter-spacing: var(--ls-cap);
+  inline-size: 100%;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  th {
+    padding: var(--space-3) var(--space-4);
+    border-block-end: 1px solid var(--border-default);
+    background: var(--bg-subtle);
+    color: var(--fg-subtle);
+    font: var(--weight-semibold) 12px/1.2 var(--font-sans);
+    letter-spacing: 0.05em;
+    text-align: start;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: var(--space-3) var(--space-4);
+    border-block-end: 1px solid var(--border-subtle);
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    cursor: pointer;
+
+    &:hover td {
+      background: var(--bg-subtle);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: -2px;
+    }
+
+    &:last-child td {
+      border-block-end: 0;
+    }
+  }
 
   @include down(md) {
     display: none;
   }
+}
+
+.guestCell {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.guestText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.name {
+  @include truncate;
+
+  font: var(--weight-semibold) var(--text-md) / 1.35 var(--font-sans);
+}
+
+.sub {
+  @include truncate;
+
+  display: block;
+  color: var(--fg-subtle);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.dates,
+.room {
+  display: block;
+  font: var(--weight-medium) var(--text-md) / 1.35 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.unassigned {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  color: var(--st-unassigned-fg);
+  font: var(--weight-semibold) var(--text-sm) / 1.35 var(--font-sans);
+}
+
+.payment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.cards {
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include down(md) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}
+
+.card {
+  @include button-reset;
+  @include surface(var(--radius-lg));
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  inline-size: 100%;
+  padding: var(--space-3) var(--space-4);
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+.cardTop {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.cardBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--fg-subtle);
 }

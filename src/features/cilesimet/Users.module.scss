@@ -1,0 +1,211 @@
+.users {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.user {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  min-block-size: 64px;
+  padding: var(--space-3) var(--space-5);
+  border-block-end: 1px solid var(--border-subtle);
+}
+
+.identity {
+  display: flex;
+  flex: 1 1 180px;
+  flex-direction: column;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.name {
+  color: var(--fg-default);
+  font: var(--weight-semibold) var(--text-md) / 1.35 var(--font-sans);
+}
+
+.email {
+  color: var(--fg-muted);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+
+  @include truncate;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.you {
+  margin-inline-start: var(--space-2);
+  padding: 1px 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-muted);
+  color: var(--fg-muted);
+  font: var(--weight-medium) 12px/1.5 var(--font-sans);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.matrix {
+  inline-size: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: var(--space-3) var(--space-5);
+    border-block-end: 1px solid var(--border-subtle);
+    font: var(--weight-regular) var(--text-md) / 1.4 var(--font-sans);
+    text-align: start;
+  }
+
+  thead th {
+    background: var(--bg-subtle);
+    color: var(--fg-subtle);
+    font: var(--weight-semibold) 12px/1.2 var(--font-sans);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  td {
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child th,
+  tbody tr:last-child td {
+    border-block-end: 0;
+  }
+}
+
+.verdict {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.lockedValue {
+  font: var(--weight-medium) var(--text-md) / 1.4 var(--font-sans);
+}
+
+.switchRow {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+
+  > span {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  strong {
+    font: var(--weight-medium) var(--text-md) / 1.3 var(--font-sans);
+  }
+
+  span span {
+    color: var(--fg-subtle);
+    font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+  }
+}
+
+.suggest {
+  @include button-reset;
+
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  min-block-size: 24px;
+  color: var(--accent);
+  font: var(--weight-medium) var(--text-sm) / 1 var(--font-sans);
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+.roles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+
+  @include down(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+}
+
+.roleTitle {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  color: var(--fg-default);
+  font: var(--weight-semibold) var(--text-md) / 1.35 var(--font-sans);
+
+  svg {
+    color: var(--fg-subtle);
+  }
+}
+
+.listLabel {
+  margin-block-start: var(--space-1);
+  color: var(--fg-muted);
+  font: var(--weight-medium) var(--text-sm) / 1.4 var(--font-sans);
+}
+
+.permissions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+    color: var(--fg-default);
+    font: var(--weight-regular) var(--text-md) / 1.45 var(--font-sans);
+  }
+
+  svg {
+    flex-shrink: 0;
+    margin-block-start: 3px;
+  }
+}
+
+.allowed svg {
+  color: var(--tone-success-fg);
+}
+
+.denied svg {
+  color: var(--tone-danger-fg);
+}

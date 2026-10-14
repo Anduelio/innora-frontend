@@ -1,0 +1,36 @@
+.switch {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  inline-size: 44px;
+  block-size: 26px;
+  padding: 3px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--border-strong);
+  cursor: pointer;
+  transition: background-color var(--duration-base) var(--ease-out);
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+.knob {
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: var(--radius-full);
+  background: var(--gray-0);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.on {
+  background: var(--green-600);
+
+  .knob {
+    transform: translateX(18px);
+  }
+}

@@ -1,0 +1,52 @@
+.row {
+  display: flex;
+  border-block: 1px solid var(--border-default);
+  background: var(--bg-subtle);
+}
+
+.label {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 4;
+  display: flex;
+  flex: 0 0 var(--cal-room-col);
+  flex-direction: column;
+  justify-content: center;
+  inline-size: var(--cal-room-col);
+  min-block-size: 44px;
+  padding: 4px var(--space-4);
+  border-inline-end: 1px solid var(--border-default);
+  background: var(--bg-subtle);
+}
+
+.name {
+  @include truncate;
+
+  font: var(--weight-semibold) var(--text-sm) / 1.25 var(--font-sans);
+}
+
+.total {
+  color: var(--fg-subtle);
+  font: var(--weight-regular) 12px/1.25 var(--font-sans);
+}
+
+.count {
+  display: grid;
+  flex: 0 0 var(--col-w);
+  place-items: center;
+  inline-size: var(--col-w);
+  border-inline-end: 1px solid var(--border-subtle);
+  color: var(--tone-success-fg);
+  font: var(--weight-semibold) 13px/1 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.last {
+  background: var(--tone-warning-bg);
+  color: var(--tone-warning-fg);
+}
+
+.full {
+  background: var(--bg-muted);
+  color: var(--fg-subtle);
+}

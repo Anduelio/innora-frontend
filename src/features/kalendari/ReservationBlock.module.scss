@@ -1,86 +1,114 @@
 .block {
   position: absolute;
   inset-block: var(--cal-block-inset);
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2px;
-  padding-inline: var(--s-2);
+  gap: 1px;
+  min-inline-size: 0;
+  padding-inline: 8px 6px;
   overflow: hidden;
   border: 1px solid transparent;
-  border-inline-start-width: 5px;
-  border-radius: var(--r-sm);
-  box-shadow: var(--sh-block);
+  border-inline-start-width: 4px;
+  border-radius: var(--radius-sm);
   text-align: start;
   cursor: pointer;
+  transition: box-shadow var(--duration-fast) var(--ease-out);
 
   &:hover {
-    filter: brightness(0.97);
+    z-index: 3;
+    box-shadow: var(--shadow-md);
   }
 
   &:focus-visible {
-    outline: 3px solid var(--c-focus);
+    z-index: 3;
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
 }
 
-.nameRow,
-.meta {
+.clipStart {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.clipEnd {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.nameRow {
   display: flex;
+  gap: 4px;
   align-items: center;
-  gap: var(--s-1);
   min-inline-size: 0;
 }
 
-.name {
-  overflow: hidden;
-  font: var(--t-meta);
-  font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.meta {
-  font: var(--t-meta);
+.icon,
+.booking {
+  flex-shrink: 0;
 }
 
 .booking {
-  flex: 0 0 auto;
-  padding: 1px var(--s-1);
-  border-radius: 4px;
-  background: var(--c-booking-brand);
-  color: var(--c-on-accent);
-  font: 800 13px/1 var(--f-sans);
+  color: var(--booking-navy);
 }
 
-.isCancelled .name {
-  text-decoration: line-through;
+.name {
+  @include truncate;
+
+  font: var(--weight-semibold) 13px/1.25 var(--font-sans);
 }
 
-.reserved {
-  border-color: var(--c-st-res-line);
-  border-inline-start-color: var(--c-st-res-bar);
-  background: var(--c-st-res-bg);
-  color: var(--c-st-res-fg);
+.meta {
+  @include truncate;
+
+  font: var(--weight-regular) 12px/1.25 var(--font-sans);
+  opacity: 0.85;
+}
+
+.confirmed {
+  border-color: var(--st-confirmed-line);
+  border-inline-start-color: var(--st-confirmed-bar);
+  background: var(--st-confirmed-bg);
+  color: var(--st-confirmed-fg);
 }
 
 .inHouse {
-  border-color: var(--c-st-in-line);
-  border-inline-start-color: var(--c-st-in-bar);
-  background: var(--c-st-in-bg);
-  color: var(--c-st-in-fg);
+  border-color: var(--st-inhouse-line);
+  border-inline-start-color: var(--st-inhouse-bar);
+  background: var(--st-inhouse-bg);
+  color: var(--st-inhouse-fg);
 }
 
-.completed {
-  border-color: var(--c-st-done-line);
-  border-inline-start-color: var(--c-st-done-bar);
-  background: var(--c-st-done-bg);
-  color: var(--c-st-done-fg);
+.out {
+  border-color: var(--st-out-line);
+  border-inline-start-color: var(--st-out-bar);
+  background: var(--st-out-bg);
+  color: var(--st-out-fg);
 }
 
 .cancelled {
-  border-color: var(--c-st-canc-line);
-  border-inline-start-color: var(--c-st-canc-bar);
-  background: var(--c-st-canc-bg);
-  color: var(--c-st-canc-fg);
+  border-color: var(--st-cancelled-line);
+  border-inline-start-color: var(--st-cancelled-bar);
+  background: var(--st-cancelled-bg);
+  color: var(--st-cancelled-fg);
+
+  .name {
+    text-decoration: line-through;
+  }
+}
+
+.noShow {
+  border-color: var(--st-noshow-line);
+  border-inline-start-color: var(--st-noshow-bar);
+  background: var(--st-noshow-bg);
+  color: var(--st-noshow-fg);
+}
+
+.unassigned {
+  border: 1px dashed var(--st-unassigned-bar);
+  border-inline-start: 4px solid var(--st-unassigned-bar);
+  background: var(--st-unassigned-bg);
+  color: var(--st-unassigned-fg);
 }

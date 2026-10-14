@@ -13,11 +13,17 @@ body,
   min-block-size: 100%;
 }
 
+html {
+  text-size-adjust: 100%;
+}
+
 body {
-  background: var(--c-bg);
-  color: var(--c-ink);
-  font: var(--t-body);
+  background: var(--bg-canvas);
+  color: var(--fg-default);
+  font: var(--weight-regular) var(--text-md) / 1.5 var(--font-sans);
+  font-feature-settings: 'cv11', 'ss03';
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button,
@@ -31,17 +37,25 @@ select {
 h1,
 h2,
 h3,
-p {
+h4,
+p,
+dl,
+dd {
   margin: 0;
 }
 
-button {
-  font-family: inherit;
+a {
+  color: var(--accent);
+  text-decoration: none;
 }
 
-a {
-  color: var(--c-accent);
-  text-decoration: none;
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--accent-line);
 }
 
 @include scrollbar;
@@ -50,9 +64,20 @@ a {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
-    transition-duration: 0.01ms;
-    scroll-behavior: auto;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  [data-print-hide] {
+    display: none !important;
   }
 }

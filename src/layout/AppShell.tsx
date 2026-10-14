@@ -1,11 +1,15 @@
 import { Suspense } from 'react'
 import { Outlet } from 'react-router'
 import { useQueryClient } from '@tanstack/react-query'
-import { Spinner } from '@/components/ui/Spinner/Spinner'
-import { Toaster } from '@/components/ui/Toast/Toaster'
+import { useTranslation } from 'react-i18next'
+import { Spinner } from '@/components/atoms/Spinner/Spinner'
+import { Toaster } from '@/components/organisms/Toast/Toaster'
 import { upsertReservation } from '@/lib/api/cache'
 import { useEventSource } from '@/lib/hooks/useEventSource'
+import { usePersistentState } from '@/lib/hooks/usePersistentState'
+import { useSessionGuard } from '@/lib/hooks/useSessionGuard'
 import { ReservationSurfaces } from '@/features/rezervimi/ReservationSurfaces'
+import { BottomNav } from '@/layout/BottomNav'
 import { Sidebar } from '@/layout/Sidebar'
 import { Topbar } from '@/layout/Topbar'
 import s from './AppShell.module.scss'
@@ -20,18 +24,26 @@ function useReservationStream() {
 }
 
 export function AppShell() {
+  const { t } = useTranslation()
+  const [collapsed, setCollapsed] = usePersistentState('sidebar-collapsed', false)
   useReservationStream()
+  useSessionGuard()
+
   return (
     <div className={s.shell}>
-      <Sidebar />
+      <a className={s.skip} href="#content">
+        {t('app.skipToContent')}
+      </a>
+      <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
       <div className={s.main}>
         <Topbar />
-        <div className={s.content}>
+        <main id="content" className={s.content} tabIndex={-1}>
           <Suspense fallback={<Spinner />}>
             <Outlet />
           </Suspense>
-        </div>
+        </main>
       </div>
+      <BottomNav />
       <ReservationSurfaces />
       <Toaster />
     </div>

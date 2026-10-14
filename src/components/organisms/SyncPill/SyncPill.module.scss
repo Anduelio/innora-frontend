@@ -1,0 +1,114 @@
+.wrap {
+  position: relative;
+}
+
+.pill {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-block-size: var(--control-md);
+  padding-inline: var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  font: var(--weight-medium) var(--text-sm) / 1 var(--font-sans);
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+.compact {
+  .text {
+    @include down(sm) {
+      display: none;
+    }
+  }
+}
+
+.problem {
+  border-color: var(--tone-warning-line);
+  background: var(--tone-warning-bg);
+  color: var(--tone-warning-fg);
+}
+
+.pending {
+  border-color: var(--tone-neutral-line);
+  background: var(--tone-neutral-bg);
+  color: var(--tone-neutral-fg);
+}
+
+.synced {
+  border-color: var(--tone-success-line);
+  background: var(--tone-success-bg);
+  color: var(--tone-success-fg);
+}
+
+.panel {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-2));
+  inset-inline-end: 0;
+  z-index: var(--z-popover);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  inline-size: min(340px, calc(100vw - 24px));
+  padding: var(--space-4);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.panelTitle {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  font: var(--weight-semibold) var(--text-md) / 1.3 var(--font-sans);
+}
+
+.detail {
+  color: var(--fg-muted);
+  font: var(--weight-regular) var(--text-sm) / 1.5 var(--font-sans);
+}
+
+.facts {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  dt {
+    color: var(--fg-subtle);
+    font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+  }
+
+  dd {
+    font: var(--weight-medium) var(--text-sm) / 1.4 var(--font-sans);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.issues {
+  margin: 0;
+  padding-inline-start: var(--space-5);
+  color: var(--tone-warning-fg);
+  font: var(--weight-medium) var(--text-sm) / 1.5 var(--font-sans);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-block-size: var(--control-md);
+  font: var(--weight-semibold) var(--text-sm) / 1 var(--font-sans);
+}

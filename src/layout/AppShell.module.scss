@@ -1,8 +1,8 @@
 .shell {
   display: flex;
-  min-block-size: 100vh;
-  background: var(--c-bg);
-  color: var(--c-ink);
+  min-block-size: 100dvh;
+  background: var(--bg-canvas);
+  color: var(--fg-default);
 }
 
 .main {
@@ -10,17 +10,38 @@
   flex: 1;
   flex-direction: column;
   min-inline-size: 0;
-  block-size: 100vh;
-
-  @include down(md) {
-    padding-block-end: var(--bottom-nav-h);
-  }
 }
 
 .content {
   flex: 1;
-  overflow: auto;
-  padding: var(--s-6);
+  inline-size: 100%;
+  padding: var(--space-5) var(--space-6);
+  outline: none;
 
-  @include scrollbar;
+  @include down(md) {
+    padding: var(--space-4) var(--space-4) calc(var(--bottom-nav-h) + var(--space-6) + env(safe-area-inset-bottom));
+  }
+}
+
+.skip {
+  position: absolute;
+  inset-block-start: var(--space-2);
+  inset-inline-start: var(--space-2);
+  z-index: var(--z-toast);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--action-bg);
+  color: var(--action-fg);
+  transform: translateY(-200%);
+
+  &:focus {
+    transform: none;
+  }
+}
+
+@media print {
+  .content {
+    max-inline-size: none;
+    padding: 0;
+  }
 }

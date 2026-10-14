@@ -1,0 +1,235 @@
+.page,
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.panel {
+  outline: none;
+}
+
+.lead {
+  max-inline-size: 70ch;
+  color: var(--fg-muted);
+  font: var(--weight-regular) var(--text-md) / 1.5 var(--font-sans);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-3);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.methods {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0 var(--space-1);
+  list-style: none;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    font: var(--weight-regular) var(--text-sm) / 1.6 var(--font-sans);
+  }
+}
+
+.methodLabel {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  color: var(--fg-muted);
+  white-space: nowrap;
+
+  svg {
+    inline-size: 16px;
+    block-size: 16px;
+  }
+}
+
+.count {
+  min-inline-size: 28px;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  background: var(--bg-muted);
+  color: var(--fg-muted);
+  font: var(--weight-semibold) var(--text-sm) / 1.2 var(--font-sans);
+  text-align: center;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.openRow {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) var(--space-5);
+  border-block-end: 1px solid var(--border-subtle);
+
+  &:last-child {
+    border-block-end: 0;
+  }
+
+  @include down(sm) {
+    grid-template-columns: auto minmax(0, 1fr);
+    padding-inline: var(--space-4);
+
+    .amounts {
+      grid-column: 2;
+      align-items: flex-start;
+    }
+
+    > button:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.openMain {
+  @include button-reset;
+
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 3px;
+  }
+}
+
+.name {
+  @include truncate;
+
+  font: var(--weight-semibold) var(--text-md) / 1.35 var(--font-sans);
+}
+
+.sub {
+  color: var(--fg-subtle);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.amounts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: var(--text-md);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+
+  > select {
+    inline-size: 220px;
+  }
+
+  @include down(md) {
+    > select {
+      inline-size: 100%;
+    }
+  }
+}
+
+.range {
+  display: grid;
+  grid-template-columns: repeat(2, 160px);
+  gap: var(--space-2);
+
+  @include down(md) {
+    grid-template-columns: 1fr 1fr;
+    inline-size: 100%;
+  }
+}
+
+.skeletons {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.table {
+  inline-size: 100%;
+  border-collapse: collapse;
+
+  th {
+    padding: var(--space-3) var(--space-4);
+    border-block-end: 1px solid var(--border-default);
+    background: var(--bg-subtle);
+    color: var(--fg-subtle);
+    font: var(--weight-semibold) 12px/1.2 var(--font-sans);
+    letter-spacing: 0.05em;
+    text-align: start;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: var(--space-3) var(--space-4);
+    border-block-end: 1px solid var(--border-subtle);
+    font: var(--weight-regular) var(--text-md) / 1.4 var(--font-sans);
+  }
+
+  tbody tr:last-child td {
+    border-block-end: 0;
+  }
+
+  @include down(md) {
+    th,
+    td {
+      padding-inline: var(--space-3);
+    }
+
+    .by {
+      display: none;
+    }
+  }
+}
+
+.right {
+  text-align: end !important;
+}
+
+.nowrap {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.link {
+  @include button-reset;
+
+  min-block-size: 32px;
+  color: var(--fg-default);
+  font-weight: var(--weight-medium);
+  text-align: start;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}

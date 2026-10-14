@@ -1,0 +1,21 @@
+.area {
+  inline-size: 100%;
+  min-block-size: 88px;
+  padding: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  color: var(--fg-default);
+  font: var(--weight-regular) var(--text-md) / 1.5 var(--font-sans);
+  resize: vertical;
+
+  &::placeholder {
+    color: var(--fg-subtle);
+  }
+
+  &:focus {
+    border-color: var(--focus-ring);
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus-ring) 22%, transparent);
+  }
+}

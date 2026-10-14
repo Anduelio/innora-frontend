@@ -1,0 +1,24 @@
+.money {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.strong {
+  font-weight: var(--weight-semibold);
+}
+
+.success {
+  color: var(--tone-success-fg);
+}
+
+.warning {
+  color: var(--tone-warning-fg);
+}
+
+.danger {
+  color: var(--tone-danger-fg);
+}
+
+.muted {
+  color: var(--fg-subtle);
+}

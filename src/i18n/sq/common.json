@@ -1,0 +1,214 @@
+{
+  "app": {
+    "title": "Devolli Hotel",
+    "hotelMeta": "{{city}} · {{count}} dhoma",
+    "skipToContent": "Kalo te përmbajtja"
+  },
+  "pages": {
+    "kalendari": "Dhomat natë për natë, me disponueshmërinë sipas tipit",
+    "rezervimet": "Gjej çdo rezervim të kaluar, aktual ose të ardhshëm",
+    "pagesat": "Paratë e marra dhe mbetjet e hapura",
+    "raportet": "Zënia, të ardhurat dhe arkëtimet sipas periudhës",
+    "cilesimet": "Hoteli, dhomat, Booking.com dhe përdoruesit"
+  },
+  "users": {
+    "roles": {
+      "owner": "Pronar",
+      "staff": "Recepsion"
+    }
+  },
+  "nav": {
+    "sot": "Sot",
+    "kalendari": "Kalendari",
+    "rezervimet": "Rezervimet",
+    "pagesat": "Pagesat",
+    "raportet": "Raportet",
+    "cilesimet": "Cilësimet",
+    "more": "Më shumë",
+    "main": "Navigimi kryesor",
+    "collapse": "Ngushto menunë",
+    "expand": "Zgjero menunë",
+    "signedInAs": "Hyrë si"
+  },
+  "common": {
+    "loading": "Duke ngarkuar…",
+    "loadError": "Nuk u ngarkuan të dhënat",
+    "loadErrorHint": "Kontrolloni lidhjen me internetin dhe provoni përsëri.",
+    "retry": "Provo përsëri",
+    "close": "Mbyll",
+    "optional": "(opsionale)",
+    "clear": "Pastro",
+    "cancel": "Anulo",
+    "save": "Ruaj",
+    "confirm": "Konfirmo",
+    "back": "Kthehu",
+    "edit": "Ndrysho",
+    "print": "Printo",
+    "exportCsv": "Shkarko CSV",
+    "seeAll": "Shiko të gjitha",
+    "all": "Të gjitha",
+    "none": "—",
+    "newReservation": "Rezervim i ri",
+    "today": "Sot",
+    "tomorrow": "Nesër",
+    "room": "Dhoma",
+    "roomNumber": "Dhoma {{room}}",
+    "night_one": "{{count}} natë",
+    "night_other": "{{count}} net",
+    "guest_one": "{{count}} mysafir",
+    "guest_other": "{{count}} mysafirë",
+    "decrease": "Zvogëlo",
+    "increase": "Rrit",
+    "from": "Nga",
+    "to": "Deri",
+    "total": "Totali",
+    "noResults": "Asnjë rezultat",
+    "previous": "Më parë",
+    "next": "Më pas",
+    "ownerOnly": "Vetëm pronari mund ta ndryshojë këtë."
+  },
+  "status": {
+    "RESERVED": "E konfirmuar",
+    "IN_HOUSE": "Në hotel",
+    "COMPLETED": "Larguar",
+    "CANCELLED": "Anuluar",
+    "NO_SHOW": "Nuk u paraqit"
+  },
+  "statusLong": {
+    "RESERVED": "E konfirmuar",
+    "IN_HOUSE": "Në hotel (Check-in kryer)",
+    "COMPLETED": "Larguar (Check-out kryer)",
+    "CANCELLED": "Anuluar",
+    "NO_SHOW": "Nuk u paraqit"
+  },
+  "source": {
+    "BOOKING": "Booking.com",
+    "TELEFON": "Telefon",
+    "RECEPSION": "Pa rezervim"
+  },
+  "pay": {
+    "paid": "Paguar",
+    "partial": "Paguar pjesërisht",
+    "unpaid": "Pa paguar",
+    "balance": "Mbetje",
+    "methods": {
+      "cash": "Para në dorë",
+      "card": "Kartë",
+      "bank_transfer": "Transfertë bankare"
+    },
+    "kinds": {
+      "payment": "Pagesë",
+      "refund": "Rimbursim"
+    }
+  },
+  "room": {
+    "unassigned": "Pa dhomë të caktuar",
+    "unassignedShort": "Pa dhomë",
+    "maintenance": "Në mirëmbajtje",
+    "free": "E lirë",
+    "freeOf": "{{free}} lira / {{total}}",
+    "type": "Tipi i dhomës"
+  },
+  "block": {
+    "maintenance": "Në mirëmbajtje",
+    "out_of_order": "Jashtë funksionit",
+    "owner_use": "Përdorim i pronarit",
+    "internal_hold": "E mbajtur",
+    "other": "E bllokuar"
+  },
+  "sync": {
+    "title": "Sinkronizimi me Booking.com",
+    "pending": "Në pritje",
+    "synced": "Sinkronizuar",
+    "problem": "Ka problem",
+    "provider": "Kanali",
+    "lastIn": "Rezervimet u morën së fundi",
+    "lastOut": "Disponueshmëria u dërgua së fundi",
+    "connectedDetail": "Ndryshimet dërgohen te Beds24. Statusi tregon vetëm atë që Beds24 ka konfirmuar.",
+    "notConnectedDetail": "Booking.com nuk është lidhur ende. Rezervimet ruhen këtu, por Booking.com mund të mos jetë i përditësuar.",
+    "openSettings": "Hap lidhjen me Booking.com",
+    "tellOwner": "Lidhjen me Booking.com e rregullon pronari. Njoftojeni nëse problemi vazhdon.",
+    "banner_one": "{{count}} problem sinkronizimi",
+    "banner_other": "{{count}} probleme sinkronizimi",
+    "bannerDetail": "Booking.com mund të mos jetë i përditësuar. Mbani shënim çdo ndryshim derisa të lidhet kanali.",
+    "see": "Shiko",
+    "lastRoomWarn": "Kujdes: dhoma e fundit e tipit {{type}} mund të shitet edhe në Booking.com."
+  },
+  "search": {
+    "label": "Kërko rezervim",
+    "placeholder": "Kërko emër, telefon, kod ose dhomë",
+    "results": "Rezultatet e kërkimit",
+    "empty": "Nuk u gjet asnjë rezervim."
+  },
+  "toast": {
+    "failed": "Nuk u ruajt. Provoni përsëri.",
+    "conflict": "Dikush tjetër e ndryshoi këtë rezervim — rifreskuam të dhënat.",
+    "created": "Rezervimi u ruajt",
+    "createdDetail": "{{name}} · {{dates}}",
+    "updated": "Ndryshimet u ruajtën",
+    "checkedIn": "Check-in u krye për {{name}}",
+    "checkedOut": "Check-out u krye për {{name}}",
+    "cancelled": "Rezervimi u anulua",
+    "nightsReleased": "Netët u liruan në kalendar",
+    "noShow": "{{name}} u shënua si nuk u paraqit",
+    "assigned": "Dhoma {{room}} u caktua për {{name}}",
+    "paymentRecorded": "Pagesa u regjistrua",
+    "refundRecorded": "Rimbursimi u regjistrua",
+    "syncPending": "Booking.com do të përditësohet kur të lidhet kanali."
+  },
+  "calendar": {
+    "months": ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"],
+    "monthsShort": ["Jan", "Shk", "Mar", "Pri", "Maj", "Qer", "Kor", "Gus", "Sht", "Tet", "Nën", "Dhj"],
+    "weekdaysLong": ["E diel", "E hënë", "E martë", "E mërkurë", "E enjte", "E premte", "E shtunë"],
+    "weekdaysShort": ["Di", "Hë", "Ma", "Më", "En", "Pr", "Sh"],
+    "weekdaysMondayFirst": ["Hë", "Ma", "Më", "En", "Pr", "Sh", "Di"],
+    "previousMonth": "Muaji i kaluar",
+    "nextMonth": "Muaji tjetër"
+  },
+  "phone": {
+    "prefix": "Prefiksi i shtetit",
+    "number": "Numri i telefonit",
+    "placeholder": "69 123 4567",
+    "countries": {
+      "AL": "Shqipëri",
+      "XK": "Kosovë",
+      "IT": "Itali",
+      "GR": "Greqi",
+      "MK": "Maqedoni e Veriut",
+      "ME": "Mal i Zi",
+      "RS": "Serbi",
+      "DE": "Gjermani",
+      "FR": "Francë",
+      "GB": "Britani e Madhe",
+      "US": "SHBA"
+    }
+  },
+  "login": {
+    "title": "Mirë se vini",
+    "email": "Email",
+    "password": "Fjalëkalimi",
+    "submit": "Hyr",
+    "failed": "Nuk u hap sesioni. Kontrolloni emailin dhe fjalëkalimin."
+  },
+  "auth": {
+    "subtitle": "Hyni me llogarinë tuaj për të vazhduar.",
+    "required": "Shkruani email-in dhe fjalëkalimin.",
+    "forgot": "E harruat fjalëkalimin? Pronari mund t'ju vendosë një të ri.",
+    "showPassword": "Shfaq fjalëkalimin",
+    "hidePassword": "Fshih fjalëkalimin",
+    "expired": "Sesioni u mbyll pas 30 minutash pa veprim. Hyni përsëri.",
+    "loggedOut": "Dolët nga llogaria.",
+    "logout": "Dil",
+    "noAccess": "Nuk keni leje për këtë faqe",
+    "noAccessHint": "Kjo pjesë është vetëm për pronarin e hotelit. Nëse ju duhet, kërkojini pronarit.",
+    "backToToday": "Kthehu te Sot",
+    "demoTitle": "Llogari prove",
+    "useDemo": "Përdor",
+    "demoNote": "Këto llogari punojnë vetëm në këtë version prove pa server.",
+    "pitchTitle": "Gjithë hoteli në një vend, në shqip.",
+    "pitchCalendar": "Dhomat, mbërritjet dhe largimet e ditës",
+    "pitchPayments": "Pagesat dhe mbetjet, pa llogari me dorë",
+    "pitchRoles": "Llogari të veçanta për pronarin dhe recepsionin",
+    "pitchFoot": "Devolli Hotel · Korçë"
+  }
+}

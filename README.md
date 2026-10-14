@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Hapet te [http://127.0.0.1:5173](http://127.0.0.1:5173). Pa backend, përgjigjet vijnë nga MSW (`VITE_USE_MOCKS=true`) dhe “sot” është `2026-09-21`.
+Hapet te [http://127.0.0.1:5173](http://127.0.0.1:5173). Pa backend, të dhënat demo përgjigjen brenda shfletuesit dhe “sot” është `2026-09-21`.
 
 ## Komanda
 

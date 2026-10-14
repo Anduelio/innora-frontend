@@ -1,0 +1,206 @@
+{
+  "cilesimet": {
+    "navLabel": "Seksionet e cilësimeve",
+    "sections": {
+      "hoteli": "Hoteli",
+      "dhomat": "Dhomat dhe tipet",
+      "mirembajtje": "Mirëmbajtje dhe mbyllje",
+      "booking": "Booking.com (Beds24)",
+      "perdoruesit": "Përdoruesit",
+      "pamja": "Pamja"
+    },
+    "tabs": {
+      "hoteli": "Hoteli",
+      "dhomat": "Dhomat",
+      "mirembajtje": "Mirëmbajtje",
+      "booking": "Booking.com",
+      "perdoruesit": "Përdoruesit",
+      "pamja": "Pamja"
+    },
+    "readOnly": {
+      "title": "Vetëm për lexim në këtë version",
+      "text": "Këto të dhëna shfaqen që t’i kontrolloni. Ndryshimet do të mund të bëhen këtu sapo aplikacioni të lidhet me serverin e hotelit."
+    },
+    "backendHint": "Aktivizohet sapo aplikacioni të lidhet me serverin e hotelit.",
+    "hotel": {
+      "description": "Të dhënat bazë që përdoren në rezervime, fatura dhe kalendar.",
+      "name": "Emri i hotelit",
+      "city": "Qyteti",
+      "currency": "Monedha kryesore",
+      "checkIn": "Ora e hyrjes (check-in)",
+      "checkOut": "Ora e largimit (check-out)",
+      "timezone": "Zona kohore",
+      "timezoneValue": "Tiranë ({{zone}})",
+      "dateFormat": "Formati i datës",
+      "dateFormatValue": "dd.MM.yyyy — p.sh. {{example}}",
+      "weekStart": "Java fillon",
+      "weekStartValue": "E hënë",
+      "fromTime": "nga ora {{time}}",
+      "untilTime": "deri në orën {{time}}",
+      "currencies": {
+        "EUR": "Euro (€)",
+        "ALL": "Lek shqiptar (Lekë)"
+      }
+    },
+    "rooms": {
+      "description": "Çdo tip shitet sipas numrit të dhomave aktive që ka. Dhoma fizike caktohet nga recepsioni.",
+      "summary": "{{rooms}} dhoma aktive në {{types}} tipe",
+      "activeRooms": "Dhoma aktive",
+      "maxOccupancy": "Maksimumi i personave",
+      "basePrice": "Çmimi bazë për natë",
+      "persons_one": "{{count}} person",
+      "persons_other": "{{count}} persona",
+      "capacityNote": "Kapaciteti i tipit = numri i dhomave aktive. Kjo është sa mund të shitet për çdo natë.",
+      "roomsOfType": "Dhomat e tipit {{type}}",
+      "floor": "Kati {{floor}}",
+      "noFloor": "Pa kat",
+      "statusActive": "Aktive",
+      "statusInactive": "Joaktive",
+      "noRooms": "Ky tip nuk ka ende dhoma.",
+      "empty": "Nuk ka tipe dhomash",
+      "emptyHint": "Tipet e dhomave shtohen sapo aplikacioni të lidhet me serverin."
+    },
+    "blocks": {
+      "description": "Dhomat që nuk mund të shiten për disa net, p.sh. për riparime.",
+      "rulesTitle": "Si funksionon",
+      "ruleReduces": "Kur një dhomë mbyllet për mirëmbajtje, tipi i saj ka një dhomë më pak për ato net. Kalendari dhe Booking.com shohin më pak disponueshmëri.",
+      "ruleNoReservation": "Një dhomë nuk mund të mbyllet nëse ka një rezervim në ato data. Fillimisht zhvendoseni rezervimin në një dhomë tjetër.",
+      "ruleEndExclusive": "Data e fundit është dita kur dhoma rikthehet në shitje.",
+      "listTitle": "Mbylljet e regjistruara",
+      "add": "Shto mbyllje",
+      "noReason": "Pa arsye të shënuar",
+      "dates": "Datat",
+      "reason": "Arsyeja",
+      "empty": "Asnjë dhomë nuk është e mbyllur",
+      "emptyHint": "Të gjitha dhomat aktive janë në shitje.",
+      "state": {
+        "current": "Aktive tani",
+        "upcoming": "E ardhshme",
+        "past": "E përfunduar"
+      }
+    },
+    "booking": {
+      "statusTitle": "Gjendja e lidhjes",
+      "statusDescription": "Booking.com lidhet me këtë aplikacion përmes Beds24.",
+      "notConnected": "Nuk është lidhur ende",
+      "connected": "E lidhur",
+      "channel": "Kanali",
+      "channelValue": "{{provider}} → Booking.com",
+      "never": "Asnjëherë",
+      "connect": "Lidh Booking.com",
+      "issuesTitle": "Çështje të hapura",
+      "issueTypes": {
+        "conflict": "Konflikt",
+        "push_failed": "Dërgimi dështoi",
+        "mapping_missing": "Lidhje e munguar",
+        "reconcile_mismatch": "Mospërputhje"
+      },
+      "mappingTitle": "Lidhja e tipeve të dhomave",
+      "mappingDescription": "Cili tip dhome këtu i përgjigjet cilës dhome dhe cilit plan çmimi në Booking.com.",
+      "mappingCaption": "Tipet tona të dhomave dhe lidhja e tyre me Booking.com",
+      "ourType": "Tipi ynë",
+      "externalRoom": "Dhoma në Booking.com",
+      "externalRate": "Plani i çmimit",
+      "mappingState": "Gjendja",
+      "unmapped": "Pa lidhur",
+      "mapped": "E lidhur",
+      "unknownType": "Tip i panjohur (#{{id}})",
+      "mappingEmpty": "Nuk ka ende asnjë lidhje tipesh",
+      "rulesTitle": "Kush e ndryshon çfarë",
+      "rulesDescription": "Rregulla të qarta që të mos ndodhin mbirezervime apo ndryshime të humbura.",
+      "ownerApp": "Ky aplikacion",
+      "ownerBooking": "Booking.com",
+      "rules": {
+        "availability": {
+          "title": "Disponueshmëria",
+          "text": "Shkruhet vetëm nga ky aplikacion. Booking.com merr numrin e dhomave të lira nga këtu."
+        },
+        "reservations": {
+          "title": "Rezervimet nga Booking.com",
+          "text": "Datat, mysafirët, çmimi dhe anulimi ndryshohen vetëm në Booking.com. Këtu shfaqen siç vijnë."
+        },
+        "prices": {
+          "title": "Çmimet",
+          "text": "Për tani mbeten në Extranet të Booking.com. Ky aplikacion nuk i ndryshon."
+        },
+        "assignment": {
+          "title": "Caktimi i dhomës fizike",
+          "text": "Bëhet vetëm këtu. Booking.com shet tipin, recepsioni zgjedh dhomën."
+        }
+      },
+      "checklistTitle": "Hapat para lidhjes",
+      "checklistDescription": "Booking.com lidhet vetëm kur të gjithë këta hapa janë bërë.",
+      "progress": "{{done}} nga {{total}} hapa të bërë",
+      "stepDone": "Bërë",
+      "stepTodo": "Pa bërë",
+      "steps": {
+        "account": "Krijoni llogarinë Beds24 dhe aktivizoni hyrjen API",
+        "extranet": "Lidhni Booking.com me Beds24 nga Extranet-i i Booking.com",
+        "mapping": "Lidhni çdo tip dhome me dhomën dhe planin e çmimit në Booking.com",
+        "import": "Importoni rezervimet e ardhshme dhe krahasojini me ato këtu",
+        "approval": "Merrni miratimin e përgjegjësit teknik para nisjes"
+      }
+    },
+    "users": {
+      "description": "Çdo person ka llogarinë e vet, që historiku të tregojë kush bëri çfarë.",
+      "add": "Shto përdorues",
+      "active": "Aktiv",
+      "inactive": "Joaktiv",
+      "empty": "Nuk ka përdorues",
+      "you": "Ju",
+      "lastLogin": "Hyrja e fundit: {{when}}",
+      "neverLoggedIn": "Nuk ka hyrë ende",
+      "permissionsTitle": "Çfarë sheh dhe bën secili rol",
+      "permissionsHint": "Butonat dhe faqet që nuk lejohen nuk shfaqen fare për atë rol.",
+      "permissionCol": "Leja",
+      "yes": "Po",
+      "no": "Jo",
+      "permissions": {
+        "desk_use": "Sot, Kalendari dhe Rezervimet",
+        "reservations_manage": "Krijim, ndryshim, anulim, check-in dhe check-out",
+        "payments_record": "Regjistrimi i pagesave dhe faqja Pagesat",
+        "reports_operational": "Raportet e punës: zënia, net-dhomat, lëvizjet, detyrimet",
+        "payments_refund": "Rimbursimet",
+        "reports_financial": "Raportet financiare: të ardhurat, arkëtimet, parashikimi, burimet",
+        "settings_manage": "Cilësimet e hotelit, dhomat dhe mirëmbajtja",
+        "channel_manage": "Lidhja me Booking.com (Beds24)",
+        "users_manage": "Përdoruesit dhe rolet"
+      },
+      "form": {
+        "newTitle": "Përdorues i ri",
+        "newHint": "Jepini personit email-in dhe fjalëkalimin e përkohshëm.",
+        "editTitle": "Ndrysho: {{name}}",
+        "name": "Emri dhe mbiemri",
+        "nameRequired": "Shkruani emrin.",
+        "emailHint": "Me këtë email hyn në aplikacion.",
+        "emailInvalid": "Shkruani një email të saktë.",
+        "role": "Roli",
+        "roleHint": {
+          "staff": "Recepsioni punon me rezervimet dhe pagesat e përditshme.",
+          "owner": "Pronari sheh dhe ndryshon gjithçka, edhe përdoruesit."
+        },
+        "selfRole": "Nuk mund ta ndryshoni rolin tuaj.",
+        "active": "Llogaria aktive",
+        "activeHint": "Kur çaktivizohet, personi del menjëherë dhe nuk mund të hyjë më.",
+        "tempPassword": "Fjalëkalimi i përkohshëm",
+        "tempPasswordHint": "Të paktën 8 shenja. Jepjani personit drejtpërdrejt, jo me mesazh publik.",
+        "newPassword": "Fjalëkalim i ri",
+        "newPasswordHint": "Lëreni bosh për ta mbajtur fjalëkalimin aktual.",
+        "passwordWeak": "Fjalëkalimi duhet të ketë të paktën 8 shenja.",
+        "suggest": "Sugjero",
+        "create": "Krijo llogarinë",
+        "created": "Llogaria për {{name}} u krijua",
+        "shareHint": "Jepini email-in dhe fjalëkalimin e përkohshëm.",
+        "saved": "Ndryshimet për {{name}} u ruajtën"
+      }
+    },
+    "appearance": {
+      "description": "Si duket aplikacioni në këtë pajisje.",
+      "themeLabel": "Tema e ngjyrave",
+      "system": "Si pajisja",
+      "light": "E çelët",
+      "dark": "E errët",
+      "hint": "E çelëta është parazgjedhja. Zgjedhja ruhet vetëm në këtë pajisje; “Si pajisja” ndjek cilësimin e telefonit ose kompjuterit."
+    }
+  }
+}

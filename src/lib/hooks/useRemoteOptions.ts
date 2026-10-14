@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue'
 import { useState } from 'react'
-import type { DropdownOption } from '@/components/ui/Dropdown/types'
+import type { DropdownOption } from '@/components/molecules/Dropdown/types'
 
 type Page<T> = { items: T[]; hasMore: boolean }
 

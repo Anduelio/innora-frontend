@@ -1,18 +1,27 @@
+const formatters = new Map<string, Intl.NumberFormat>()
+
+function formatter(currency: string, fraction: boolean): Intl.NumberFormat {
+  const key = `${currency}:${fraction}`
+  let found = formatters.get(key)
+  if (!found) {
+    found = new Intl.NumberFormat('sq-AL', {
+      style: 'currency',
+      currency,
+      minimumFractionDigits: fraction ? 2 : 0,
+      maximumFractionDigits: fraction ? 2 : 0,
+    })
+    formatters.set(key, found)
+  }
+  return found
+}
+
+/** Shuma në njësi të vogla (cent, qindarkë) për një monedhë; monedhat nuk bashkohen kurrë. */
 export function formatMoney(cents: number, currency = 'EUR'): string {
-  const hasCents = cents % 100 !== 0
-  const formatted = new Intl.NumberFormat('sq-AL', {
-    minimumFractionDigits: hasCents ? 2 : 0,
-    maximumFractionDigits: hasCents ? 2 : 0,
-  }).format(cents / 100)
-  return currency === 'ALL' ? `${formatted} Lek` : `€${formatted}`
+  return formatter(currency, cents % 100 !== 0).format(cents / 100)
 }
 
 export function currencyMark(currency = 'EUR'): string {
-  return currency === 'ALL' ? 'Lek' : '€'
-}
-
-export function formatEuro(cents: number): string {
-  return formatMoney(cents, 'EUR')
+  return currency === 'ALL' ? 'Lekë' : '€'
 }
 
 export function centsToInput(cents: number): string {

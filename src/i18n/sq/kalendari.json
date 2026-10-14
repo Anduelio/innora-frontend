@@ -1,0 +1,52 @@
+{
+  "kalendari": {
+    "views": {
+      "day": "Ditë",
+      "week": "Javë",
+      "month": "Muaj"
+    },
+    "view": "Pamja",
+    "previous": "Periudha e kaluar",
+    "next": "Periudha tjetër",
+    "type": "Tipi",
+    "allTypes": "Të gjitha tipet",
+    "roomsColumn": "Dhomat",
+    "freeShort": "{{free}}/{{total}}",
+    "freeLabel": "{{type}}, {{date}}: {{free}} të lira nga {{total}}",
+    "unassignedLane": "Pa dhomë të caktuar",
+    "cellLabel": "Dhoma {{room}}, {{date}}",
+    "blockLabel": "{{name}}, {{status}}, {{source}}, {{from}} – {{to}}",
+    "holdLabel": "{{reason}}, {{from}} – {{to}}",
+    "hint": "Prekni ose tërhiqni mbi netë të lira për rezervim të ri",
+    "legend": {
+      "free": "E lirë",
+      "confirmed": "E konfirmuar",
+      "inHouse": "Në hotel",
+      "out": "Larguar",
+      "maintenance": "Në mirëmbajtje",
+      "unassigned": "Pa dhomë"
+    },
+    "board": {
+      "title": "Dhomat më {{date}}",
+      "free": "E lirë",
+      "freeAction": "Rezervo",
+      "arrives": "Mbërrin sot",
+      "leaves": "Largohet sot",
+      "stays": "Në hotel",
+      "confirmed": "E konfirmuar",
+      "until": "deri më {{date}}",
+      "turnover": "Largohet {{out}}, mbërrin {{in}}",
+      "blocked": "Në mirëmbajtje"
+    },
+    "mobileTabs": "Pamja e kalendarit",
+    "dayList": "Dita",
+    "availability": "Disponueshmëria",
+    "availabilityHint": "Dhoma të lira për tip, 14 netët e ardhshme. Prekni një natë për ta rezervuar.",
+    "full": "Plot",
+    "roomsTotal_one": "{{count}} dhomë",
+    "roomsTotal_other": "{{count}} dhoma",
+    "bookCell_one": "Rezervo {{type}} për natën {{date}}, {{count}} e lirë",
+    "bookCell_other": "Rezervo {{type}} për natën {{date}}, {{count}} të lira",
+    "emptyType": "Nuk ka dhoma për këtë filtër."
+  }
+}

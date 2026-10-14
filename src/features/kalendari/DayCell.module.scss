@@ -2,27 +2,28 @@
   flex: 0 0 var(--col-w);
   inline-size: var(--col-w);
   block-size: 100%;
-  border-inline-end: 1px solid var(--c-line);
+  border-inline-end: 1px solid var(--border-subtle);
   cursor: cell;
 
   &:hover {
-    background: var(--c-cell-hover);
+    background: var(--bg-hover);
   }
 
   &:focus-visible {
-    outline: 3px solid var(--c-focus);
-    outline-offset: -3px;
+    outline: 2px solid var(--focus-ring);
+    outline-offset: -2px;
   }
 }
 
 .isToday {
-  background: var(--c-today-cell);
+  background: color-mix(in srgb, var(--accent-subtle) 70%, transparent);
 }
 
 .isWeekend {
-  background: var(--c-weekend-cell);
+  background: var(--bg-subtle);
 }
 
-.isSelected {
-  background: var(--c-select);
+.isSelected,
+.isSelected:hover {
+  background: var(--accent-line);
 }

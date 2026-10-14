@@ -1,0 +1,34 @@
+.row {
+  display: flex;
+  border-block-end: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--st-unassigned-bg) 55%, transparent);
+}
+
+.label {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 4;
+  display: flex;
+  flex: 0 0 var(--cal-room-col);
+  gap: 6px;
+  align-items: center;
+  inline-size: var(--cal-room-col);
+  block-size: var(--row-h);
+  padding-inline: var(--space-4);
+  border-inline-end: 1px solid var(--border-default);
+  background: var(--st-unassigned-bg);
+  color: var(--st-unassigned-fg);
+  font: var(--weight-semibold) 13px/1.2 var(--font-sans);
+}
+
+.track {
+  position: relative;
+  display: flex;
+  block-size: var(--row-h);
+}
+
+.cell {
+  flex: 0 0 var(--col-w);
+  inline-size: var(--col-w);
+  border-inline-end: 1px solid var(--border-subtle);
+}

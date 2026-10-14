@@ -1,0 +1,50 @@
+.avatar {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: var(--radius-full);
+  font: var(--weight-semibold) 14px/1 var(--font-sans);
+  letter-spacing: 0.02em;
+}
+
+.sm {
+  inline-size: 32px;
+  block-size: 32px;
+  font-size: 12px;
+}
+
+.md {
+  inline-size: 40px;
+  block-size: 40px;
+}
+
+.lg {
+  inline-size: 52px;
+  block-size: 52px;
+  font-size: 18px;
+}
+
+.t1 {
+  background: var(--tone-info-bg);
+  color: var(--tone-info-fg);
+}
+
+.t2 {
+  background: var(--tone-success-bg);
+  color: var(--tone-success-fg);
+}
+
+.t3 {
+  background: var(--tone-warning-bg);
+  color: var(--tone-warning-fg);
+}
+
+.t4 {
+  background: var(--src-walkin-bg);
+  color: var(--src-walkin-fg);
+}
+
+.t5 {
+  background: var(--tone-neutral-bg);
+  color: var(--tone-neutral-fg);
+}

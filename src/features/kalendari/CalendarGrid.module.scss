@@ -1,19 +1,19 @@
 .frame {
+  @include surface;
+
   overflow: hidden;
-  border: 1px solid var(--c-line-mid);
-  border-radius: var(--r-2xl);
-  background: var(--c-surface);
-  box-shadow: var(--sh-card);
 }
 
 .scroller {
-  overflow-x: auto;
+  max-block-size: calc(100dvh - var(--topbar-h) - 200px);
+  overflow: auto;
+  overscroll-behavior: contain;
 
   @include scrollbar;
 }
 
 .sheet {
-  --col-w: var(--cal-col-14);
+  --col-w: var(--cal-col-7);
   --row-h: var(--cal-row-h);
 
   inline-size: max-content;
@@ -21,18 +21,11 @@
   user-select: none;
 }
 
-.view7 {
+.week {
   --col-w: var(--cal-col-7);
 }
 
-.view14 {
-  --col-w: var(--cal-col-14);
-}
-
-.view30 {
+.month {
   --col-w: var(--cal-col-30);
-}
-
-.kompakt {
   --row-h: var(--cal-row-h-compact);
 }

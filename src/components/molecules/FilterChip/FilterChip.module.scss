@@ -1,0 +1,47 @@
+.chip {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: var(--space-2);
+  align-items: center;
+  min-block-size: var(--control-md);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  color: var(--fg-muted);
+  font: var(--weight-medium) var(--text-sm) / 1 var(--font-sans);
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  &:hover:not(.isSelected) {
+    border-color: var(--border-strong);
+    color: var(--fg-default);
+  }
+}
+
+.isSelected {
+  border-color: var(--action-bg);
+  background: var(--action-bg);
+  color: var(--action-fg);
+}
+
+.count {
+  min-inline-size: 22px;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  background: var(--bg-muted);
+  color: var(--fg-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.isSelected .count {
+  background: color-mix(in srgb, var(--action-fg) 20%, transparent);
+  color: var(--action-fg);
+}

@@ -1,29 +1,70 @@
-import type { Guest, Reservation, ReservationEvent, Room } from '@/types/domain'
-import { reservations, rooms } from '@/mocks/data'
+import type { Guest, Payment, Reservation, ReservationEvent, Room, RoomTypeInfo, StaffUser } from '@/types/domain'
+import { demoPasswords, payments, reservations, roomTypes, rooms, users } from '@/mocks/data'
+
+export interface Session {
+  userId: number
+  lastSeenAt: number
+}
 
 export interface Database {
   rooms: Room[]
+  roomTypes: RoomTypeInfo[]
   reservations: Reservation[]
+  payments: Payment[]
+  users: StaffUser[]
+  passwords: Record<number, string>
+  sessions: Record<string, Session>
   seq: number
+  paymentSeq: number
+  userSeq: number
 }
 
-const globalDb = globalThis as typeof globalThis & { __recepsionDb?: Database }
+/** Ndryshoni versionin kur ndryshon forma e të dhënave të provës, që të mos lexohen të vjetrat. */
+const STORAGE_KEY = 'devolli:mock-db:v4'
+const globalDb = globalThis as typeof globalThis & { __devolliDb?: Database }
 
 export function seed(): Database {
   return {
     rooms: structuredClone(rooms),
+    roomTypes: structuredClone(roomTypes),
     reservations: structuredClone(reservations),
-    seq: 100,
+    payments: structuredClone(payments),
+    users: structuredClone(users),
+    passwords: { ...demoPasswords },
+    sessions: {},
+    seq: 200,
+    paymentSeq: payments.length + 1,
+    userSeq: users.length + 1,
+  }
+}
+
+function load(): Database {
+  try {
+    const raw = globalThis.localStorage?.getItem(STORAGE_KEY)
+    if (raw) return JSON.parse(raw) as Database
+  } catch {
+    // ruajtja lokale mund të mungojë (teste, modalitet privat)
+  }
+  return seed()
+}
+
+export function persist(db: Database): void {
+  try {
+    globalThis.localStorage?.setItem(STORAGE_KEY, JSON.stringify(db))
+  } catch {
+    // vazhdo vetëm në memorie
   }
 }
 
 export function getDb(): Database {
-  globalDb.__recepsionDb ??= seed()
-  return globalDb.__recepsionDb
+  globalDb.__devolliDb ??= load()
+  return globalDb.__devolliDb
 }
 
 export function resetDb(): void {
-  globalDb.__recepsionDb = seed()
+  const sessions = globalDb.__devolliDb?.sessions ?? {}
+  globalDb.__devolliDb = { ...seed(), sessions }
+  persist(globalDb.__devolliDb)
 }
 
 type Listener = (event: ReservationEvent) => void
@@ -35,6 +76,7 @@ export function subscribe(listener: Listener): () => void {
 }
 
 export function publish(event: ReservationEvent): void {
+  persist(getDb())
   for (const listener of listeners) listener(event)
 }
 

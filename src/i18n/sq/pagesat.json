@@ -1,0 +1,36 @@
+{
+  "pagesat": {
+    "tabs": "Pamja e pagesave",
+    "open": "Detyrime të hapura",
+    "received": "Pagesat e marra",
+    "openLead": "Mbetjet që mysafirët kanë ende për të paguar. Nuk janë të ardhura dhe nuk përfshijnë pagesat online të Booking.com.",
+    "receivedLead": "Paratë e marra sipas datës së pagesës. Rimbursimet shfaqen si minus.",
+    "leavingToday": "Largohen sot",
+    "inHouse": "Në hotel tani",
+    "later": "Të tjera",
+    "noOpen": "Nuk ka detyrime të hapura",
+    "noOpenHint": "Të gjitha qëndrimet janë paguar.",
+    "openTotal": "Gjithsej mbetje · {{currency}}",
+    "collect": "Arkëto",
+    "period": "Periudha",
+    "presets": {
+      "today": "Sot",
+      "week": "7 ditët e fundit",
+      "month": "Ky muaj"
+    },
+    "method": "Mënyra",
+    "anyMethod": "Çdo mënyrë",
+    "noPayments": "Asnjë pagesë në këtë periudhë",
+    "noPaymentsHint": "Zgjidhni një periudhë tjetër ose regjistroni një pagesë nga rezervimi.",
+    "net": "Neto · {{currency}}",
+    "columns": {
+      "date": "Data",
+      "guest": "Mysafiri",
+      "method": "Mënyra",
+      "kind": "Lloji",
+      "amount": "Shuma",
+      "by": "Regjistroi"
+    },
+    "stayLine": "{{room}} · {{dates}}"
+  }
+}

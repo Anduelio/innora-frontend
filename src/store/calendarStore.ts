@@ -1,14 +1,29 @@
 import { create } from 'zustand'
-import type { CalendarView, DaySelection, Density } from '@/types/domain'
-import { addDaysIso } from '@/lib/date/calendar'
+import type { CalendarView, DaySelection } from '@/types/domain'
+import { addDaysIso, addMonthsIso, daysInMonth, startOfMonthIso } from '@/lib/date/calendar'
 import { TODAY } from '@/lib/date/today'
 
-function readInitial(): { view: CalendarView; startDate: string } {
-  if (typeof window === 'undefined') return { view: 14, startDate: TODAY }
+export const VIEW_PARAM: Record<CalendarView, string> = { 1: 'dite', 7: 'jave', 30: 'muaj' }
+
+export function viewFromParam(value: string | null): CalendarView | null {
+  if (value === 'dite') return 1
+  if (value === 'jave') return 7
+  if (value === 'muaj') return 30
+  return null
+}
+
+export function visibleDays(view: CalendarView, startDate: string): number {
+  return view === 30 ? daysInMonth(startDate) : view
+}
+
+function readInitial(): { view: CalendarView; startDate: string; typeId: number } {
+  if (typeof window === 'undefined') return { view: 7, startDate: TODAY, typeId: 0 }
   const params = new URLSearchParams(window.location.search)
-  const pamja = Number(params.get('pamja'))
-  const view: CalendarView = pamja === 7 || pamja === 14 || pamja === 30 ? pamja : 14
-  return { view, startDate: params.get('nga') || TODAY }
+  return {
+    view: viewFromParam(params.get('pamja')) ?? 7,
+    startDate: params.get('nga') || TODAY,
+    typeId: Number(params.get('tipi')) || 0,
+  }
 }
 
 const initial = readInitial()
@@ -16,21 +31,26 @@ const initial = readInitial()
 interface CalendarState {
   view: CalendarView
   startDate: string
-  density: Density
+  typeId: number
   selection: DaySelection | null
   setView: (view: CalendarView) => void
   setStartDate: (startDate: string) => void
-  moveStart: (days: number) => void
+  setTypeId: (typeId: number) => void
+  step: (direction: 1 | -1) => void
   setSelection: (selection: DaySelection | null) => void
 }
 
 export const useCalendarStore = create<CalendarState>((set, get) => ({
   view: initial.view,
   startDate: initial.startDate,
-  density: 'komod',
+  typeId: initial.typeId,
   selection: null,
-  setView: (view) => set({ view }),
+  setView: (view) => set({ view, startDate: view === 30 ? startOfMonthIso(get().startDate) : get().startDate }),
   setStartDate: (startDate) => set({ startDate }),
-  moveStart: (days) => set({ startDate: addDaysIso(get().startDate, days) }),
+  setTypeId: (typeId) => set({ typeId }),
+  step: (direction) => {
+    const { view, startDate } = get()
+    set({ startDate: view === 30 ? addMonthsIso(startDate, direction) : addDaysIso(startDate, direction * view) })
+  },
   setSelection: (selection) => set({ selection }),
 }))

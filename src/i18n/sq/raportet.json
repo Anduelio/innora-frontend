@@ -1,0 +1,150 @@
+{
+  "raportet": {
+    "filters": {
+      "label": "Filtrat e raportit",
+      "period": "Periudha",
+      "presets": {
+        "thisMonth": "Ky muaj",
+        "lastMonth": "Muaji i kaluar",
+        "last7": "7 ditët e fundit",
+        "today": "Sot",
+        "custom": "Periudhë tjetër"
+      },
+      "roomType": "Tipi i dhomës",
+      "source": "Burimi",
+      "allRoomTypes": "Të gjithë tipat",
+      "allSources": "Të gjitha burimet"
+    },
+    "summary": "{{from}} – {{to}}",
+    "summaryNights_one": "{{count}} ditë",
+    "summaryNights_other": "{{count}} ditë",
+    "updating": "Po përditësohet…",
+    "staffLimited": "Si recepsion shihni raportet e punës së përditshme. Të ardhurat, arkëtimet, parashikimi dhe burimet e rezervimeve i sheh vetëm pronari.",
+    "disclaimer": "Raporte për menaxhimin e hotelit, jo kontabilitet. Shifrat zyrtare i jep kontabilisti.",
+    "coverage": {
+      "title": "Të dhëna jo të plota",
+      "body": "Sistemi ka të dhëna vetëm nga {{date}}. Rezervimet dhe pagesat para kësaj date nuk janë këtu, ndaj shifrat e kësaj periudhe janë më të ulëta se në realitet."
+    },
+    "basis": {
+      "label": "Baza e datës: {{basis}}",
+      "checkIn": "data e mbërritjes",
+      "checkOut": "data e largimit",
+      "night": "nata e qëndrimit",
+      "payment": "data e pagesës",
+      "endDate": "gjendja më {{date}}",
+      "futureNight": "netët pas sot",
+      "mixed": "mbërritja, largimi ose nata"
+    },
+    "exportLabel": "Shkarko CSV: {{title}}",
+    "metric": "Metrika",
+    "nightCol": "Nata",
+    "monthCol": "Muaji",
+    "currencyCol": "Monedha",
+    "amountCol": "Shuma",
+    "valueCol": "Vlera ({{currency}})",
+    "dateCol": "Data",
+    "empty": "—",
+    "movements": {
+      "title": "Mbërritje, largime, qëndrime",
+      "definition": "Sa rezervime mbërritën, u larguan ose kaluan të paktën një natë në periudhë.",
+      "count": "Numri",
+      "noShow": "Nuk u paraqitën",
+      "cancelled": "Anuluar",
+      "cancelledNote": "Të anuluarat numërohen veçmas dhe nuk hyjnë kurrë te të ardhurat.",
+      "arrivals": {
+        "title": "Mbërritje",
+        "definition": "Rezervime me datë mbërritjeje brenda periudhës."
+      },
+      "departures": {
+        "title": "Largime",
+        "definition": "Rezervime me datë largimi brenda periudhës."
+      },
+      "stays": {
+        "title": "Qëndrime",
+        "definition": "Rezervime me të paktën një natë brenda periudhës."
+      }
+    },
+    "roomNights": {
+      "title": "Net-dhoma",
+      "definition": "Një dhomë e zënë për një natë. Mospërfaqësimi numëron vetëm natën e parë, anulimi asnjë.",
+      "hint": "Në {{days}} ditë",
+      "future": "Përfshin {{count}} net pas sot që janë vetëm të rezervuara."
+    },
+    "occupancy": {
+      "title": "Shkalla e zënies",
+      "definition": "Net-dhoma të shitura ÷ net-dhoma në dispozicion (dhoma aktive × net, pa netët jashtë shërbimit).",
+      "sold": "Net të shitura",
+      "available": "Net në dispozicion",
+      "blocked": "Jashtë shërbimit (të hequra)",
+      "rooms": "Dhoma aktive",
+      "tileHint": "{{sold}} nga {{available}} net · {{blocked}} jashtë shërbimit",
+      "perNight": "Zënia natë për natë",
+      "perMonth": "Zënia sipas muajit",
+      "barLabel": "{{label}}: {{rate}} ({{sold}} nga {{available}})",
+      "noRooms": "Nuk ka dhoma aktive për këtë filtër.",
+      "csvRate": "Zënia (%)"
+    },
+    "earned": {
+      "title": "Të ardhura nga akomodimi",
+      "tile": "Të ardhura",
+      "tileHint": "Sipas natës, deri sot",
+      "definition": "Vlera e çdo nate të zënë deri sot: totali i rezervimit ÷ netët. Qëndrimet që kalojnë muajin ndahen. Pa të anuluarat.",
+      "nights": "Net të fituara",
+      "empty": "Asnjë natë e fituar në këtë periudhë."
+    },
+    "collected": {
+      "title": "Para të arkëtuara",
+      "tileHint": "Neto, sipas datës së pagesës",
+      "definition": "Paratë e marra sipas datës së pagesës. Rimbursimet dalin si rresht negativ më vete.",
+      "line": "Rreshti",
+      "refunds": "Rimbursime",
+      "net": "Neto e arkëtuar",
+      "count_one": "{{count}} veprim",
+      "count_other": "{{count}} veprime",
+      "empty": "Asnjë pagesë në këtë periudhë.",
+      "filtered": "Me filtra, numërohen vetëm pagesat e rezervimeve që përputhen.",
+      "csvGuest": "Mysafiri",
+      "csvCode": "Kodi i rezervimit",
+      "csvKind": "Lloji",
+      "csvMethod": "Mënyra",
+      "csvBy": "Regjistruar nga"
+    },
+    "outstanding": {
+      "title": "Detyrime të papaguara",
+      "definition": "Rezervime jo të anuluara, të mbërritura deri në fund të periudhës, me mbetje (totali − paguar) mbi zero.",
+      "note": "Mbetja llogaritet me pagesat e regjistruara deri sot.",
+      "guest": "Mysafiri",
+      "code": "Kodi",
+      "room": "Dhoma",
+      "total": "Gjithsej {{currency}}",
+      "open": "Hap rezervimin e {{name}}",
+      "empty": "Nuk ka mbetje të papaguara.",
+      "csvCheckIn": "Mbërritja",
+      "csvCheckOut": "Largimi"
+    },
+    "forecast": {
+      "title": "Parashikim",
+      "badge": "Parashikim",
+      "definition": "Vlera e netëve të konfirmuara (të rezervuara ose në hotel) pas sot. Nuk është e ardhur e fituar.",
+      "window": "Net nga {{from}} deri {{to}}",
+      "nights": "Net të konfirmuara",
+      "none": "Kjo periudhë nuk ka net pas sot.",
+      "empty": "Asnjë natë e konfirmuar pas sot në këtë periudhë."
+    },
+    "channels": {
+      "title": "Booking.com kundrejt direkt",
+      "definition": "Numri dhe vlera e rezervimeve sipas burimit. Vlera e rezervimit nuk është e ardhur e fituar.",
+      "count": "Rezervime",
+      "cancelled": "Anuluar",
+      "share": "Pjesa",
+      "direct": "Direkt gjithsej",
+      "barLabel": "{{source}}: {{share}} e rezervimeve",
+      "empty": "Asnjë rezervim me mbërritje në këtë periudhë."
+    },
+    "payouts": {
+      "title": "Komisione dhe pagesa neto",
+      "definition": "Komisioni i Booking.com dhe paratë që kanali i kalon hotelit.",
+      "note": "E fshehur derisa të kemi të dhënat e pagesave nga Booking.com/Beds24. Nuk tregojmë shifra të hamendësuara."
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 5px;
+  align-items: center;
+  min-block-size: 24px;
+  padding: 2px 9px 2px 6px;
+  border-radius: var(--radius-full);
+  font: var(--weight-medium) 13px/1.2 var(--font-sans);
+  white-space: nowrap;
+
+  svg {
+    inline-size: 14px;
+    block-size: 14px;
+  }
+}
+
+.booking {
+  background: var(--src-booking-bg);
+  color: var(--src-booking-fg);
+}
+
+.phone {
+  background: var(--src-phone-bg);
+  color: var(--src-phone-fg);
+}
+
+.walkin {
+  background: var(--src-walkin-bg);
+  color: var(--src-walkin-fg);
+}

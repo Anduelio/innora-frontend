@@ -13,18 +13,33 @@
   }
 }
 
-@mixin card($radius: var(--r-xl)) {
-  background: var(--c-surface);
-  border: 1px solid var(--c-line-mid);
+@mixin surface($radius: var(--radius-lg)) {
+  border: 1px solid var(--border-default);
   border-radius: $radius;
-  box-shadow: var(--sh-card);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-xs);
+}
+
+@mixin card($radius: var(--radius-lg)) {
+  @include surface($radius);
 }
 
 @mixin focusable {
   &:focus-visible {
-    outline: 3px solid var(--c-focus);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
+}
+
+@mixin button-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
 }
 
 @mixin truncate {
@@ -35,21 +50,21 @@
 }
 
 @mixin caption {
-  font: var(--t-cap);
-  letter-spacing: var(--ls-cap);
+  color: var(--fg-subtle);
+  font: var(--weight-semibold) var(--text-xs) / 1.2 var(--font-sans);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--c-ink-3);
 }
 
 @mixin pill($bg, $fg) {
   display: inline-flex;
   align-items: center;
-  gap: var(--s-1);
-  padding: 5px var(--s-3);
-  border-radius: var(--r-pill);
+  gap: var(--space-1);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
   background: $bg;
   color: $fg;
-  font: 600 13.5px/1 var(--f-sans);
+  font: var(--weight-medium) 13px/1.2 var(--font-sans);
   white-space: nowrap;
 }
 
@@ -59,14 +74,14 @@
 
 @mixin scrollbar {
   &::-webkit-scrollbar {
-    block-size: 11px;
-    inline-size: 11px;
+    block-size: 10px;
+    inline-size: 10px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--c-scrollbar);
-    border-radius: 9px;
     border: 3px solid transparent;
+    border-radius: 9px;
+    background: var(--border-strong);
     background-clip: padding-box;
   }
 }

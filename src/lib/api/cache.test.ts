@@ -6,14 +6,17 @@ import type { Reservation } from '@/types/domain'
 function reservation(partial: Partial<Reservation> = {}): Reservation {
   return {
     id: 'r1',
+    code: 'DH-2026-0001',
     roomId: '101',
+    roomTypeId: 1,
     guestName: 'Ana',
     phone: '',
+    currency: 'EUR',
     persons: 2,
     checkIn: '2026-09-21',
     checkOut: '2026-09-24',
     status: 'RESERVED',
-    source: 'DIREKT',
+    source: 'TELEFON',
     totalCents: 100,
     paidCents: 0,
     createdAt: '2026-09-01T09:00:00Z',

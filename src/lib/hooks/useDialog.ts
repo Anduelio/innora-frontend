@@ -13,7 +13,7 @@ export function useDialog(open: boolean, onClose: () => void) {
       [...(root?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? [])].filter((el) => !el.hasAttribute('disabled'))
 
     const preferred = root?.querySelector<HTMLElement>('[data-autofocus]')
-    ;(preferred ?? items()[0])?.focus()
+    ;(preferred ?? items()[0])?.focus({ preventScroll: true })
 
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {

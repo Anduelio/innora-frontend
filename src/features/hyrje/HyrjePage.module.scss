@@ -1,29 +1,175 @@
 .page {
   display: grid;
+  grid-template-columns: minmax(360px, 5fr) 7fr;
   min-block-size: 100dvh;
-  place-items: center;
-  padding: var(--s-6);
-  background: var(--c-bg);
-}
+  background: var(--bg-canvas);
 
-.card {
-  @include card(var(--r-2xl));
-
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-4);
-  inline-size: min(100%, 420px);
-  padding: var(--s-6);
-
-  h1 {
-    margin: 0;
-    font: var(--t-section);
+  @include down(lg) {
+    grid-template-columns: 1fr;
   }
 }
 
-.brand {
+.brandPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding: var(--space-10);
+  background:
+    radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 55%),
+    var(--bg-inverse);
+  color: var(--fg-inverse);
+
+  @include down(lg) {
+    display: none;
+  }
+}
+
+.brandTop,
+.mobileBrand {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.mobileBrand {
+  display: none;
+
+  @include down(lg) {
+    display: flex;
+  }
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: var(--radius-md);
+  background: var(--brand);
+  color: #fff;
+  font: var(--weight-bold) 20px/1 var(--font-sans);
+}
+
+.brandName {
+  font: var(--weight-semibold) var(--text-lg) / 1.2 var(--font-sans);
+}
+
+.pitch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+
+  h2 {
+    max-inline-size: 18ch;
+    font: var(--weight-semibold) var(--text-3xl) / 1.2 var(--font-sans);
+    letter-spacing: -0.02em;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    font: var(--weight-regular) var(--text-md) / 1.5 var(--font-sans);
+    opacity: 0.9;
+  }
+
+  svg {
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+}
+
+.brandFoot {
+  font: var(--weight-regular) var(--text-sm) / 1.5 var(--font-sans);
+  opacity: 0.7;
+}
+
+.formPanel {
+  display: grid;
+  place-items: center;
+  padding: var(--space-8) var(--space-4);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  inline-size: min(100%, 420px);
+}
+
+.title {
+  color: var(--fg-default);
+  font: var(--weight-semibold) var(--text-2xl) / 1.25 var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin-block-start: var(--space-1);
+  color: var(--fg-muted);
+  font: var(--weight-regular) var(--text-md) / 1.5 var(--font-sans);
+}
+
+.demo {
+  @include surface;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--bg-subtle);
+}
+
+.demoTitle {
+  @include caption;
+}
+
+.demoList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
   margin: 0;
-  color: var(--c-ink-3);
-  font: var(--t-body);
-  font-weight: 600;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.demoText {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  color: var(--fg-muted);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+
+  strong {
+    color: var(--fg-default);
+    font-size: var(--text-md);
+    font-weight: var(--weight-semibold);
+  }
+
+  span {
+    @include truncate;
+
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.demoNote {
+  color: var(--fg-subtle);
+  font: var(--weight-regular) 13px/1.5 var(--font-sans);
 }

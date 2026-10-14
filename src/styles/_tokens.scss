@@ -1,138 +1,400 @@
+@mixin light-theme {
+  color-scheme: light;
+
+  --bg-canvas: var(--gray-50);
+  --bg-surface: var(--gray-0);
+  --bg-subtle: var(--gray-25);
+  --bg-muted: var(--gray-100);
+  --bg-hover: var(--gray-100);
+  --bg-pressed: var(--gray-150);
+  --bg-inverse: var(--gray-900);
+  --bg-overlay: rgb(16 24 40 / 48%);
+
+  --fg-default: var(--gray-900);
+  --fg-muted: var(--gray-600);
+  --fg-subtle: var(--gray-500);
+  --fg-disabled: var(--gray-400);
+  --fg-inverse: var(--gray-0);
+  --fg-on-accent: var(--gray-0);
+
+  --border-subtle: var(--gray-150);
+  --border-default: var(--gray-200);
+  --border-strong: var(--gray-300);
+
+  --action-bg: var(--gray-900);
+  --action-bg-hover: var(--gray-700);
+  --action-fg: var(--gray-0);
+
+  --accent: var(--blue-600);
+  --accent-hover: var(--blue-700);
+  --accent-subtle: var(--blue-50);
+  --accent-line: var(--blue-200);
+  --focus-ring: var(--blue-500);
+
+  --tone-neutral-bg: var(--gray-100);
+  --tone-neutral-fg: var(--gray-700);
+  --tone-neutral-line: var(--gray-200);
+  --tone-info-bg: var(--blue-50);
+  --tone-info-fg: var(--blue-700);
+  --tone-info-line: var(--blue-200);
+  --tone-success-bg: var(--green-50);
+  --tone-success-fg: var(--green-700);
+  --tone-success-line: var(--green-200);
+  --tone-warning-bg: var(--amber-50);
+  --tone-warning-fg: var(--amber-700);
+  --tone-warning-line: var(--amber-200);
+  --tone-danger-bg: var(--red-50);
+  --tone-danger-fg: var(--red-700);
+  --tone-danger-line: var(--red-200);
+  --tone-danger-solid: var(--red-600);
+
+  --st-confirmed-bg: var(--blue-50);
+  --st-confirmed-fg: var(--blue-700);
+  --st-confirmed-line: var(--blue-200);
+  --st-confirmed-bar: var(--blue-600);
+  --st-inhouse-bg: var(--green-50);
+  --st-inhouse-fg: var(--green-700);
+  --st-inhouse-line: var(--green-200);
+  --st-inhouse-bar: var(--green-600);
+  --st-out-bg: var(--gray-100);
+  --st-out-fg: var(--gray-600);
+  --st-out-line: var(--gray-200);
+  --st-out-bar: var(--gray-400);
+  --st-cancelled-bg: var(--red-50);
+  --st-cancelled-fg: var(--red-700);
+  --st-cancelled-line: var(--red-200);
+  --st-cancelled-bar: var(--red-500);
+  --st-noshow-bg: var(--orange-50);
+  --st-noshow-fg: var(--orange-700);
+  --st-noshow-line: var(--orange-100);
+  --st-noshow-bar: var(--orange-600);
+  --st-block-bg: var(--gray-150);
+  --st-block-fg: var(--gray-700);
+  --st-block-line: var(--gray-300);
+  --st-unassigned-bg: var(--amber-50);
+  --st-unassigned-fg: var(--amber-700);
+  --st-unassigned-line: var(--amber-200);
+  --st-unassigned-bar: var(--amber-500);
+
+  --src-booking-bg: #e8eef8;
+  --src-booking-fg: var(--booking-navy);
+  --src-phone-bg: var(--gray-100);
+  --src-phone-fg: var(--gray-700);
+  --src-walkin-bg: #f1edfb;
+  --src-walkin-fg: #5b3fb0;
+
+  --shadow-xs: 0 1px 2px rgb(16 24 40 / 5%);
+  --shadow-sm: 0 1px 3px rgb(16 24 40 / 8%), 0 1px 2px rgb(16 24 40 / 4%);
+  --shadow-md: 0 8px 16px -4px rgb(16 24 40 / 10%), 0 2px 6px -2px rgb(16 24 40 / 5%);
+  --shadow-lg: 0 24px 48px -12px rgb(16 24 40 / 22%);
+}
+
+@mixin dark-theme {
+  color-scheme: dark;
+
+  --bg-canvas: #0c111a;
+  --bg-surface: #131a26;
+  --bg-subtle: #171f2d;
+  --bg-muted: #1d2635;
+  --bg-hover: #1f2938;
+  --bg-pressed: #273244;
+  --bg-inverse: var(--gray-50);
+  --bg-overlay: rgb(0 0 0 / 60%);
+
+  --fg-default: #eef1f6;
+  --fg-muted: #b3bccb;
+  --fg-subtle: #8f9aab;
+  --fg-disabled: #5d6878;
+  --fg-inverse: var(--gray-900);
+  --fg-on-accent: var(--gray-0);
+
+  --border-subtle: #1f2937;
+  --border-default: #283345;
+  --border-strong: #3a475c;
+
+  --action-bg: #f2f4f7;
+  --action-bg-hover: #d7dce4;
+  --action-fg: var(--gray-900);
+
+  --accent: #7aa2ff;
+  --accent-hover: #a3bfff;
+  --accent-subtle: rgb(59 108 246 / 16%);
+  --accent-line: rgb(122 162 255 / 40%);
+  --focus-ring: #7aa2ff;
+
+  --tone-neutral-bg: #1f2938;
+  --tone-neutral-fg: #c6cdd8;
+  --tone-neutral-line: #313d50;
+  --tone-info-bg: rgb(59 108 246 / 16%);
+  --tone-info-fg: #a9c2ff;
+  --tone-info-line: rgb(122 162 255 / 36%);
+  --tone-success-bg: rgb(18 183 106 / 14%);
+  --tone-success-fg: #7fe0ac;
+  --tone-success-line: rgb(18 183 106 / 36%);
+  --tone-warning-bg: rgb(247 144 9 / 14%);
+  --tone-warning-fg: #fdc56b;
+  --tone-warning-line: rgb(247 144 9 / 38%);
+  --tone-danger-bg: rgb(240 68 56 / 14%);
+  --tone-danger-fg: #ffa39b;
+  --tone-danger-line: rgb(240 68 56 / 40%);
+  --tone-danger-solid: #f04438;
+
+  --st-confirmed-bg: rgb(59 108 246 / 18%);
+  --st-confirmed-fg: #b8ccff;
+  --st-confirmed-line: rgb(122 162 255 / 45%);
+  --st-confirmed-bar: #7aa2ff;
+  --st-inhouse-bg: rgb(18 183 106 / 16%);
+  --st-inhouse-fg: #8be6b5;
+  --st-inhouse-line: rgb(18 183 106 / 42%);
+  --st-inhouse-bar: #32d583;
+  --st-out-bg: #1f2938;
+  --st-out-fg: #b3bccb;
+  --st-out-line: #313d50;
+  --st-out-bar: #8f9aab;
+  --st-cancelled-bg: rgb(240 68 56 / 14%);
+  --st-cancelled-fg: #ffa39b;
+  --st-cancelled-line: rgb(240 68 56 / 40%);
+  --st-cancelled-bar: #f97066;
+  --st-noshow-bg: rgb(224 79 22 / 16%);
+  --st-noshow-fg: #ffb38a;
+  --st-noshow-line: rgb(224 79 22 / 40%);
+  --st-noshow-bar: #fb6514;
+  --st-block-bg: #222c3c;
+  --st-block-fg: #c6cdd8;
+  --st-block-line: #3a475c;
+  --st-unassigned-bg: rgb(247 144 9 / 14%);
+  --st-unassigned-fg: #fdc56b;
+  --st-unassigned-line: rgb(247 144 9 / 42%);
+  --st-unassigned-bar: #fdb022;
+
+  --src-booking-bg: rgb(0 53 128 / 40%);
+  --src-booking-fg: #a9c6f5;
+  --src-phone-bg: #1f2938;
+  --src-phone-fg: #c6cdd8;
+  --src-walkin-bg: rgb(122 90 248 / 18%);
+  --src-walkin-fg: #c8b9ff;
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 40%);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 45%);
+  --shadow-md: 0 8px 20px -4px rgb(0 0 0 / 55%);
+  --shadow-lg: 0 24px 56px -12px rgb(0 0 0 / 70%);
+}
+
 :root {
-  --c-bg: #f4f2ee;
-  --c-surface: #ffffff;
-  --c-surface-muted: #fbfaf8;
-  --c-line: #f2efe9;
-  --c-line-mid: #e7e3dc;
-  --c-line-strong: #d8d3ca;
-  --c-line-side: #e3dfd8;
+  --gray-0: #fff;
+  --gray-25: #fcfcfd;
+  --gray-50: #f6f7f9;
+  --gray-100: #f0f2f5;
+  --gray-150: #e8ebf0;
+  --gray-200: #dfe3e9;
+  --gray-300: #cbd2dc;
+  --gray-400: #98a2b3;
+  --gray-500: #667085;
+  --gray-600: #475467;
+  --gray-700: #344054;
+  --gray-800: #1d2939;
+  --gray-900: #101828;
+  --blue-50: #eff4ff;
+  --blue-100: #dbe6fe;
+  --blue-200: #bfd2fd;
+  --blue-500: #3b6cf6;
+  --blue-600: #2556e0;
+  --blue-700: #1c45b8;
+  --green-50: #ecfdf3;
+  --green-200: #a6f0c4;
+  --green-500: #12b76a;
+  --green-600: #079455;
+  --green-700: #067647;
+  --amber-50: #fffaeb;
+  --amber-200: #fedf89;
+  --amber-500: #f79009;
+  --amber-700: #b54708;
+  --amber-900: #7a2e0e;
+  --orange-50: #fff4ed;
+  --orange-100: #ffe1cc;
+  --orange-600: #e04f16;
+  --orange-700: #b93815;
+  --red-50: #fef3f2;
+  --red-200: #fecdca;
+  --red-500: #f04438;
+  --red-600: #d92d20;
+  --red-700: #b42318;
+  --brand: #c8102e;
+  --booking-navy: #003580;
 
-  --c-ink: #1b2420;
-  --c-ink-2: #4a554f;
-  --c-ink-3: #6b7670;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
 
-  --c-accent: #0e5a45;
-  --c-accent-strong: #0a4636;
-  --c-accent-soft: #edf3f0;
-  --c-accent-tint: #f1f6f3;
-  --c-on-accent: #ffffff;
-  --c-focus: #7fb8a2;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
 
-  --c-st-res-bg: #eef2fd;
-  --c-st-res-line: #c4d2f6;
-  --c-st-res-bar: #3b63d6;
-  --c-st-res-fg: #1f3c96;
-  --c-st-in-bg: #e7f3ed;
-  --c-st-in-line: #bedece;
-  --c-st-in-bar: #10704f;
-  --c-st-in-fg: #0b5038;
-  --c-st-done-bg: #f1f0ec;
-  --c-st-done-line: #dfdcd4;
-  --c-st-done-bar: #9a9a93;
-  --c-st-done-fg: #5c5c55;
-  --c-st-canc-bg: #faecea;
-  --c-st-canc-line: #efcfcb;
-  --c-st-canc-bar: #b3382f;
-  --c-st-canc-fg: #8e2c25;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 999px;
 
-  --c-src-direkt-bg: #e4efe9;
-  --c-src-direkt-fg: #0b5038;
-  --c-src-booking-bg: #e4ecf8;
-  --c-src-booking-fg: #003b95;
-  --c-src-telefon-bg: #f0ede5;
-  --c-src-telefon-fg: #6b5b33;
-  --c-src-whatsapp-bg: #e7f2e7;
-  --c-src-whatsapp-fg: #2c6b33;
-  --c-src-recepsion-bg: #edebf5;
-  --c-src-recepsion-fg: #4a417e;
-  --c-booking-brand: #003b95;
+  --control-sm: 36px;
+  --control-md: 44px;
+  --control-lg: 52px;
 
-  --c-warn-bg: #fbf0de;
-  --c-warn-fg: #7a4e10;
-  --c-warn-line: #b5761b;
-  --c-ok: #2e9e6b;
-  --c-danger-fg: #8e2c25;
-  --c-danger-line: #efcfcb;
-  --c-danger-bg: #faecea;
-  --c-disabled-bg: #dcd8d0;
-  --c-disabled-fg: #9a968e;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
 
-  --c-overlay: rgb(27 36 32 / 42%);
-  --c-overlay-drawer: rgb(27 36 32 / 34%);
-  --c-toast-bg: #14201c;
-  --c-toast-ok: #7bd7ae;
-  --c-note-bg: #fbf7ee;
-  --c-note-fg: #5c4a2a;
-  --c-booking-soft: #eef3fb;
-  --c-today-bg: #eaf2ee;
-  --c-today-cell: #f4f8f6;
-  --c-weekend-bg: #f7f5f1;
-  --c-weekend-cell: #faf9f6;
-  --c-select: #d7e9df;
-  --c-cell-hover: #eef4f0;
-  --c-scrollbar: #d9d4cb;
-  --c-hover-wash: #f1efea;
+  --sidebar-w: 248px;
+  --sidebar-rail: 76px;
+  --topbar-h: 64px;
+  --bottom-nav-h: 64px;
+  --sheet-w: 480px;
+  --sheet-w-wide: 560px;
+  --content-max: 1320px;
 
-  --f-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-  --f-display: 'Newsreader', Georgia, serif;
-
-  --t-kpi: 400 52px/1.05 var(--f-display);
-  --t-h1: 400 30px/1.1 var(--f-display);
-  --t-h2: 400 26px/1.15 var(--f-display);
-  --t-section: 700 17px/1.3 var(--f-sans);
-  --t-body: 400 15px/1.5 var(--f-sans);
-  --t-body-md: 600 16px/1.4 var(--f-sans);
-  --t-button: 600 16px/1 var(--f-sans);
-  --t-label: 600 14px/1.3 var(--f-sans);
-  --t-meta: 400 13.5px/1.4 var(--f-sans);
-  --t-cap: 700 12.5px/1.2 var(--f-sans);
-  --ls-cap: 0.07em;
-
-  --s-1: 4px;
-  --s-2: 8px;
-  --s-3: 12px;
-  --s-4: 16px;
-  --s-5: 22px;
-  --s-6: 26px;
-  --s-7: 34px;
-  --s-8: 48px;
-
-  --r-sm: 10px;
-  --r-md: 13px;
-  --r-lg: 15px;
-  --r-xl: 18px;
-  --r-2xl: 24px;
-  --r-pill: 999px;
-
-  --sh-card: 0 1px 2px rgb(27 36 32 / 4%);
-  --sh-accent: 0 6px 16px rgb(14 90 69 / 22%);
-  --sh-modal: 0 30px 70px rgb(27 36 32 / 28%);
-  --sh-drawer: -24px 0 60px rgb(27 36 32 / 22%);
-  --sh-toast: 0 18px 44px rgb(20 32 28 / 34%);
-  --sh-block: 0 1px 2px rgb(27 36 32 / 6%);
-
-  --control-h-sm: 44px;
-  --control-h: 50px;
-  --control-h-lg: 56px;
-  --field-h: 54px;
-
-  --cal-room-col: 190px;
-  --cal-row-h: 64px;
-  --cal-row-h-compact: 52px;
-  --cal-col-7: 152px;
-  --cal-col-14: 98px;
-  --cal-col-30: 56px;
-  --cal-head-h: 64px;
-  --cal-block-in: 0.38;
-  --cal-block-out: 0.28;
-  --cal-block-inset: 6px;
-
-  --sidebar-w: 250px;
-  --sidebar-rail: 92px;
-  --drawer-w: 440px;
-  --bottom-nav-h: 72px;
-
+  --z-sticky: 20;
+  --z-nav: 40;
+  --z-popover: 50;
   --z-drawer: 55;
   --z-modal: 60;
   --z-toast: 70;
+
+  @include light-theme;
+
+  /* Older feature styles still read these names; point them at the semantic tokens. */
+  --c-bg: var(--bg-canvas);
+  --c-surface: var(--bg-surface);
+  --c-surface-muted: var(--bg-subtle);
+  --c-line: var(--border-subtle);
+  --c-line-mid: var(--border-default);
+  --c-line-strong: var(--border-strong);
+  --c-line-side: var(--border-default);
+  --c-ink: var(--fg-default);
+  --c-ink-2: var(--fg-muted);
+  --c-ink-3: var(--fg-subtle);
+  --c-accent: var(--accent);
+  --c-accent-strong: var(--accent-hover);
+  --c-accent-soft: var(--accent-subtle);
+  --c-accent-tint: var(--accent-subtle);
+  --c-on-accent: var(--fg-on-accent);
+  --c-focus: var(--focus-ring);
+  --c-st-res-bg: var(--st-confirmed-bg);
+  --c-st-res-line: var(--st-confirmed-line);
+  --c-st-res-bar: var(--st-confirmed-bar);
+  --c-st-res-fg: var(--st-confirmed-fg);
+  --c-st-in-bg: var(--st-inhouse-bg);
+  --c-st-in-line: var(--st-inhouse-line);
+  --c-st-in-bar: var(--st-inhouse-bar);
+  --c-st-in-fg: var(--st-inhouse-fg);
+  --c-st-done-bg: var(--st-out-bg);
+  --c-st-done-line: var(--st-out-line);
+  --c-st-done-bar: var(--st-out-bar);
+  --c-st-done-fg: var(--st-out-fg);
+  --c-st-canc-bg: var(--st-cancelled-bg);
+  --c-st-canc-line: var(--st-cancelled-line);
+  --c-st-canc-bar: var(--st-cancelled-bar);
+  --c-st-canc-fg: var(--st-cancelled-fg);
+  --c-src-booking-bg: var(--src-booking-bg);
+  --c-src-booking-fg: var(--src-booking-fg);
+  --c-src-telefon-bg: var(--src-phone-bg);
+  --c-src-telefon-fg: var(--src-phone-fg);
+  --c-src-recepsion-bg: var(--src-walkin-bg);
+  --c-src-recepsion-fg: var(--src-walkin-fg);
+  --c-booking-brand: var(--booking-navy);
+  --c-booking-soft: var(--src-booking-bg);
+  --c-warn-bg: var(--tone-warning-bg);
+  --c-warn-fg: var(--tone-warning-fg);
+  --c-warn-line: var(--tone-warning-line);
+  --c-ok: var(--green-500);
+  --c-danger-fg: var(--tone-danger-fg);
+  --c-danger-line: var(--tone-danger-line);
+  --c-danger-bg: var(--tone-danger-bg);
+  --c-disabled-bg: var(--bg-muted);
+  --c-disabled-fg: var(--fg-disabled);
+  --c-overlay: var(--bg-overlay);
+  --c-overlay-drawer: var(--bg-overlay);
+  --c-note-bg: var(--tone-warning-bg);
+  --c-note-fg: var(--tone-warning-fg);
+  --c-today-bg: var(--accent-subtle);
+  --c-today-cell: color-mix(in srgb, var(--accent-subtle) 55%, transparent);
+  --c-weekend-bg: var(--bg-subtle);
+  --c-weekend-cell: var(--bg-subtle);
+  --c-select: var(--accent-line);
+  --c-cell-hover: var(--bg-hover);
+  --c-scrollbar: var(--border-strong);
+  --c-hover-wash: var(--bg-hover);
+  --f-sans: var(--font-sans);
+  --f-display: var(--font-sans);
+  --t-kpi: 600 32px/1.1 var(--font-sans);
+  --t-h1: 600 24px/1.25 var(--font-sans);
+  --t-h2: 600 20px/1.3 var(--font-sans);
+  --t-section: 600 16px/1.4 var(--font-sans);
+  --t-body: 400 16px/1.5 var(--font-sans);
+  --t-body-md: 500 16px/1.4 var(--font-sans);
+  --t-button: 600 16px/1 var(--font-sans);
+  --t-label: 500 14px/1.4 var(--font-sans);
+  --t-meta: 400 14px/1.45 var(--font-sans);
+  --t-cap: 600 12px/1.2 var(--font-sans);
+  --ls-cap: 0.06em;
+  --s-1: var(--space-1);
+  --s-2: var(--space-2);
+  --s-3: var(--space-3);
+  --s-4: var(--space-4);
+  --s-5: var(--space-5);
+  --s-6: var(--space-6);
+  --s-7: var(--space-8);
+  --s-8: var(--space-12);
+  --r-sm: var(--radius-sm);
+  --r-md: var(--radius-md);
+  --r-lg: var(--radius-md);
+  --r-xl: var(--radius-lg);
+  --r-2xl: var(--radius-lg);
+  --r-pill: var(--radius-full);
+  --sh-card: var(--shadow-xs);
+  --sh-accent: var(--shadow-sm);
+  --sh-modal: var(--shadow-lg);
+  --sh-drawer: var(--shadow-lg);
+  --sh-toast: var(--shadow-lg);
+  --sh-block: var(--shadow-xs);
+  --control-h-sm: var(--control-md);
+  --control-h: var(--control-md);
+  --control-h-lg: var(--control-lg);
+  --field-h: var(--control-md);
+  --drawer-w: var(--sheet-w);
+
+  --cal-room-col: 176px;
+  --cal-row-h: 60px;
+  --cal-row-h-compact: 48px;
+  --cal-col-7: 148px;
+  --cal-col-14: 96px;
+  --cal-col-30: 56px;
+  --cal-head-h: 56px;
+  --cal-block-in: 0.38;
+  --cal-block-out: 0.28;
+  --cal-block-inset: 8px;
+}
+
+:root[data-theme='dark'] {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='system'] {
+    @include dark-theme;
+  }
 }

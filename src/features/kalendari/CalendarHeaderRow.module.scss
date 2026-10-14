@@ -1,62 +1,67 @@
 .row {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 6;
   display: flex;
-  border-block-end: 1px solid var(--c-line-mid);
-  background: var(--c-surface-muted);
+  border-block-end: 1px solid var(--border-default);
+  background: var(--bg-surface);
 }
 
 .room {
   position: sticky;
   inset-inline-start: 0;
-  z-index: 4;
+  z-index: 7;
   display: flex;
   flex: 0 0 var(--cal-room-col);
   align-items: center;
   inline-size: var(--cal-room-col);
   block-size: var(--cal-head-h);
-  padding-inline: var(--s-4);
-  border-inline-end: 1px solid var(--c-line-mid);
-  background: var(--c-surface-muted);
-  font: var(--t-cap);
-  letter-spacing: var(--ls-cap);
-  color: var(--c-ink-3);
+  padding-inline: var(--space-4);
+  border-inline-end: 1px solid var(--border-default);
+  background: var(--bg-surface);
+
+  @include caption;
 }
 
 .day {
   display: flex;
   flex: 0 0 var(--col-w);
   flex-direction: column;
+  gap: 2px;
   align-items: center;
   justify-content: center;
   inline-size: var(--col-w);
   block-size: var(--cal-head-h);
-  border-inline-end: 1px solid var(--c-line);
+  border-inline-end: 1px solid var(--border-subtle);
 }
 
 .dow {
-  color: var(--c-ink-2);
-  font: var(--t-meta);
-  font-weight: 600;
+  color: var(--fg-subtle);
+  font: var(--weight-medium) 12px/1 var(--font-sans);
 }
 
 .num {
-  color: var(--c-ink);
-  font: var(--t-section);
+  display: grid;
+  place-items: center;
+  min-inline-size: 28px;
+  block-size: 28px;
+  border-radius: var(--radius-full);
+  color: var(--fg-default);
+  font: var(--weight-semibold) var(--text-md) / 1 var(--font-sans);
   font-variant-numeric: tabular-nums;
 }
 
 .isToday {
-  background: var(--c-today-bg);
+  .dow {
+    color: var(--accent);
+  }
 
-  .dow,
   .num {
-    color: var(--c-accent);
+    background: var(--accent);
+    color: var(--fg-on-accent);
   }
 }
 
-.isTodayNum {
-  font-weight: 800;
-}
-
 .isWeekend {
-  background: var(--c-weekend-bg);
+  background: var(--bg-subtle);
 }

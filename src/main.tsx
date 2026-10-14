@@ -14,10 +14,8 @@ const queryClient = new QueryClient({
 })
 
 async function boot() {
-  if (import.meta.env.VITE_USE_MOCKS !== 'false') {
-    const { worker } = await import('@/mocks/browser')
-    await worker.start({ onUnhandledRequest: 'bypass' })
-  }
+  const { installMockApi } = await import('@/mocks/browser')
+  installMockApi()
 
   createRoot(document.getElementById('root')!).render(
     <StrictMode>

@@ -32,6 +32,14 @@ describe('api', () => {
     }
   })
 
+  it('reads the stable error code and Albanian message', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => jsonResponse({ error: { code: 'NO_AVAILABILITY', message: 'Nuk ka dhomë të lirë.' } }, 409)),
+    )
+    await expect(api('/api/reservations')).rejects.toMatchObject({ status: 409, code: 'NO_AVAILABILITY', message: 'Nuk ka dhomë të lirë.' })
+  })
+
   it('requests a guest page', async () => {
     const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
       expect(String(input)).toContain('/api/guests?')

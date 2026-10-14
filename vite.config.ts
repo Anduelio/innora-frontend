@@ -35,9 +35,6 @@ export default defineConfig({
   },
   server: {
     port: 5173,
-    proxy: {
-      '/api': { target: 'https://innora-backend.test', changeOrigin: true, secure: false },
-    },
   },
   build: {
     target: 'es2022',

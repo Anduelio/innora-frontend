@@ -2,13 +2,20 @@
 <html lang="sq">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vila Dea · Recepsion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f6f7f9" />
+    <title>Devolli Hotel</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      try {
+        var theme = localStorage.getItem('devolli-theme')
+        if (theme === 'dark' || theme === 'system') document.documentElement.dataset.theme = theme
+      } catch (error) {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>

@@ -1,65 +1,49 @@
-export type RoomType = 'Dyshe' | 'Teke' | 'Suitë' | 'Familjare'
-
 /** Vlerat ruhen në anglisht/uppercase; etiketat shqip vijnë nga i18n. */
-export type ReservationStatus = 'RESERVED' | 'IN_HOUSE' | 'COMPLETED' | 'CANCELLED'
-export type ReservationSource = 'DIREKT' | 'BOOKING' | 'TELEFON' | 'WHATSAPP' | 'RECEPSION'
+export type ReservationStatus = 'RESERVED' | 'IN_HOUSE' | 'COMPLETED' | 'CANCELLED' | 'NO_SHOW'
+export type ReservationSource = 'BOOKING' | 'TELEFON' | 'RECEPSION'
 
 /** Burimet që recepsioni i shkruan vetë. Booking.com vjen vetëm nga sinkronizimi. */
-export const DESK_SOURCES = ['TELEFON', 'RECEPSION', 'WHATSAPP', 'DIREKT'] as const
+export const DESK_SOURCES = ['TELEFON', 'RECEPSION'] as const
 export type DeskSource = (typeof DESK_SOURCES)[number]
+
+export const PAYMENT_METHODS = ['cash', 'card', 'bank_transfer'] as const
+export type PaymentMethod = (typeof PAYMENT_METHODS)[number]
+export type PaymentKind = 'payment' | 'refund'
+export type PayState = 'paid' | 'partial' | 'unpaid'
+export type SyncLevel = 'pending' | 'synced' | 'problem'
 
 export type OperationalStatus = 'ready' | 'dirty' | 'cleaning' | 'inspected' | 'maintenance' | 'out_of_order'
 export type BlockKind = 'maintenance' | 'out_of_order' | 'owner_use' | 'internal_hold' | 'other'
 
-export interface RoomBed {
-  code: string
-  quantity: number
-}
-
-export interface RoomAmenity {
-  code: string
-  category: string
-}
-
 export interface RoomBlockSpan {
   id: number
+  /** Data e parë e bllokuar; endsOn nuk përfshihet. */
   startsOn: string
   endsOn: string
   type: BlockKind
   reason?: string | null
 }
 
-export interface Room {
-  id: string
-  type: RoomType
-  typeName?: string
-  roomTypeId?: number
-  capacity: number
-  floor?: string | null
-  building?: string | null
-  notes?: string | null
-  isActive?: boolean
-  operationalStatus?: OperationalStatus
-  sizeM2?: number | null
-  basePriceCents?: number
-  beds?: RoomBed[]
-  amenities?: RoomAmenity[]
-  blocks?: RoomBlockSpan[]
-}
-
-export interface HotelRoomType {
+export interface RoomTypeInfo {
   id: number
   code: string
   name: string
-  uiType: RoomType
-  description?: string | null
-  maxAdults: number
-  maxChildren: number
   maxOccupancy: number
   basePriceCents: number
-  sizeM2?: number | null
-  beds: RoomBed[]
-  amenities: RoomAmenity[]
+  currency: string
+  sort: number
+}
+
+export interface Room {
+  id: string
+  roomTypeId: number
+  type: string
+  capacity: number
+  floor?: string | null
+  isActive?: boolean
+  notes?: string | null
+  operationalStatus?: OperationalStatus
+  blocks?: RoomBlockSpan[]
 }
 
 export interface HotelSettings {
@@ -68,35 +52,99 @@ export interface HotelSettings {
   currency: string
   checkInTime: string
   checkOutTime: string
+  timezone: string
+}
+
+export interface AuditEntry {
+  at: string
+  actor: string
+  action: string
+  detail?: string
 }
 
 export interface Reservation {
   id: string
+  code: string
+  /** Bosh kur dhoma nuk është caktuar; rezervimi prapë zë një vend nga tipi. */
   roomId: string
-  roomTypeId?: number
-  roomTypeName?: string
+  roomTypeId: number
   guestName: string
   phonePrefix?: string | null
   phone: string
-  currency?: string
+  email?: string | null
+  currency: string
   persons: number
-  /** Data kalendarike ISO (YYYY-MM-DD). checkOut është dita e daljes, jo natë. */
+  /** Data kalendarike ISO (YYYY-MM-DD). checkOut është dita e largimit, jo natë. */
   checkIn: string
   checkOut: string
   status: ReservationStatus
   source: ReservationSource
   totalCents: number
   paidCents: number
-  chargesCents?: number
-  balanceCents?: number
-  folioId?: number
-  folioNumber?: string
-  folioStatus?: string
   notes?: string
-  /** Ora e pritshme e mbërritjes, "14:00". Vetëm për listën e mbërritjeve. */
+  cancelReason?: string
   expectedArrival?: string
   externalRef?: string
+  history?: AuditEntry[]
   createdAt: string
+}
+
+export interface Payment {
+  id: string
+  reservationId: string
+  guestName: string
+  kind: PaymentKind
+  method: PaymentMethod
+  amountCents: number
+  currency: string
+  /** Data kur paratë u morën vërtet, jo kur u shkrua rreshti. */
+  paidAt: string
+  recordedBy: string
+}
+
+export type UserRole = 'owner' | 'staff'
+
+export interface StaffUser {
+  id: number
+  name: string
+  email: string
+  role: UserRole
+  isActive: boolean
+  lastLoginAt?: string | null
+}
+
+export interface CurrentUser extends StaffUser {
+  permissions: string[]
+}
+
+export interface SaveUserInput {
+  name?: string
+  email?: string
+  role?: UserRole
+  isActive?: boolean
+  password?: string
+}
+
+export interface ChannelMapping {
+  roomTypeId: number
+  externalRoomId: string | null
+  externalRatePlanId: string | null
+  isActive: boolean
+}
+
+export interface SyncStatus {
+  level: SyncLevel
+  provider: string
+  connected: boolean
+  lastInboundAt: string | null
+  lastOutboundAt: string | null
+  openIssues: SyncIssue[]
+}
+
+export interface SyncIssue {
+  id: number
+  type: 'conflict' | 'push_failed' | 'mapping_missing' | 'reconcile_mismatch'
+  subject: string
 }
 
 export interface Guest {
@@ -109,31 +157,41 @@ export interface Guest {
 }
 
 export interface CreateReservationInput {
+  source: DeskSource
+  checkIn: string
+  checkOut: string
+  roomTypeId: number
   roomId?: string
-  roomTypeId?: number
+  persons: number
   guestName: string
   phonePrefix?: string
   phone?: string
-  registerCustomer?: boolean
-  persons: number
-  source?: DeskSource
-  checkIn: string
-  nights: number
-  totalCents: number
+  email?: string
+  pricePerNightCents: number
+  currency: string
+  initialPayment?: { amountCents: number; method: PaymentMethod; paidAt: string }
   notes?: string
 }
 
 export interface UpdateReservationInput {
+  checkIn?: string
+  checkOut?: string
+  roomTypeId?: number
   roomId?: string
+  persons?: number
   guestName?: string
   phonePrefix?: string
   phone?: string
-  registerCustomer?: boolean
-  persons?: number
-  checkIn?: string
-  checkOut?: string
+  email?: string
   totalCents?: number
   notes?: string
+}
+
+export interface RecordPaymentInput {
+  kind: PaymentKind
+  method: PaymentMethod
+  amountCents: number
+  paidAt: string
 }
 
 export type ReservationEvent =
@@ -155,5 +213,6 @@ export interface DaySelection {
   b: number
 }
 
-export type CalendarView = 7 | 14 | 30
+/** 1 = pamja e ditës (dhoma si karta), 7 = javë, 30 = muaj. */
+export type CalendarView = 1 | 7 | 30
 export type Density = 'komod' | 'kompakt'

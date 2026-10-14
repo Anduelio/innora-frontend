@@ -1,0 +1,17 @@
+.row {
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-block-size: var(--control-md);
+  color: var(--fg-default);
+  font: var(--weight-regular) var(--text-md) / 1.4 var(--font-sans);
+  cursor: pointer;
+}
+
+.box {
+  inline-size: 20px;
+  block-size: 20px;
+  margin: 0;
+  accent-color: var(--action-bg);
+  cursor: pointer;
+}

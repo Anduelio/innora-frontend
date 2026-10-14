@@ -15,7 +15,7 @@ The backend module map is `../Innora-backend/docs/ARCHITECTURE.md`.
 
 Browser → Vite (`localhost:5173`) → proxy `/api` and `/sanctum` → Laravel (`127.0.0.1:8000`).
 
-When `VITE_USE_MOCKS` is not `false`, MSW answers `/api` in the browser. Set it to `false` to use Laravel. Playwright keeps mocks on so the visual tests do not need MySQL.
+The app has no backend. `fetch("/api/...")` is answered in the page by the MSW handlers (`src/mocks`), with data kept in localStorage.
 
 ## Backend layout
 

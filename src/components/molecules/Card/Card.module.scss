@@ -1,0 +1,55 @@
+.card {
+  @include surface;
+
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-block-size: 56px;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-5);
+  border-block-end: 1px solid var(--border-subtle);
+}
+
+.icon {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  color: var(--fg-subtle);
+}
+
+.heading {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.title {
+  color: var(--fg-default);
+  font: var(--weight-semibold) var(--text-md) / 1.35 var(--font-sans);
+}
+
+.description {
+  margin-block-start: 2px;
+  color: var(--fg-subtle);
+  font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-sans);
+}
+
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.body {
+  padding: var(--space-4) var(--space-5);
+}
+
+.flush {
+  padding: 0;
+}

@@ -1,0 +1,32 @@
+{
+  "rezervimet": {
+    "search": "Kërko emër, telefon, kod ose dhomë",
+    "tabs": "Periudha",
+    "filters": {
+      "today": "Sot",
+      "upcoming": "Të ardhshme",
+      "inHouse": "Në hotel",
+      "unassigned": "Pa dhomë",
+      "past": "Të kaluara",
+      "all": "Të gjitha"
+    },
+    "source": "Burimi",
+    "status": "Statusi",
+    "anySource": "Çdo burim",
+    "anyStatus": "Çdo status",
+    "columns": {
+      "guest": "Mysafiri",
+      "dates": "Datat",
+      "room": "Dhoma",
+      "source": "Burimi",
+      "status": "Statusi",
+      "payment": "Pagesa"
+    },
+    "empty": "Asnjë rezervim nuk përputhet",
+    "emptyHint": "Ndryshoni kërkimin ose filtrat.",
+    "clearFilters": "Pastro filtrat",
+    "showMore": "Shfaq edhe {{count}}",
+    "count_one": "{{count}} rezervim",
+    "count_other": "{{count}} rezervime"
+  }
+}

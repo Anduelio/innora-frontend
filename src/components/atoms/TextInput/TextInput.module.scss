@@ -1,0 +1,93 @@
+.input,
+.group {
+  inline-size: 100%;
+  min-block-size: var(--control-md);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  color: var(--fg-default);
+  font: var(--weight-regular) var(--text-md) / 1.4 var(--font-sans);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.input {
+  padding: 0 var(--space-3);
+
+  &::placeholder {
+    color: var(--fg-subtle);
+  }
+
+  &:disabled {
+    background: var(--bg-muted);
+    color: var(--fg-disabled);
+  }
+
+  &:focus {
+    border-color: var(--focus-ring);
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus-ring) 22%, transparent);
+  }
+
+  &:hover:not(:disabled, :focus) {
+    border-color: var(--fg-subtle);
+  }
+}
+
+.group {
+  display: inline-flex;
+  align-items: center;
+
+  > input {
+    flex: 1;
+    min-inline-size: 0;
+    min-block-size: calc(var(--control-md) - 2px);
+    padding: 0 var(--space-3);
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+
+    &::placeholder {
+      color: var(--fg-subtle);
+    }
+  }
+
+  &:focus-within {
+    border-color: var(--focus-ring);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus-ring) 22%, transparent);
+  }
+}
+
+.adornment {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-3);
+  color: var(--fg-subtle);
+  font: var(--weight-medium) var(--text-md) / 1 var(--font-sans);
+  white-space: nowrap;
+
+  &:first-child {
+    padding-inline-end: 0;
+  }
+
+  &:last-child {
+    padding-inline-start: 0;
+  }
+}
+
+.invalid {
+  border-color: var(--tone-danger-solid);
+}
+
+.invalid:focus,
+.invalid:focus-within {
+  border-color: var(--tone-danger-solid);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone-danger-solid) 20%, transparent);
+}
+
+.invalid:hover:not(:disabled, :focus, :focus-within) {
+  border-color: var(--tone-danger-solid);
+}

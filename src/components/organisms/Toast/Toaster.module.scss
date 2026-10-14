@@ -1,0 +1,90 @@
+.region {
+  position: fixed;
+  inset-block-start: calc(var(--topbar-h) + var(--space-3));
+  inset-inline-start: 50%;
+  z-index: var(--z-toast);
+  display: flex;
+  justify-content: center;
+  inline-size: min(420px, calc(100vw - 24px));
+  pointer-events: none;
+  transform: translateX(-50%);
+
+  @include down(md) {
+    inset-block-start: calc(var(--space-3) + env(safe-area-inset-top));
+  }
+}
+
+.toast {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  inline-size: min(400px, 100%);
+  padding: var(--space-3) var(--space-2) var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--bg-inverse);
+  color: var(--fg-inverse);
+  box-shadow: var(--shadow-lg);
+  pointer-events: auto;
+  animation: enter 220ms var(--ease-out);
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-block-start: 1px;
+}
+
+.success .icon {
+  color: var(--green-500);
+}
+
+.error .icon {
+  color: var(--red-500);
+}
+
+.info .icon {
+  color: var(--blue-500);
+}
+
+.lines {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.first {
+  font: var(--weight-semibold) var(--text-md) / 1.4 var(--font-sans);
+}
+
+.line {
+  margin-block-start: 2px;
+  font: var(--weight-regular) var(--text-sm) / 1.45 var(--font-sans);
+  opacity: 0.8;
+}
+
+.close {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+  }
+}
+
+@keyframes enter {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+}

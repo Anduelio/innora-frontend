@@ -1,82 +1,70 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useMemo, type ComponentType } from 'react'
 import { useTranslation } from 'react-i18next'
-import { errorText } from '@/lib/api/client'
-import { useHotelSettings, useSaveHotelSettings } from '@/lib/api/rooms'
-import { useUiStore } from '@/store/uiStore'
-import { ChannelSettingsCard } from '@/features/cilesimet/ChannelSettingsCard'
-import { PasswordSettingsCard } from '@/features/cilesimet/PasswordSettingsCard'
-import { Button } from '@/components/ui/Button/Button'
-import { DateField } from '@/components/ui/DateField/DateField'
-import { Dropdown } from '@/components/ui/Dropdown/Dropdown'
-import { Field } from '@/components/ui/Field/Field'
+import { useSearchParams } from 'react-router'
+import { Tabs, tabPanelProps } from '@/components/molecules/Tabs/Tabs'
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery'
+import { AppearanceSection } from './AppearanceSection'
+import { BlocksSection } from './BlocksSection'
+import { BookingSection } from './BookingSection'
+import { HotelSection } from './HotelSection'
+import { RoomsSection } from './RoomsSection'
+import { DESKTOP_QUERY, SECTION_PARAM, SECTIONS, toSection, type SectionKey } from './sections'
+import { SettingsNav } from './SettingsNav'
+import { UsersSection } from './UsersSection'
 import s from './CilesimetPage.module.scss'
+
+const TABS_ID = 'cilesimet'
+
+const sectionComponents: Record<SectionKey, ComponentType> = {
+  hoteli: HotelSection,
+  dhomat: RoomsSection,
+  mirembajtje: BlocksSection,
+  booking: BookingSection,
+  perdoruesit: UsersSection,
+  pamja: AppearanceSection,
+}
 
 export function CilesimetPage() {
   const { t } = useTranslation()
-  const settings = useHotelSettings()
-  const save = useSaveHotelSettings()
-  const showToast = useUiStore((state) => state.showToast)
-  const [checkInTime, setCheckInTime] = useState('14:00')
-  const [checkOutTime, setCheckOutTime] = useState('11:00')
-  const [currency, setCurrency] = useState('EUR')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const section = toSection(searchParams.get(SECTION_PARAM))
+  const isDesktop = useMediaQuery(DESKTOP_QUERY)
 
-  useEffect(() => {
-    if (!settings.data) return
-    setCheckInTime(settings.data.checkInTime)
-    setCheckOutTime(settings.data.checkOutTime)
-    setCurrency(settings.data.currency === 'ALL' ? 'ALL' : 'EUR')
-  }, [settings.data])
+  const selectSection = useCallback(
+    (next: SectionKey) => {
+      setSearchParams(
+        (previous) => {
+          const params = new URLSearchParams(previous)
+          params.set(SECTION_PARAM, next)
+          return params
+        },
+        { replace: true },
+      )
+    },
+    [setSearchParams],
+  )
 
-  const rows = [
-    [t('settings.name'), settings.data?.name ?? t('settings.nameValue')],
-    [t('settings.city'), settings.data?.city ?? t('settings.cityValue')],
-  ] as const
+  const tabItems = useMemo(() => SECTIONS.map((value) => ({ value, label: t(`cilesimet.tabs.${value}`) })), [t])
+
+  const Section = sectionComponents[section]
+
+  if (isDesktop) {
+    return (
+      <div className={s.layout}>
+        <SettingsNav value={section} onSelect={selectSection} />
+        <div className={s.content}>
+          <Section />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={s.page}>
-      <section className={s.card}>
-        <h2>{t('settings.hotel')}</h2>
-        {rows.map(([label, value]) => (
-          <div key={label} className={s.row}>
-            <span>{label}</span>
-            <span>{value}</span>
-          </div>
-        ))}
-        <Field label={t('settings.currency')} htmlFor="hotel-currency">
-          <Dropdown
-            id="hotel-currency"
-            label={t('settings.currency')}
-            value={currency}
-            options={[
-              { value: 'EUR', label: t('settings.eur') },
-              { value: 'ALL', label: t('settings.all') },
-            ]}
-            onChange={setCurrency}
-          />
-        </Field>
-        <Field label={t('settings.checkInTime')} htmlFor="hotel-check-in">
-          <DateField id="hotel-check-in" mode="time" value={checkInTime} onChange={setCheckInTime} />
-        </Field>
-        <Field label={t('settings.checkOutTime')} htmlFor="hotel-check-out">
-          <DateField id="hotel-check-out" mode="time" value={checkOutTime} onChange={setCheckOutTime} />
-        </Field>
-        <Button
-          spaced
-          onClick={() =>
-            save.mutate(
-              { checkInTime: checkInTime.slice(0, 5), checkOutTime: checkOutTime.slice(0, 5), currency },
-              {
-                onSuccess: () => showToast([t('settings.saved')]),
-                onError: (error) => showToast([errorText(error, t('toast.failed'))]),
-              },
-            )
-          }
-        >
-          {t('common.save')}
-        </Button>
-      </section>
-      <PasswordSettingsCard />
-      <ChannelSettingsCard />
+      <Tabs items={tabItems} value={section} onChange={selectSection} label={t('cilesimet.navLabel')} idPrefix={TABS_ID} />
+      <div className={s.panel} {...tabPanelProps(TABS_ID, section)}>
+        <Section />
+      </div>
     </div>
   )
 }

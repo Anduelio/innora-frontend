@@ -2,14 +2,17 @@ import { clearStoredTokens, isAccessTokenExpired, loadStoredTokens, saveStoredTo
 
 export class ApiError extends Error {
   status: number
+  code: string
 
-  constructor(status: number, message: string) {
+  constructor(status: number, message: string, code = '') {
     super(message)
     this.status = status
+    this.code = code
   }
 }
 
-const useMocks = import.meta.env.VITE_USE_MOCKS !== 'false'
+/** Dërgohet kur serveri refuzon sesionin, që aplikacioni të kthehet te hyrja. */
+export const SESSION_ENDED_EVENT = 'devolli:session-ended'
 
 let refreshPromise: Promise<Authorization | null> | null = null
 
@@ -61,24 +64,25 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   headers.set('Accept', 'application/json')
   if (init?.body && !headers.has('Content-Type')) headers.set('Content-Type', 'application/json')
 
-  if (!useMocks) {
-    const token = await ensureBearer()
-    if (token) headers.set('Authorization', `Bearer ${token}`)
-  }
+  const token = await ensureBearer()
+  if (token) headers.set('Authorization', `Bearer ${token}`)
 
   const response = await fetch(path, { ...init, headers })
-  if (response.status === 401 && !useMocks) {
+  if (response.status === 401 && token) {
     clearStoredTokens()
+    window.dispatchEvent(new Event(SESSION_ENDED_EVENT))
   }
   if (!response.ok) {
     let message = response.statusText
+    let code = ''
     try {
-      const body = (await response.json()) as { message?: string }
-      if (body.message) message = body.message
+      const body = (await response.json()) as { message?: string; error?: { code?: string; message?: string } }
+      message = body.error?.message ?? body.message ?? message
+      code = body.error?.code ?? ''
     } catch {
       // përgjigje pa JSON
     }
-    throw new ApiError(response.status, message)
+    throw new ApiError(response.status, message, code)
   }
   if (response.status === 204) return undefined as T
   return unwrap<T>(await response.json())

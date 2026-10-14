@@ -1,17 +1,18 @@
-import { FolioDrawer } from '@/features/folio/FolioDrawer'
-import { ReservationDrawer } from '@/features/rezervimi/ReservationDrawer'
-import { ReservationFormModal } from '@/features/rezervimi/ReservationFormModal'
 import { useKnownReservations } from '@/lib/api/reservations'
-import { useRooms } from '@/lib/api/rooms'
+import { useRoomTypes, useRooms } from '@/lib/api/rooms'
+import { ReservationDetailSheet } from '@/features/rezervimi/ReservationDetailSheet'
+import { ReservationFormSheet } from '@/features/rezervimi/ReservationFormSheet'
 
 export function ReservationSurfaces() {
   const rooms = useRooms()
+  const roomTypes = useRoomTypes()
   const known = useKnownReservations()
+  const roomList = rooms.data ?? []
+  const typeList = roomTypes.data ?? []
   return (
     <>
-      <ReservationFormModal rooms={rooms.data ?? []} reservations={known.reservations} />
-      <ReservationDrawer rooms={rooms.data ?? []} reservations={known.reservations} />
-      <FolioDrawer />
+      <ReservationFormSheet rooms={roomList} roomTypes={typeList} reservations={known.reservations} />
+      <ReservationDetailSheet rooms={roomList} roomTypes={typeList} reservations={known.reservations} />
     </>
   )
 }

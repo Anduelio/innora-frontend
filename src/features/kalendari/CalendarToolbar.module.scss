@@ -1,32 +1,27 @@
 .toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-3);
+  gap: var(--space-3);
   align-items: center;
+  justify-content: space-between;
 }
 
-.nav {
+.nav,
+.controls {
   display: flex;
-  gap: var(--s-1);
+  flex-wrap: wrap;
+  gap: var(--space-2);
   align-items: center;
-  padding: 5px;
-  border: 1px solid var(--c-line-side);
-  border-radius: var(--r-lg);
-  background: var(--c-surface);
 }
 
 .label {
-  min-inline-size: 172px;
-  font: var(--t-body-md);
-  text-align: center;
+  margin-inline-start: var(--space-2);
+  color: var(--fg-default);
+  font: var(--weight-semibold) var(--text-lg) / 1.2 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.toolbar > :last-child {
-  margin-inline-start: auto;
-}
-
-@include down(md) {
-  .toolbar > :last-child {
-    margin-inline-start: 0;
-  }
+.type {
+  inline-size: 200px;
 }
